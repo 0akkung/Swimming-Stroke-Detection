@@ -23,7 +23,7 @@ Before you install this program, you must install [**python**](https://www.pytho
 
 1. Clone the project into your repository
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/0akkung/Swimming-Stroke-Detection.git
    ```
 2. To install the necessary packages, run
    ```sh
