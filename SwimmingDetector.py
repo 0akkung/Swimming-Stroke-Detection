@@ -42,6 +42,29 @@ class SwimmingDetector:
 
         return angle
 
+    def calculate_orientation(self, landmarks):
+        left_shoulder = landmarks[self.mp_pose.PoseLandmark.LEFT_SHOULDER.value]
+        right_shoulder = landmarks[self.mp_pose.PoseLandmark.RIGHT_SHOULDER.value]
+        left_hip = landmarks[self.mp_pose.PoseLandmark.LEFT_HIP.value]
+        right_hip = landmarks[self.mp_pose.PoseLandmark.RIGHT_HIP.value]
+
+        # Calculate the vectors between shoulders and hips
+        shoulder_vector_x = right_shoulder.x - left_shoulder.x
+        shoulder_vector_y = right_shoulder.y - left_shoulder.y
+        hip_vector_x = right_hip.x - left_hip.x
+        hip_vector_y = right_hip.y - left_hip.y
+
+        # Calculate the dot product of shoulder and hip vectors
+        dot_product = shoulder_vector_x * hip_vector_x + shoulder_vector_y * hip_vector_y
+
+        # TODO: Fixing dot product bugs since most swimming do not stand straight
+
+        # Determine the facing direction based on the dot product sign
+        if shoulder_vector_x < 0:
+            return "Forward"
+        else:
+            return "Backward"
+
     def process_frame(self, frame):
         # Recolor image to RGB
         image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -57,6 +80,9 @@ class SwimmingDetector:
         # Extract landmarks
         try:
             landmarks = self.results.pose_landmarks.landmark
+
+            # Get orientation (forward or backward)
+            orientation = self.calculate_orientation(landmarks)
 
             # Get left arm coordinates
             l_hip = [landmarks[self.mp_pose.PoseLandmark.LEFT_HIP.value].x,
@@ -79,11 +105,11 @@ class SwimmingDetector:
             r_angle = self.calculate_angle(r_hip, r_shoulder, r_elbow)
 
             # Visualize angle
-            cv2.putText(image, str(int(l_angle)),
+            cv2.putText(image, "Left: " + str(int(l_angle)),
                         tuple(np.multiply(l_shoulder, [640, 480]).astype(int)),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
                         )
-            cv2.putText(image, str(int(r_angle)),
+            cv2.putText(image, "Right: " + str(int(r_angle)),
                         tuple(np.multiply(r_shoulder, [640, 480]).astype(int)),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
                         )
@@ -103,8 +129,20 @@ class SwimmingDetector:
                 self.stroke += 1
                 print(f'{self.stroke} (Right)')
 
-        except:
-            pass
+            # Render stroke counter
+            # Setup status box
+            cv2.rectangle(image, (0, 0), (225, 100), (45, 45, 45), -1)
+
+            # Stroke data
+            cv2.putText(image, f'Stroke: {self.stroke}', (10, 30),
+                        cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2, cv2.LINE_AA)
+
+            # Orientation data
+            cv2.putText(image, str(orientation), (10, 70),
+                        cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2, cv2.LINE_AA)
+
+        except Exception as e:
+            print(f"Error: {e}")
 
         # Render detections
         self.mp_drawing.draw_landmarks(image, self.results.pose_landmarks, self.mp_pose.POSE_CONNECTIONS,
@@ -112,13 +150,7 @@ class SwimmingDetector:
                                        self.mp_drawing.DrawingSpec(color=(245, 66, 230), thickness=2, circle_radius=2)
                                        )
 
-        # Render stroke counter
-        # Setup status box
-        cv2.rectangle(image, (0, 0), (225, 73), (45, 45, 45), -1)
 
-        # Stroke data
-        cv2.putText(image, f'Stroke: {self.stroke}', (10, 60),
-                    cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2, cv2.LINE_AA)
 
         # Show Timer
         self.end_time = time.time()
@@ -138,13 +170,6 @@ class SwimmingDetector:
             ret, frame = cap.read()
 
             self.process_frame(frame)
-
-            # Show FPS
-            # cur_time = time.time()  # current time
-            # fps = 1 / (cur_time - prev_time)
-            # cv2.putText(image, f'FPS: {int(fps)}', (400, 70), cv2.FONT_HERSHEY_PLAIN,
-            #             3, (255, 0, 0), 3)
-            # prev_time = cur_time  # previous time
 
             if cv2.waitKey(10) & 0xFF == ord('q'):
                 break
