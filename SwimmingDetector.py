@@ -18,6 +18,11 @@ class SwimmingDetector:
         self.l_stage = None
         self.r_stage = None
 
+        # Timer variable
+        self.start_time = time.time()
+        self.end_time = None
+        self.elapsed_time = None
+
     def get_stroke(self):
         return self.stroke
 
@@ -37,9 +42,9 @@ class SwimmingDetector:
 
         return angle
 
-    def find_pose(self, img):
+    def process_frame(self, frame):
         # Recolor image to RGB
-        image = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         image.flags.writeable = False
 
         # Make detection
@@ -49,15 +54,6 @@ class SwimmingDetector:
         image.flags.writeable = True
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
-        # Render detections
-        self.mp_drawing.draw_landmarks(image, self.results.pose_landmarks, self.mp_pose.POSE_CONNECTIONS,
-                                       self.mp_drawing.DrawingSpec(color=(245, 117, 66), thickness=2, circle_radius=2),
-                                       self.mp_drawing.DrawingSpec(color=(245, 66, 230), thickness=2, circle_radius=2)
-                                       )
-
-        return image
-
-    def find_stroke(self, img):
         # Extract landmarks
         try:
             landmarks = self.results.pose_landmarks.landmark
@@ -83,11 +79,11 @@ class SwimmingDetector:
             r_angle = self.calculate_angle(r_hip, r_shoulder, r_elbow)
 
             # Visualize angle
-            cv2.putText(img, str(int(l_angle)),
+            cv2.putText(image, str(int(l_angle)),
                         tuple(np.multiply(l_shoulder, [640, 480]).astype(int)),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
                         )
-            cv2.putText(img, str(int(r_angle)),
+            cv2.putText(image, str(int(r_angle)),
                         tuple(np.multiply(r_shoulder, [640, 480]).astype(int)),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
                         )
@@ -109,3 +105,55 @@ class SwimmingDetector:
 
         except:
             pass
+
+        # Render detections
+        self.mp_drawing.draw_landmarks(image, self.results.pose_landmarks, self.mp_pose.POSE_CONNECTIONS,
+                                       self.mp_drawing.DrawingSpec(color=(245, 117, 66), thickness=2, circle_radius=2),
+                                       self.mp_drawing.DrawingSpec(color=(245, 66, 230), thickness=2, circle_radius=2)
+                                       )
+
+        # Render stroke counter
+        # Setup status box
+        cv2.rectangle(image, (0, 0), (225, 73), (45, 45, 45), -1)
+
+        # Stroke data
+        cv2.putText(image, f'Stroke: {self.stroke}', (10, 60),
+                    cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2, cv2.LINE_AA)
+
+        # Show Timer
+        self.end_time = time.time()
+        self.elapsed_time = self.end_time - self.start_time
+        cv2.putText(image, f'Time Elapsed: {self.elapsed_time:.2f}', (10, 430), cv2.FONT_HERSHEY_PLAIN,
+                    2, (255, 128, 0), 3)
+
+        cv2.imshow('Stroke Counter', image)
+
+    def count_strokes(self, src=0, w_cam=640, h_cam=480):
+        # VIDEO FEED
+        cap = cv2.VideoCapture(src)
+        cap.set(3, w_cam)
+        cap.set(4, h_cam)
+
+        while cap.isOpened():
+            ret, frame = cap.read()
+
+            self.process_frame(frame)
+
+            # Show FPS
+            # cur_time = time.time()  # current time
+            # fps = 1 / (cur_time - prev_time)
+            # cv2.putText(image, f'FPS: {int(fps)}', (400, 70), cv2.FONT_HERSHEY_PLAIN,
+            #             3, (255, 0, 0), 3)
+            # prev_time = cur_time  # previous time
+
+            if cv2.waitKey(10) & 0xFF == ord('q'):
+                break
+
+        cap.release()
+        cv2.destroyAllWindows()
+
+    def get_strokes_per_minute(self):
+        return (self.stroke / self.elapsed_time) * 60
+
+    def get_strokes(self):
+        return self.stroke
