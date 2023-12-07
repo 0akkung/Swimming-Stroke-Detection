@@ -2,7 +2,7 @@ import cv2
 import mediapipe as mp
 import numpy as np
 import time
-
+import matplotlib.pyplot as plt
 
 class SwimmingDetector:
     def __init__(self):
@@ -12,6 +12,10 @@ class SwimmingDetector:
         self.pose = self.mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5)
 
         self.results = None
+
+        # Angles variables
+        self.left_angles = []
+        self.right_angles = []
 
         # Stroke counter variables
         self.stroke = 0
@@ -104,6 +108,10 @@ class SwimmingDetector:
             l_angle = self.calculate_angle(l_hip, l_shoulder, l_elbow)
             r_angle = self.calculate_angle(r_hip, r_shoulder, r_elbow)
 
+            # Store angles in a list for plotting
+            self.left_angles.append(l_angle)
+            self.right_angles.append(r_angle)
+
             # Visualize angle
             cv2.putText(image, "Left: " + str(int(l_angle)),
                         tuple(np.multiply(l_shoulder, [640, 480]).astype(int)),
@@ -150,8 +158,6 @@ class SwimmingDetector:
                                        self.mp_drawing.DrawingSpec(color=(245, 66, 230), thickness=2, circle_radius=2)
                                        )
 
-
-
         # Show Timer
         self.end_time = time.time()
         self.elapsed_time = self.end_time - self.start_time
@@ -159,6 +165,18 @@ class SwimmingDetector:
                     2, (255, 128, 0), 3)
 
         cv2.imshow('Stroke Counter', image)
+
+    def plot_angles(self):
+        # Plot the angles
+        plt.figure(figsize=(8, 6))
+        plt.plot(self.left_angles, label='Left Side Angles')
+        plt.plot(self.right_angles, label='Right Side Angles')
+        plt.xlabel('Frame Number')
+        plt.ylabel('Angle (degrees)')
+        plt.title('Angles of Left and Right Sides')
+        plt.legend()
+        plt.grid(True)
+        plt.show()
 
     def count_strokes(self, src=0, w_cam=640, h_cam=480):
         # VIDEO FEED

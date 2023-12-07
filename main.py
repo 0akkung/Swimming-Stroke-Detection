@@ -1,6 +1,7 @@
 from SwimmingDetector import SwimmingDetector
 
-if __name__ == "__main__":
+
+def main():
     # Swimming Detector
     detector = SwimmingDetector()
 
@@ -11,3 +12,9 @@ if __name__ == "__main__":
 
     print(f'Strokes Per Minute: {int(spm)}')
     print(f'Strokes Per 25 Meters: {sp25}')
+
+    detector.plot_angles()
+
+
+if __name__ == "__main__":
+    main()
