@@ -7,6 +7,8 @@ A computer vision project using OpenCV detect swimming strokes in videos.
 - **Python**: Our programming language.
 - **OpenCV**: a real-time optimized Computer Vision library, tools, and hardware.
 - **Mediapipe**: An open source, cross-platform, customizable ML solution for live and streaming media.
+- **NumPy**: a Python library used for working with arrays.
+- **Matplotlib Pyplot**: a collection of functions that make matplotlib work like MATLAB. We use this to plot graphs.
 
 ## Getting Started
 
@@ -61,7 +63,7 @@ Before you install this program, you must install [**python**](https://www.pytho
 * Make temporary timer to visualize elapsed time
 * Calculate strokes per minute and stroke per distance
 * Detect direction the person in the video is facing (forward and backward)
-* Visualize graph for angles of each arms [TODO]
+* Visualize graph for angles of each arms
 
 ### Resources:
 
