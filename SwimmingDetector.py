@@ -4,6 +4,7 @@ import numpy as np
 import time
 import matplotlib.pyplot as plt
 
+
 class SwimmingDetector:
     def __init__(self):
         self.mp_drawing = mp.solutions.drawing_utils
@@ -46,7 +47,7 @@ class SwimmingDetector:
 
         return angle
 
-    def calculate_orientation(self, landmarks):
+    def detect_stroke(self, landmarks):
         left_shoulder = landmarks[self.mp_pose.PoseLandmark.LEFT_SHOULDER.value]
         right_shoulder = landmarks[self.mp_pose.PoseLandmark.RIGHT_SHOULDER.value]
         left_hip = landmarks[self.mp_pose.PoseLandmark.LEFT_HIP.value]
@@ -63,11 +64,16 @@ class SwimmingDetector:
 
         # TODO: Fixing dot product bugs since most swimming do not stand straight
 
+        stroke = "Unknown"  # Change based on detection logic
+
         # Determine the facing direction based on the dot product sign
         if shoulder_vector_x < 0:
-            return "Forward"
+            stroke = "Backstroke"
         else:
-            return "Backward"
+            stroke = "Freestyle"
+
+        # Return detected stroke (backstroke, freestyle, butterfly, breaststroke)
+        return stroke
 
     def process_frame(self, frame):
         # Recolor image to RGB
@@ -86,7 +92,7 @@ class SwimmingDetector:
             landmarks = self.results.pose_landmarks.landmark
 
             # Get orientation (forward or backward)
-            orientation = self.calculate_orientation(landmarks)
+            orientation = self.detect_stroke(landmarks)
 
             # Get left arm coordinates
             l_hip = [landmarks[self.mp_pose.PoseLandmark.LEFT_HIP.value].x,
@@ -169,11 +175,11 @@ class SwimmingDetector:
     def plot_angles(self):
         # Plot the angles
         plt.figure(figsize=(8, 6))
-        plt.plot(self.left_angles, label='Left Side Angles')
-        plt.plot(self.right_angles, label='Right Side Angles')
+        plt.plot(self.left_angles, label='Left Arm Angles')
+        plt.plot(self.right_angles, label='Right Arm Angles')
         plt.xlabel('Frame Number')
         plt.ylabel('Angle (degrees)')
-        plt.title('Angles of Left and Right Sides')
+        plt.title('Angles of Left and Right Arms')
         plt.legend()
         plt.grid(True)
         plt.show()
