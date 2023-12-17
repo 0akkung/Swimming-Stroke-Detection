@@ -41,6 +41,7 @@ Before you install this program, you must install [**python**](https://www.pytho
 |------|---------------------------------------------------------------------------------------|
 | 1    | Installing Python with mediapipe and opencv and testing it                            |
 | 2    | Live video tracking using webcam, calculate arms angles making graph using Matplotlib |
+| 3    | Detect swimming style using arms angles and shoulder locations                        |
 
 ## Progress Breakdown
 
@@ -62,10 +63,15 @@ Before you install this program, you must install [**python**](https://www.pytho
 
 * Make temporary timer to visualize elapsed time
 * Calculate strokes per minute and stroke per distance
-* Detect direction the person in the video is facing (forward and backward)
+* Detect direction the person in the video is facing (forward or backward)
 * Visualize graph for angles of each arms
 
 ### Resources:
 
 1. [Set Countdown timer to Capture Image using Python-OpenCV
 ](https://www.geeksforgeeks.org/set-countdown-timer-to-capture-image-using-python-opencv/)
+
+### Week 3
+
+* Detect swimming style using arms angles and swimmer facing direction
+* If the swimming style is breaststroke or butterfly, count each stroke when both arms make the cycle
