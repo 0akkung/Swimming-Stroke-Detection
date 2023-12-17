@@ -14,12 +14,16 @@ class SwimmingDetector:
 
         self.results = None
 
+        # Swimming Style
+        self.style = "Unknown"
+
         # Angles variables
         self.left_angles = []
         self.right_angles = []
 
         # Stroke counter variables
-        self.stroke = 0
+        self.left_stroke = 0
+        self.right_stroke = 0
         self.l_stage = None
         self.r_stage = None
 
@@ -28,8 +32,11 @@ class SwimmingDetector:
         self.end_time = None
         self.elapsed_time = None
 
-    def get_stroke(self):
-        return self.stroke
+    def get_strokes(self):
+        if self.style == "Freestyle" or self.style == "Backstroke":
+            return self.left_stroke + self.right_stroke
+
+        return self.left_stroke
 
     def get_result(self):
         return self.results
@@ -47,7 +54,7 @@ class SwimmingDetector:
 
         return angle
 
-    def detect_stroke(self, landmarks):
+    def get_orientation(self, landmarks):
         left_shoulder = landmarks[self.mp_pose.PoseLandmark.LEFT_SHOULDER.value]
         right_shoulder = landmarks[self.mp_pose.PoseLandmark.RIGHT_SHOULDER.value]
         left_hip = landmarks[self.mp_pose.PoseLandmark.LEFT_HIP.value]
@@ -64,16 +71,11 @@ class SwimmingDetector:
 
         # TODO: Fixing dot product bugs since most swimming do not stand straight
 
-        stroke = "Unknown"  # Change based on detection logic
-
         # Determine the facing direction based on the dot product sign
         if shoulder_vector_x < 0:
-            stroke = "Backstroke"
+            return "Forward"
         else:
-            stroke = "Freestyle"
-
-        # Return detected stroke (backstroke, freestyle, butterfly, breaststroke)
-        return stroke
+            return "Backward"
 
     def process_frame(self, frame):
         # Recolor image to RGB
@@ -92,7 +94,7 @@ class SwimmingDetector:
             landmarks = self.results.pose_landmarks.landmark
 
             # Get orientation (forward or backward)
-            orientation = self.detect_stroke(landmarks)
+            orientation = self.get_orientation(landmarks)
 
             # Get left arm coordinates
             l_hip = [landmarks[self.mp_pose.PoseLandmark.LEFT_HIP.value].x,
@@ -132,27 +134,37 @@ class SwimmingDetector:
             if l_angle < 30:
                 self.l_stage = "down"
             elif l_angle > 160 and self.l_stage == 'down':
+
+                # Swimming style logic
+                if self.style == "Unknown":
+                    if r_angle > 90:
+                        self.style = "Butterfly or \nBreaststroke"
+                    elif orientation == "Backward":
+                        self.style = "Freestyle"
+                    else:
+                        self.style = "Backstroke"
+
                 self.l_stage = "up"
-                self.stroke += 1
-                print(f'{self.stroke} (Left)')
+                self.left_stroke += 1
+                print(f'{self.left_stroke} (Left)')
 
             if r_angle < 30:
                 self.r_stage = "down"
             elif r_angle > 160 and self.r_stage == 'down':
                 self.r_stage = "up"
-                self.stroke += 1
-                print(f'{self.stroke} (Right)')
+                self.right_stroke += 1
+                print(f'{self.right_stroke} (Right)')
 
             # Render stroke counter
             # Setup status box
             cv2.rectangle(image, (0, 0), (225, 100), (45, 45, 45), -1)
 
             # Stroke data
-            cv2.putText(image, f'Stroke: {self.stroke}', (10, 30),
+            cv2.putText(image, f'Stroke: {self.get_strokes()}', (10, 30),
                         cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2, cv2.LINE_AA)
 
             # Orientation data
-            cv2.putText(image, str(orientation), (10, 70),
+            cv2.putText(image, str(self.style), (10, 70),
                         cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2, cv2.LINE_AA)
 
         except Exception as e:
@@ -202,7 +214,4 @@ class SwimmingDetector:
         cv2.destroyAllWindows()
 
     def get_strokes_per_minute(self):
-        return (self.stroke / self.elapsed_time) * 60
-
-    def get_strokes(self):
-        return self.stroke
+        return (self.get_strokes() / self.elapsed_time) * 60
