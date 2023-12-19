@@ -132,23 +132,32 @@ class SwimmingDetector:
 
             # Stroke counter logic
             if l_angle < 30:
-                self.l_stage = "down"
-            elif l_angle > 160 and self.l_stage == 'down':
-
                 # Swimming style logic
                 if self.style == "Unknown":
-                    if r_angle > 90:
+                    if r_angle < 70:
                         self.style = "Butterfly or \nBreaststroke"
                     elif orientation == "Backward":
                         self.style = "Freestyle"
                     else:
                         self.style = "Backstroke"
 
+                self.l_stage = "down"
+
+            elif l_angle > 160 and self.l_stage == 'down':
                 self.l_stage = "up"
                 self.left_stroke += 1
                 print(f'{self.left_stroke} (Left)')
 
             if r_angle < 30:
+                # Swimming style logic
+                if self.style == "Unknown":
+                    if l_angle < 70:
+                        self.style = "Butterfly or \nBreaststroke"
+                    elif orientation == "Backward":
+                        self.style = "Freestyle"
+                    else:
+                        self.style = "Backstroke"
+
                 self.r_stage = "down"
             elif r_angle > 160 and self.r_stage == 'down':
                 self.r_stage = "up"
