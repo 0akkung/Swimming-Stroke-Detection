@@ -13,6 +13,7 @@ class SwimmingDetector:
         self.pose = self.mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5)
 
         self.results = None
+        self.landmarks = None
 
         # Swimming Style
         self.style = "Unknown"
@@ -43,7 +44,7 @@ class SwimmingDetector:
     def get_result(self):
         return self.results
 
-    def calculate_angle(self, a, b, c):
+    def calculate_angle(self, image, a, b, c):
         a = np.array(a)  # First
         b = np.array(b)  # Mid
         c = np.array(c)  # End
@@ -54,13 +55,35 @@ class SwimmingDetector:
         if angle > 180.0:
             angle = 360 - angle
 
+        # Visualize angle
+        cv2.putText(image, str(int(angle)),
+                    tuple(np.multiply(b, [640, 480]).astype(int)),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (191, 64, 191), 2, cv2.LINE_AA
+                    )
+
         return angle
 
-    def get_orientation(self, landmarks):
-        left_shoulder = landmarks[self.mp_pose.PoseLandmark.LEFT_SHOULDER.value]
-        right_shoulder = landmarks[self.mp_pose.PoseLandmark.RIGHT_SHOULDER.value]
-        left_hip = landmarks[self.mp_pose.PoseLandmark.LEFT_HIP.value]
-        right_hip = landmarks[self.mp_pose.PoseLandmark.RIGHT_HIP.value]
+    def get_landmarks(self):
+        # Extract landmarks
+        try:
+            self.landmarks = self.results.pose_landmarks.landmark
+            return self.landmarks
+
+        except Exception as e:
+            print(f"Error: {e}")
+
+        return self.landmarks
+
+    def get_landmark_value(self, part):
+        # Get landmark of specified body part
+        landmark_index = self.mp_pose.PoseLandmark[part].value
+        return self.landmarks[landmark_index] if landmark_index is not None else None
+
+    def get_orientation(self):
+        left_shoulder = self.get_landmark_value("LEFT_SHOULDER")
+        right_shoulder = self.get_landmark_value("RIGHT_SHOULDER")
+        left_hip = self.get_landmark_value("LEFT_HIP")
+        right_hip = self.get_landmark_value("RIGHT_HIP")
 
         # Calculate the vectors between shoulders and hips
         shoulder_vector_x = right_shoulder.x - left_shoulder.x
@@ -91,95 +114,81 @@ class SwimmingDetector:
         image.flags.writeable = True
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
-        # Extract landmarks
-        try:
-            landmarks = self.results.pose_landmarks.landmark
+        # Get landmarks
+        self.get_landmarks()
 
-            # Get orientation (forward or backward)
-            orientation = self.get_orientation(landmarks)
+        # Get orientation (forward or backward)
+        orientation = self.get_orientation()
 
-            # Get left arm coordinates
-            l_hip = [landmarks[self.mp_pose.PoseLandmark.LEFT_HIP.value].x,
-                     landmarks[self.mp_pose.PoseLandmark.LEFT_HIP.value].y]
-            l_shoulder = [landmarks[self.mp_pose.PoseLandmark.LEFT_SHOULDER.value].x,
-                          landmarks[self.mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
-            l_elbow = [landmarks[self.mp_pose.PoseLandmark.LEFT_ELBOW.value].x,
-                       landmarks[self.mp_pose.PoseLandmark.LEFT_ELBOW.value].y]
+        # Get left arm coordinates
+        left_hip = [self.get_landmark_value("LEFT_HIP").x, self.get_landmark_value("LEFT_HIP").y]
+        left_shoulder = [self.get_landmark_value("LEFT_SHOULDER").x, self.get_landmark_value("LEFT_SHOULDER").y]
+        left_elbow = [self.get_landmark_value("LEFT_ELBOW").x, self.get_landmark_value("LEFT_ELBOW").y]
 
-            # Get right arm coordinates
-            r_hip = [landmarks[self.mp_pose.PoseLandmark.RIGHT_HIP.value].x,
-                     landmarks[self.mp_pose.PoseLandmark.RIGHT_HIP.value].y]
-            r_shoulder = [landmarks[self.mp_pose.PoseLandmark.RIGHT_SHOULDER.value].x,
-                          landmarks[self.mp_pose.PoseLandmark.RIGHT_SHOULDER.value].y]
-            r_elbow = [landmarks[self.mp_pose.PoseLandmark.RIGHT_ELBOW.value].x,
-                       landmarks[self.mp_pose.PoseLandmark.RIGHT_ELBOW.value].y]
+        # Get right arm coordinates
+        right_hip = [self.get_landmark_value("RIGHT_HIP").x, self.get_landmark_value("RIGHT_HIP").y]
+        right_shoulder = [self.get_landmark_value("RIGHT_SHOULDER").x, self.get_landmark_value("RIGHT_SHOULDER").y]
+        right_elbow = [self.get_landmark_value("RIGHT_ELBOW").x, self.get_landmark_value("RIGHT_ELBOW").y]
 
-            # Calculate angles
-            l_angle = self.calculate_angle(l_hip, l_shoulder, l_elbow)
-            r_angle = self.calculate_angle(r_hip, r_shoulder, r_elbow)
+        # Calculate angles
+        l_angle = self.calculate_angle(image, left_hip, left_shoulder, left_elbow)
+        r_angle = self.calculate_angle(image, right_hip, right_shoulder, right_elbow)
 
-            # Store angles in a list for plotting
-            self.left_angles.append(l_angle)
-            self.right_angles.append(r_angle)
+        # Store angles in a list for plotting
+        self.left_angles.append(l_angle)
+        self.right_angles.append(r_angle)
 
-            # Visualize angle
-            cv2.putText(image, str(int(l_angle)),
-                        tuple(np.multiply(l_shoulder, [640, 480]).astype(int)),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (191, 64, 191), 2, cv2.LINE_AA
-                        )
-            cv2.putText(image, str(int(r_angle)),
-                        tuple(np.multiply(r_shoulder, [640, 480]).astype(int)),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (191, 64, 191), 2, cv2.LINE_AA
-                        )
 
-            # Stroke counter logic
-            if l_angle < 30:
-                # Swimming style logic
-                if self.style == "Unknown":
-                    if r_angle < 70:
-                        self.style = "Butterfly or Breaststroke"
-                    elif orientation == "Backward":
-                        self.style = "Freestyle"
-                    else:
-                        self.style = "Backstroke"
+        cv2.putText(image, str(int(r_angle)),
+                    tuple(np.multiply(right_shoulder, [640, 480]).astype(int)),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (191, 64, 191), 2, cv2.LINE_AA
+                    )
 
-                self.l_stage = "down"
+        # Stroke counter logic
+        if l_angle < 30:
+            # Swimming style logic
+            if self.style == "Unknown":
+                if r_angle < 70:
+                    self.style = "Butterfly or Breaststroke"
+                elif orientation == "Backward":
+                    self.style = "Freestyle"
+                else:
+                    self.style = "Backstroke"
 
-            elif l_angle > 160 and self.l_stage == 'down':
-                self.l_stage = "up"
-                self.left_stroke += 1
-                print(f'{self.left_stroke} (Left)')
+            self.l_stage = "down"
 
-            if r_angle < 30:
-                # Swimming style logic
-                if self.style == "Unknown":
-                    if l_angle < 70:
-                        self.style = "Butterfly or Breaststroke"
-                    elif orientation == "Backward":
-                        self.style = "Freestyle"
-                    else:
-                        self.style = "Backstroke"
+        elif l_angle > 160 and self.l_stage == 'down':
+            self.l_stage = "up"
+            self.left_stroke += 1
+            print(f'{self.left_stroke} (Left)')
 
-                self.r_stage = "down"
-            elif r_angle > 160 and self.r_stage == 'down':
-                self.r_stage = "up"
-                self.right_stroke += 1
-                print(f'{self.right_stroke} (Right)')
+        if r_angle < 30:
+            # Swimming style logic
+            if self.style == "Unknown":
+                if l_angle < 70:
+                    self.style = "Butterfly or Breaststroke"
+                elif orientation == "Backward":
+                    self.style = "Freestyle"
+                else:
+                    self.style = "Backstroke"
 
-            # Render stroke counter
-            # Setup status box
-            cv2.rectangle(image, (0, 0), (225, 100), (45, 45, 45), -1)
+            self.r_stage = "down"
+        elif r_angle > 160 and self.r_stage == 'down':
+            self.r_stage = "up"
+            self.right_stroke += 1
+            print(f'{self.right_stroke} (Right)')
 
-            # Stroke data
-            cv2.putText(image, f'Stroke: {self.get_strokes()}', (10, 30),
-                        cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2, cv2.LINE_AA)
+        # Render stroke counter
+        # Setup status box
+        cv2.rectangle(image, (0, 0), (225, 100), (45, 45, 45), -1)
 
-            # Orientation data
-            cv2.putText(image, str(self.style), (10, 70),
-                        cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2, cv2.LINE_AA)
+        # Stroke data
+        cv2.putText(image, f'Stroke: {self.get_strokes()}', (10, 30),
+                    cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2, cv2.LINE_AA)
 
-        except Exception as e:
-            print(f"Error: {e}")
+        # Orientation data
+        cv2.putText(image, str(self.style), (10, 70),
+                    cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2, cv2.LINE_AA)
 
         # Render detections
         self.mp_drawing.draw_landmarks(image, self.results.pose_landmarks, self.mp_pose.POSE_CONNECTIONS,
