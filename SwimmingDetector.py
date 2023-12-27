@@ -33,10 +33,12 @@ class SwimmingDetector:
         self.elapsed_time = None
 
     def get_strokes(self):
-        if self.style == "Freestyle" or self.style == "Backstroke":
-            return self.left_stroke + self.right_stroke
+        strokes = self.left_stroke + self.right_stroke
 
-        return self.left_stroke
+        if self.style == "Freestyle" or self.style == "Backstroke":
+            return strokes
+
+        return strokes // 2
 
     def get_result(self):
         return self.results
@@ -121,13 +123,13 @@ class SwimmingDetector:
             self.right_angles.append(r_angle)
 
             # Visualize angle
-            cv2.putText(image, "Left: " + str(int(l_angle)),
+            cv2.putText(image, str(int(l_angle)),
                         tuple(np.multiply(l_shoulder, [640, 480]).astype(int)),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (191, 64, 191), 2, cv2.LINE_AA
                         )
-            cv2.putText(image, "Right: " + str(int(r_angle)),
+            cv2.putText(image, str(int(r_angle)),
                         tuple(np.multiply(r_shoulder, [640, 480]).astype(int)),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (191, 64, 191), 2, cv2.LINE_AA
                         )
 
             # Stroke counter logic
@@ -135,7 +137,7 @@ class SwimmingDetector:
                 # Swimming style logic
                 if self.style == "Unknown":
                     if r_angle < 70:
-                        self.style = "Butterfly or \nBreaststroke"
+                        self.style = "Butterfly or Breaststroke"
                     elif orientation == "Backward":
                         self.style = "Freestyle"
                     else:
@@ -152,7 +154,7 @@ class SwimmingDetector:
                 # Swimming style logic
                 if self.style == "Unknown":
                     if l_angle < 70:
-                        self.style = "Butterfly or \nBreaststroke"
+                        self.style = "Butterfly or Breaststroke"
                     elif orientation == "Backward":
                         self.style = "Freestyle"
                     else:
@@ -181,8 +183,8 @@ class SwimmingDetector:
 
         # Render detections
         self.mp_drawing.draw_landmarks(image, self.results.pose_landmarks, self.mp_pose.POSE_CONNECTIONS,
-                                       self.mp_drawing.DrawingSpec(color=(245, 117, 66), thickness=2, circle_radius=2),
-                                       self.mp_drawing.DrawingSpec(color=(245, 66, 230), thickness=2, circle_radius=2)
+                                       self.mp_drawing.DrawingSpec(color=(102, 255, 255), thickness=2, circle_radius=2),
+                                       self.mp_drawing.DrawingSpec(color=(240, 207, 137), thickness=2, circle_radius=2)
                                        )
 
         # Show Timer
