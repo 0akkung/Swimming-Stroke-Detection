@@ -63,21 +63,14 @@ class SwimmingDetector:
 
         return angle
 
-    def get_landmarks(self):
-        # Extract landmarks
-        try:
-            self.landmarks = self.results.pose_landmarks.landmark
-            return self.landmarks
-
-        except Exception as e:
-            print(f"Error: {e}")
-
-        return self.landmarks
-
     def get_landmark_value(self, part):
         # Get landmark of specified body part
         landmark_index = self.mp_pose.PoseLandmark[part].value
-        return self.landmarks[landmark_index] if landmark_index is not None else None
+
+        if self.landmarks is None:
+            return None
+
+        return self.landmarks[landmark_index]
 
     def get_orientation(self):
         left_shoulder = self.get_landmark_value("LEFT_SHOULDER")
@@ -114,69 +107,67 @@ class SwimmingDetector:
         image.flags.writeable = True
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
-        # Get landmarks
-        self.get_landmarks()
+        # Extract landmarks
+        try:
+            self.landmarks = self.results.pose_landmarks.landmark
 
-        # Get orientation (forward or backward)
-        orientation = self.get_orientation()
+            # Get orientation (forward or backward)
+            orientation = self.get_orientation()
 
-        # Get left arm coordinates
-        left_hip = [self.get_landmark_value("LEFT_HIP").x, self.get_landmark_value("LEFT_HIP").y]
-        left_shoulder = [self.get_landmark_value("LEFT_SHOULDER").x, self.get_landmark_value("LEFT_SHOULDER").y]
-        left_elbow = [self.get_landmark_value("LEFT_ELBOW").x, self.get_landmark_value("LEFT_ELBOW").y]
+            # Get left arm coordinates
+            left_hip = [self.get_landmark_value("LEFT_HIP").x, self.get_landmark_value("LEFT_HIP").y]
+            left_shoulder = [self.get_landmark_value("LEFT_SHOULDER").x, self.get_landmark_value("LEFT_SHOULDER").y]
+            left_elbow = [self.get_landmark_value("LEFT_ELBOW").x, self.get_landmark_value("LEFT_ELBOW").y]
 
-        # Get right arm coordinates
-        right_hip = [self.get_landmark_value("RIGHT_HIP").x, self.get_landmark_value("RIGHT_HIP").y]
-        right_shoulder = [self.get_landmark_value("RIGHT_SHOULDER").x, self.get_landmark_value("RIGHT_SHOULDER").y]
-        right_elbow = [self.get_landmark_value("RIGHT_ELBOW").x, self.get_landmark_value("RIGHT_ELBOW").y]
+            # Get right arm coordinates
+            right_hip = [self.get_landmark_value("RIGHT_HIP").x, self.get_landmark_value("RIGHT_HIP").y]
+            right_shoulder = [self.get_landmark_value("RIGHT_SHOULDER").x, self.get_landmark_value("RIGHT_SHOULDER").y]
+            right_elbow = [self.get_landmark_value("RIGHT_ELBOW").x, self.get_landmark_value("RIGHT_ELBOW").y]
 
-        # Calculate angles
-        l_angle = self.calculate_angle(image, left_hip, left_shoulder, left_elbow)
-        r_angle = self.calculate_angle(image, right_hip, right_shoulder, right_elbow)
+            # Calculate angles
+            l_angle = self.calculate_angle(image, left_hip, left_shoulder, left_elbow)
+            r_angle = self.calculate_angle(image, right_hip, right_shoulder, right_elbow)
 
-        # Store angles in a list for plotting
-        self.left_angles.append(l_angle)
-        self.right_angles.append(r_angle)
+            # Store angles in a list for plotting
+            self.left_angles.append(l_angle)
+            self.right_angles.append(r_angle)
 
+            # Stroke counter logic
+            if l_angle < 30:
+                # Swimming style logic
+                if self.style == "Unknown":
+                    if r_angle < 70:
+                        self.style = "Butterfly or Breaststroke"
+                    elif orientation == "Backward":
+                        self.style = "Freestyle"
+                    else:
+                        self.style = "Backstroke"
 
-        cv2.putText(image, str(int(r_angle)),
-                    tuple(np.multiply(right_shoulder, [640, 480]).astype(int)),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (191, 64, 191), 2, cv2.LINE_AA
-                    )
+                self.l_stage = "down"
 
-        # Stroke counter logic
-        if l_angle < 30:
-            # Swimming style logic
-            if self.style == "Unknown":
-                if r_angle < 70:
-                    self.style = "Butterfly or Breaststroke"
-                elif orientation == "Backward":
-                    self.style = "Freestyle"
-                else:
-                    self.style = "Backstroke"
+            elif l_angle > 160 and self.l_stage == 'down':
+                self.l_stage = "up"
+                self.left_stroke += 1
+                print(f'{self.left_stroke} (Left)')
 
-            self.l_stage = "down"
+            if r_angle < 30:
+                # Swimming style logic
+                if self.style == "Unknown":
+                    if l_angle < 70:
+                        self.style = "Butterfly or Breaststroke"
+                    elif orientation == "Backward":
+                        self.style = "Freestyle"
+                    else:
+                        self.style = "Backstroke"
 
-        elif l_angle > 160 and self.l_stage == 'down':
-            self.l_stage = "up"
-            self.left_stroke += 1
-            print(f'{self.left_stroke} (Left)')
+                self.r_stage = "down"
+            elif r_angle > 160 and self.r_stage == 'down':
+                self.r_stage = "up"
+                self.right_stroke += 1
+                print(f'{self.right_stroke} (Right)')
 
-        if r_angle < 30:
-            # Swimming style logic
-            if self.style == "Unknown":
-                if l_angle < 70:
-                    self.style = "Butterfly or Breaststroke"
-                elif orientation == "Backward":
-                    self.style = "Freestyle"
-                else:
-                    self.style = "Backstroke"
-
-            self.r_stage = "down"
-        elif r_angle > 160 and self.r_stage == 'down':
-            self.r_stage = "up"
-            self.right_stroke += 1
-            print(f'{self.right_stroke} (Right)')
+        except Exception as e:
+            print(f"Error: {e}")
 
         # Render stroke counter
         # Setup status box
