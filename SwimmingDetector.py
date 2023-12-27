@@ -118,25 +118,30 @@ class SwimmingDetector:
             left_hip = [self.get_landmark_value("LEFT_HIP").x, self.get_landmark_value("LEFT_HIP").y]
             left_shoulder = [self.get_landmark_value("LEFT_SHOULDER").x, self.get_landmark_value("LEFT_SHOULDER").y]
             left_elbow = [self.get_landmark_value("LEFT_ELBOW").x, self.get_landmark_value("LEFT_ELBOW").y]
+            left_wrist = [self.get_landmark_value("LEFT_WRIST").x, self.get_landmark_value("LEFT_WRIST").y]
 
             # Get right arm coordinates
             right_hip = [self.get_landmark_value("RIGHT_HIP").x, self.get_landmark_value("RIGHT_HIP").y]
             right_shoulder = [self.get_landmark_value("RIGHT_SHOULDER").x, self.get_landmark_value("RIGHT_SHOULDER").y]
             right_elbow = [self.get_landmark_value("RIGHT_ELBOW").x, self.get_landmark_value("RIGHT_ELBOW").y]
+            right_wrist = [self.get_landmark_value("RIGHT_WRIST").x, self.get_landmark_value("RIGHT_WRIST").y]
 
             # Calculate angles
-            l_angle = self.calculate_angle(image, left_hip, left_shoulder, left_elbow)
-            r_angle = self.calculate_angle(image, right_hip, right_shoulder, right_elbow)
+            left_shoulder_angle = self.calculate_angle(image, left_hip, left_shoulder, left_elbow)
+            right_shoulder_angle = self.calculate_angle(image, right_hip, right_shoulder, right_elbow)
+
+            left_elbow_angle = self.calculate_angle(image, left_shoulder, left_elbow, left_wrist)
+            right_elbow_angle = self.calculate_angle(image, right_shoulder, right_elbow, right_wrist)
 
             # Store angles in a list for plotting
-            self.left_angles.append(l_angle)
-            self.right_angles.append(r_angle)
+            self.left_angles.append(left_shoulder_angle)
+            self.right_angles.append(right_shoulder_angle)
 
             # Stroke counter logic
-            if l_angle < 30:
+            if left_shoulder_angle < 30:
                 # Swimming style logic
                 if self.style == "Unknown":
-                    if r_angle < 70:
+                    if right_shoulder_angle < 70:
                         self.style = "Butterfly or Breaststroke"
                     elif orientation == "Backward":
                         self.style = "Freestyle"
@@ -145,15 +150,15 @@ class SwimmingDetector:
 
                 self.l_stage = "down"
 
-            elif l_angle > 160 and self.l_stage == 'down':
+            elif left_shoulder_angle > 160 and self.l_stage == 'down':
                 self.l_stage = "up"
                 self.left_stroke += 1
                 print(f'{self.left_stroke} (Left)')
 
-            if r_angle < 30:
+            if right_shoulder_angle < 30:
                 # Swimming style logic
                 if self.style == "Unknown":
-                    if l_angle < 70:
+                    if left_shoulder_angle < 70:
                         self.style = "Butterfly or Breaststroke"
                     elif orientation == "Backward":
                         self.style = "Freestyle"
@@ -161,7 +166,7 @@ class SwimmingDetector:
                         self.style = "Backstroke"
 
                 self.r_stage = "down"
-            elif r_angle > 160 and self.r_stage == 'down':
+            elif right_shoulder_angle > 160 and self.r_stage == 'down':
                 self.r_stage = "up"
                 self.right_stroke += 1
                 print(f'{self.right_stroke} (Right)')
