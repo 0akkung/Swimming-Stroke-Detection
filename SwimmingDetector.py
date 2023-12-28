@@ -141,8 +141,10 @@ class SwimmingDetector:
             if left_shoulder_angle < 30:
                 # Swimming style logic
                 if self.style == "Unknown":
-                    if right_shoulder_angle < 70:
-                        self.style = "Butterfly or Breaststroke"
+                    if right_shoulder_angle < 70 and left_elbow_angle > 160:
+                        self.style = "Butterfly"
+                    elif right_shoulder_angle < 70:
+                        self.style = "Breaststroke"
                     elif orientation == "Backward":
                         self.style = "Freestyle"
                     else:
@@ -158,8 +160,10 @@ class SwimmingDetector:
             if right_shoulder_angle < 30:
                 # Swimming style logic
                 if self.style == "Unknown":
-                    if left_shoulder_angle < 70:
-                        self.style = "Butterfly or Breaststroke"
+                    if left_shoulder_angle < 70 and right_elbow_angle > 160:
+                        self.style = "Butterfly"
+                    elif left_shoulder_angle < 70:
+                        self.style = "Breaststroke"
                     elif orientation == "Backward":
                         self.style = "Freestyle"
                     else:
