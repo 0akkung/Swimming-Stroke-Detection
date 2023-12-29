@@ -23,6 +23,7 @@ class SwimmingDetector:
         self.right_angles = []
 
         # Stroke counter variables
+        self.ready = False
         self.left_stroke = 0
         self.right_stroke = 0
         self.l_stage = None
@@ -137,43 +138,59 @@ class SwimmingDetector:
             self.left_angles.append(left_shoulder_angle)
             self.right_angles.append(right_shoulder_angle)
 
-            # Stroke counter logic
-            if left_shoulder_angle < 30:
-                # Swimming style logic
-                if self.style == "Unknown":
-                    if right_shoulder_angle < 70 and left_elbow_angle > 160:
-                        self.style = "Butterfly"
-                    elif right_shoulder_angle < 70:
-                        self.style = "Breaststroke"
-                    elif orientation == "Backward":
-                        self.style = "Freestyle"
-                    else:
-                        self.style = "Backstroke"
+            # Percentage of success of stroke
+            per = np.interp(left_shoulder_angle, (30, 160), (0, 100))
 
-                self.l_stage = "down"
+            # Bar to show stroke progress
+            bar = np.interp(left_shoulder_angle, (30, 160), (380, 50))
 
-            elif left_shoulder_angle > 160 and self.l_stage == 'down':
-                self.l_stage = "up"
-                self.left_stroke += 1
-                print(f'{self.left_stroke} (Left)')
+            # Check to ensure right form before starting the program
+            if left_shoulder_angle > 160 and right_shoulder_angle > 160:
+                self.ready = True
 
-            if right_shoulder_angle < 30:
-                # Swimming style logic
-                if self.style == "Unknown":
-                    if left_shoulder_angle < 70 and right_elbow_angle > 160:
-                        self.style = "Butterfly"
-                    elif left_shoulder_angle < 70:
-                        self.style = "Breaststroke"
-                    elif orientation == "Backward":
-                        self.style = "Freestyle"
-                    else:
-                        self.style = "Backstroke"
+            if self.ready:
+                # Stroke counter logic
+                if left_shoulder_angle < 30:
+                    # Swimming style logic
+                    if self.style == "Unknown":
+                        if right_shoulder_angle < 70 and left_elbow_angle > 160:
+                            self.style = "Butterfly"
+                        elif right_shoulder_angle < 70:
+                            self.style = "Breaststroke"
+                        elif orientation == "Backward":
+                            self.style = "Freestyle"
+                        else:
+                            self.style = "Backstroke"
 
-                self.r_stage = "down"
-            elif right_shoulder_angle > 160 and self.r_stage == 'down':
-                self.r_stage = "up"
-                self.right_stroke += 1
-                print(f'{self.right_stroke} (Right)')
+                    self.l_stage = "down"
+
+                elif left_shoulder_angle > 160 and self.l_stage == 'down':
+                    self.l_stage = "up"
+                    self.left_stroke += 1
+                    print(f'{self.left_stroke} (Left)')
+
+                if right_shoulder_angle < 30:
+                    # Swimming style logic
+                    if self.style == "Unknown":
+                        if left_shoulder_angle < 70 and right_elbow_angle > 160:
+                            self.style = "Butterfly"
+                        elif left_shoulder_angle < 70:
+                            self.style = "Breaststroke"
+                        elif orientation == "Backward":
+                            self.style = "Freestyle"
+                        else:
+                            self.style = "Backstroke"
+
+                    self.r_stage = "down"
+                elif right_shoulder_angle > 160 and self.r_stage == 'down':
+                    self.r_stage = "up"
+                    self.right_stroke += 1
+                    print(f'{self.right_stroke} (Right)')
+
+                cv2.rectangle(image, (580, 50), (600, 380), (0, 255, 0), 3)
+                cv2.rectangle(image, (580, int(bar)), (600, 380), (0, 255, 0), cv2.FILLED)
+                cv2.putText(image, f'{int(per)}%', (565, 430), cv2.FONT_HERSHEY_PLAIN, 2,
+                            (255, 0, 0), 2)
 
         except Exception as e:
             print(f"Error: {e}")
