@@ -143,10 +143,12 @@ class SwimmingDetector:
             self.right_angles.append(right_shoulder_angle)
 
             # Percentage of success of stroke
-            per = np.interp(left_shoulder_angle, (30, 160), (0, 100))
+            left_per = np.interp(left_shoulder_angle, (30, 160), (0, 100))
+            right_per = np.interp(right_shoulder_angle, (30, 160), (0, 100))
 
             # Bar to show stroke progress
-            bar = np.interp(left_shoulder_angle, (30, 160), (380, 50))
+            left_bar = np.interp(left_shoulder_angle, (30, 160), (380, 50))
+            right_bar = np.interp(right_shoulder_angle, (30, 160), (380, 50))
 
             # Check to ensure right form before starting the program
             if left_shoulder_angle > 160 and right_shoulder_angle > 160 and not self.ready:
@@ -191,9 +193,14 @@ class SwimmingDetector:
                     self.right_stroke += 1
                     print(f'{self.right_stroke} (Right)')
 
+                cv2.rectangle(image, (480, 50), (500, 380), (0, 255, 0), 3)
+                cv2.rectangle(image, (480, int(left_bar)), (500, 380), (0, 255, 0), cv2.FILLED)
+                cv2.putText(image, f'{int(left_per)}%', (465, 430), cv2.FONT_HERSHEY_PLAIN, 2,
+                            (255, 0, 0), 2)
+
                 cv2.rectangle(image, (580, 50), (600, 380), (0, 255, 0), 3)
-                cv2.rectangle(image, (580, int(bar)), (600, 380), (0, 255, 0), cv2.FILLED)
-                cv2.putText(image, f'{int(per)}%', (565, 430), cv2.FONT_HERSHEY_PLAIN, 2,
+                cv2.rectangle(image, (580, int(right_bar)), (600, 380), (0, 255, 0), cv2.FILLED)
+                cv2.putText(image, f'{int(right_per)}%', (565, 430), cv2.FONT_HERSHEY_PLAIN, 2,
                             (255, 0, 0), 2)
 
         except Exception as e:
