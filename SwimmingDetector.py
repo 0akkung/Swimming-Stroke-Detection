@@ -193,13 +193,13 @@ class SwimmingDetector:
                     self.right_stroke += 1
                     print(f'{self.right_stroke} (Right)')
 
-                cv2.rectangle(image, (480, 50), (500, 380), (0, 255, 0), 3)
-                cv2.rectangle(image, (480, int(left_bar)), (500, 380), (0, 255, 0), cv2.FILLED)
+                cv2.rectangle(image, (480, 50), (500, 380), (255, 0, 0), 3)
+                cv2.rectangle(image, (480, int(left_bar)), (500, 380), (255, 0, 0), cv2.FILLED)
                 cv2.putText(image, f'{int(left_per)}%', (465, 430), cv2.FONT_HERSHEY_PLAIN, 2,
                             (255, 0, 0), 2)
 
-                cv2.rectangle(image, (580, 50), (600, 380), (0, 255, 0), 3)
-                cv2.rectangle(image, (580, int(right_bar)), (600, 380), (0, 255, 0), cv2.FILLED)
+                cv2.rectangle(image, (580, 50), (600, 380), (0, 102, 255), 3)
+                cv2.rectangle(image, (580, int(right_bar)), (600, 380), (0, 102, 255), cv2.FILLED)
                 cv2.putText(image, f'{int(right_per)}%', (565, 430), cv2.FONT_HERSHEY_PLAIN, 2,
                             (255, 0, 0), 2)
 
