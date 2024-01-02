@@ -30,7 +30,7 @@ class SwimmingDetector:
         self.r_stage = None
 
         # Timer variable
-        self.start_time = time.time()
+        self.start_time = None
         self.end_time = None
         self.elapsed_time = None
 
@@ -96,6 +96,10 @@ class SwimmingDetector:
         else:
             return "Backward"
 
+    def set_ready(self):
+        self.ready = True
+        self.start_time = time.time()
+
     def process_frame(self, frame):
         # Recolor image to RGB
         image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -145,8 +149,8 @@ class SwimmingDetector:
             bar = np.interp(left_shoulder_angle, (30, 160), (380, 50))
 
             # Check to ensure right form before starting the program
-            if left_shoulder_angle > 160 and right_shoulder_angle > 160:
-                self.ready = True
+            if left_shoulder_angle > 160 and right_shoulder_angle > 160 and not self.ready:
+                self.set_ready()
 
             if self.ready:
                 # Stroke counter logic
@@ -195,29 +199,34 @@ class SwimmingDetector:
         except Exception as e:
             print(f"Error: {e}")
 
-        # Render stroke counter
-        # Setup status box
-        cv2.rectangle(image, (0, 0), (225, 100), (45, 45, 45), -1)
-
-        # Stroke data
-        cv2.putText(image, f'Stroke: {self.get_strokes()}', (10, 30),
-                    cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2, cv2.LINE_AA)
-
-        # Orientation data
-        cv2.putText(image, str(self.style), (10, 70),
-                    cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2, cv2.LINE_AA)
-
         # Render detections
         self.mp_drawing.draw_landmarks(image, self.results.pose_landmarks, self.mp_pose.POSE_CONNECTIONS,
-                                       self.mp_drawing.DrawingSpec(color=(102, 255, 255), thickness=2, circle_radius=2),
-                                       self.mp_drawing.DrawingSpec(color=(240, 207, 137), thickness=2, circle_radius=2)
+                                       self.mp_drawing.DrawingSpec(color=(102, 255, 255), thickness=2,
+                                                                   circle_radius=2),
+                                       self.mp_drawing.DrawingSpec(color=(240, 207, 137), thickness=2,
+                                                                   circle_radius=2)
                                        )
 
-        # Show Timer
-        self.end_time = time.time()
-        self.elapsed_time = self.end_time - self.start_time
-        cv2.putText(image, f'Time Elapsed: {self.elapsed_time:.2f}', (10, 430), cv2.FONT_HERSHEY_PLAIN,
-                    2, (255, 128, 0), 3)
+        if self.ready:
+            # Render stroke counter
+            # Setup status box
+            cv2.rectangle(image, (0, 0), (225, 100), (45, 45, 45), -1)
+
+            # Stroke data
+            cv2.putText(image, f'Stroke: {self.get_strokes()}', (10, 30),
+                        cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2, cv2.LINE_AA)
+
+            # Style data
+            cv2.putText(image, str(self.style), (10, 70),
+                        cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2, cv2.LINE_AA)
+
+            # Show Timer
+            self.end_time = time.time()
+            self.elapsed_time = self.end_time - self.start_time
+
+            cv2.rectangle(image, (0, 420), (120, 480), (0, 255, 0), -1)
+            cv2.putText(image, f'{self.elapsed_time:.2f}', (10, 460), cv2.FONT_HERSHEY_PLAIN,
+                        2, (255, 0, 0), 3)
 
         cv2.imshow('Stroke Counter', image)
 
