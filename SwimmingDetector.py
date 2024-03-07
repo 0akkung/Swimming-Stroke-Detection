@@ -235,8 +235,9 @@ class SwimmingDetector:
             cv2.putText(image, f'{self.elapsed_time:.2f}', (10, 460), cv2.FONT_HERSHEY_PLAIN,
                         2, (255, 0, 0), 3)
 
-        cv2.imshow('Stroke Counter', image)
+        # cv2.imshow('Stroke Counter', image)
 
+        return image
 
     def plot_angles(self):
         # Plot the angles
@@ -259,11 +260,11 @@ class SwimmingDetector:
         while cap.isOpened():
             ret, frame = cap.read()
 
-            # self.process_frame(frame)
+            frame = self.process_frame(frame)
 
-            # Convert the processed frame back to JPEG format for streaming
+            # # Convert the processed frame back to JPEG format for streaming
             try:
-                ret, buffer = cv2.imencode('.jpg', cv2.flip(frame, 1))
+                ret, buffer = cv2.imencode('.jpg', frame)
                 frame = buffer.tobytes()
                 yield (b'--frame\r\n'
                        b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
