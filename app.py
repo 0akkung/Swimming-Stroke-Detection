@@ -10,6 +10,11 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
+
 @app.route('/video_feed')
 def video_feed():
     return Response(counter.count_strokes(), mimetype='multipart/x-mixed-replace; boundary=frame')

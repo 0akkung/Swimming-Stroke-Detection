@@ -235,7 +235,7 @@ class SwimmingDetector:
             cv2.putText(image, f'{self.elapsed_time:.2f}', (10, 460), cv2.FONT_HERSHEY_PLAIN,
                         2, (255, 0, 0), 3)
 
-        # cv2.imshow('Stroke Counter', image)
+        cv2.imshow('Stroke Counter', image)
 
         return image
 
@@ -253,6 +253,7 @@ class SwimmingDetector:
 
     def count_strokes(self, src=0, w_cam=640, h_cam=480):
         # VIDEO FEED
+        print("???")
         cap = cv2.VideoCapture(src)
         cap.set(3, w_cam)
         cap.set(4, h_cam)
@@ -262,14 +263,14 @@ class SwimmingDetector:
 
             frame = self.process_frame(frame)
 
-            # # Convert the processed frame back to JPEG format for streaming
-            try:
-                ret, buffer = cv2.imencode('.jpg', frame)
-                frame = buffer.tobytes()
-                yield (b'--frame\r\n'
-                       b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-            except Exception as e:
-                pass
+            # Convert the processed frame back to JPEG format for streaming
+            # try:
+            #     ret, buffer = cv2.imencode('.jpg', frame)
+            #     frame = buffer.tobytes()
+            #     yield (b'--frame\r\n'
+            #            b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+            # except Exception as e:
+            #     pass
 
             if cv2.waitKey(10) & 0xFF == ord('q'):
                 break
