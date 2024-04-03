@@ -1,18 +1,121 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>เข้าสู่ระบบ</title>
-</head>
-<body>
-  <h1>เข้าสู่ระบบ</h1>
-  <form action="index.html" method="post">
-    <label for="id">ID:</label>
-    <input type="text" id="id" name="id" required><br>
-    <label for="password">รหัสผ่าน:</label>
-    <input type="password" id="password" name="password" required><br><br>
-    <button type="submit">เข้าสู่ระบบ</button>
-  </form>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block page_class %}inner_page{% endblock %}
+
+{% block content %}
+<!-- BODY EMAIL PASSWORD -->
+<div class="contact left_cross_right">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-12">
+            <div class="titlepage text_align_left">
+               <h2>เข้าสู่ระบบ</h2>
+               <p>โปรดกรอกอีเมลและรหัสผ่าน</p>
+            </div>
+         </div>
+         <div class="col-md-12">
+            <form id="request" class="main_form">
+               <div class="row">
+                  <!--
+                  <div class="col-md-12 ">
+                     <input class="contactus" placeholder="You Name" type="type" name="Name">
+                  </div> -->
+                  <div class="col-md-12">
+                     <input class="contactus" placeholder="Email" type="type" name="Email">
+                  </div>
+                  <!--
+                  <div class="col-md-6">
+                     <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number">
+                  </div>
+                   -->
+                  <div class="col-md-12">
+                     <input class="contactus" placeholder="Password" type="Password" name="Password">
+                  </div>
+
+                  <div class="col-md-12">
+                     <button class="send_btn">confirm</button>
+                  </div>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- end BODY EMAIL PASSWORD -->
+<!-- our_us -->
+<div class="our_mics">
+   <div class="container">
+      <div class="row">
+         <div class="col-md-10 offset-md-1">
+            <div class="titlepage text_align_center">
+               <h2>About senior project</h2>
+               <p>Senior Project นี้สามารถวิเคราะห์ท่าว่าย จับจำนวนสโตรก คำนวณระยะทาง แสดงผลแบบเรียลไทม์ อีกทั้งระบบสามารถรองรับสระว่ายน้ำหลากหลายตามขนาดของสระ ซึ่งข้อมูลมีความครบถ้วนโดยบันทึกสถิติ วิเคราะห์ความเร็ว แสดงกราฟแสดงผล ช่วยติดตามพัฒนาการฝึกซ้อม ที่สำคัญสามารถปรับโปรแกรมให้เหมาะกับนักกีฬาแต่ละคน</p>
+            </div>
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-4 col-sm-6 margin_bottom40">
+            <div id="ho_show" class="mics">
+               <figure><img class="img_responsive" src="images/mics_img1.jpg" alt="#"/></figure>
+               <div class="mics_icon">
+                  <a href="javascript:void(0)">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                  </a>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 col-sm-6 margin_bottom40">
+            <div id="ho_show" class="mics">
+               <figure><img class="img_responsive" src="images/mics_img2.jpg" alt="#"/></figure>
+               <div class="mics_icon">
+                  <a href="javascript:void(0)">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                  </a>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 col-sm-6 margin_bottom40">
+            <div id="ho_show" class="mics">
+               <figure><img class="img_responsive" src="images/mics_img3.jpg" alt="#"/></figure>
+               <div class="mics_icon">
+                  <a href="javascript:void(0)">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                  </a>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 col-sm-6 margin_bottom40">
+            <div id="ho_show" class="mics">
+               <figure><img class="img_responsive" src="images/mics_img4.jpg" alt="#"/></figure>
+               <div class="mics_icon">
+                  <a href="javascript:void(0)">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                  </a>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 col-sm-6 margin_bottom40">
+            <div id="ho_show" class="mics">
+               <figure><img class="img_responsive" src="images/mics_img5.jpg" alt="#"/></figure>
+               <div class="mics_icon">
+                  <a href="javascript:void(0)">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                  </a>
+               </div>
+            </div>
+         </div>
+         <div class="col-md-4 col-sm-6 margin_bottom40">
+            <div id="ho_show" class="mics">
+               <figure><img class="img_responsive" src="images/mics_img6.jpg" alt="#"/></figure>
+               <div class="mics_icon">
+                  <a href="javascript:void(0)">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                  </a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- end our_mics -->
+{% endblock %}
