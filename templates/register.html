@@ -15,7 +15,14 @@
                   </div>
                </div>
                <div class="col-md-12">
-                  <form id="request" class="main_form", method="POST" action="/register">
+                   {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="notification is-danger">
+                            {{ messages[0] }}
+                        </div>
+                    {% endif %}
+                    {% endwith %}
+                  <form id="request" class="main_form" method="POST" action="/register">
                      <div class="row">
                          
                         <div class="col-md-12 ">

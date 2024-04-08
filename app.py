@@ -1,18 +1,15 @@
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, flash, Response
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from swimming_detector import SwimmingDetector
+from datetime import datetime
 
-from flask_login import LoginManager, UserMixin, login_required
+from flask_login import LoginManager, UserMixin, login_required, login_user
 
 app = Flask(__name__, template_folder='./templates')
+app.config['SECRET_KEY'] = 'secret-key-goes-here'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 db = SQLAlchemy(app)
-
-counter = None
-
-login_manager = LoginManager()  # Login manage for flask-login
-login_manager.init_app(app)
 
 
 class User(UserMixin, db.Model):
@@ -25,12 +22,22 @@ class User(UserMixin, db.Model):
     weight = db.Column(db.Integer, nullable=False)
     date_of_birth = db.Column(db.DateTime, nullable=False)
 
+    def calculate_age(self):
+        today = datetime.now()
+        age = today.year - self.date_of_birth.year - ((today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day))
+        return age
+
     def __repr__(self):
         return '<User %r>' % self.username
 
 
 with app.app_context():
     db.create_all()
+
+counter = None
+
+login_manager = LoginManager()  # Login manage for flask-login
+login_manager.init_app(app)
 
 
 @login_manager.user_loader
@@ -49,8 +56,27 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == "POST":
+        # login code goes here
+        email = request.form.get('email')
+        password = request.form.get('password')
+        remember = True if request.form.get('remember') else False
+
+        user = User.query.filter_by(email=email).first()
+
+        # check if the user actually exists
+        # take the user-supplied password, hash it, and compare it to the hashed password in the database
+        if not user or not check_password_hash(user.password, password):
+            print("Invalid password")
+            flash('Please check your login details and try again.')
+            return redirect(url_for('login')) # if the user doesn't exist or password is wrong, reload the page
+
+        # if the above check passes, then we know the user has the right credentials
+        login_user(user, remember=remember)
+        return redirect(url_for('profile'))
+
     return render_template('login.html')
 
 
@@ -61,17 +87,21 @@ def register():
         email = request.form.get('email')
         name = request.form.get('name')
         password = request.form.get('password')
+        height = request.form.get('height')
+        weight = request.form.get('weight')
+        dob = request.form.get('dob')
+        dob = datetime.strptime(dob, '%Y-%m-%d').date()
 
         user = User.query.filter_by(
             email=email).first()  # if this returns a user, then the email already exists in database
 
         if user:  # if a user is found, we want to redirect back to signup page so user can try again
             flash('Email address already exists')
-            return redirect(url_for('auth.signup'))
+            return redirect(url_for('register'))
 
         # create a new user with the form data. Hash the password so the plaintext version isn't saved.
         new_user = User(email=email, name=name, password=generate_password_hash(password, method='pbkdf2:sha256'),
-                        )
+                        height=height, weight=weight, date_of_birth=dob)
 
         # add the new user to the database
         db.session.add(new_user)
