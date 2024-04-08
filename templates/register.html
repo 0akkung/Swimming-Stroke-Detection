@@ -15,38 +15,34 @@
                   </div>
                </div>
                <div class="col-md-12">
-                  <form id="request" class="main_form">
+                  <form id="request" class="main_form", method="POST" action="/register">
                      <div class="row">
                          
                         <div class="col-md-12 ">
-                           <input class="contactus" placeholder="Name" type="type" name="Name"> 
+                           <input class="contactus" placeholder="Name" type="text" name="name">
                         </div> 
                         <div class="col-md-12">
-                           <input class="contactus" placeholder="Email" type="type" name="Email"> 
+                           <input class="contactus" placeholder="Email" type="email" name="email">
                         </div>
                         
                         <div class="col-md-6">
-                           <input class="contactus" placeholder="Weight" type="type" name="weigh">                          
+                           <input class="contactus" placeholder="Weight" type="text" name="weight">
                         </div>
                         <div class="col-md-6">
-                           <input class="contactus" placeholder="Height " type="type" name="height">                          
+                           <input class="contactus" placeholder="Height " type="text" name="height">
                         </div>
                         <div class="col-md-6">
-                           <input class="contactus" placeholder="Month of birth" type="type" name="Month of birth">                          
+                           <input class="contactus" placeholder="Date of Birth" type="date" name="dob">
                         </div>
-                        <div class="col-md-6">
-                           <input class="contactus" placeholder="Year of birth" type="type" name="Year of birth">                          
+                        <div class="col-md-12">
+                           <input class="contactus" placeholder="Password" type="Password" name="password">
+                        </div>
+                        <div class="col-md-12">
+                           <input class="contactus" placeholder="Confirm Password" type="Password" name="confirm-password">
                         </div>
                         
                         <div class="col-md-12">
-                           <input class="contactus" placeholder="Password" type="Password" name="Password">
-                        </div>
-                        <div class="col-md-12">
-                           <input class="contactus" placeholder="Confirm Password" type="Confirm Password" name="Confirm Password">
-                        </div>
-                        
-                        <div class="col-md-12">
-                           <button class="send_btn">confirm</button>
+                           <button class="send_btn">Submit</button>
                         </div>
                      </div>
                   </form>
