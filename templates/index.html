@@ -9,11 +9,11 @@
             <div class="airmic">
                <h1>The Swimming Detection </h1>
                <p>Senior Project นี้สามารถวิเคราะห์ท่าว่าย จับจำนวนสโตรก คำนวณระยะทาง แสดงผลแบบเรียลไทม์ อีกทั้งระบบสามารถรองรับสระว่ายน้ำหลากหลายตามขนาดของสระ ซึ่งข้อมูลมีความครบถ้วนโดยบันทึกสถิติ วิเคราะห์ความเร็ว แสดงกราฟแสดงผล ช่วยติดตามพัฒนาการฝึกซ้อม ที่สำคัญสามารถปรับโปรแกรมให้เหมาะกับนักกีฬาแต่ละคน
-               </p><!--
-               <a class="read_more" href="Javascript:void(0)" > เข้าสู่ระบบ </a>
-               <a class="read_more" href="Javascript:void(0)" > ลงทะเบียน </a> -->
+               </p>
+                {% if not current_user.is_authenticated %}
                <a class="read_more" href="{{ url_for('login') }}">เข้าสู่ระบบ</a>
                <a class="read_more" href="{{ url_for('register') }}">ลงทะเบียน</a>
+                {% endif %}
             </div>
          </div>
          <div class="col-md-6">

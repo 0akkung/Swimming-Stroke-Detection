@@ -30,18 +30,24 @@
 <!-- body -->
 <body class="main-layout {% block page_class %}{% endblock %}">
 <!-- loader  -->
-<div class="loader_bg">
-    <div class="loader"><img src="{{ url_for('static',filename='img/loading.gif') }}" alt=""/></div>
-</div>
+{#<div class="loader_bg">#}
+{#    <div class="loader"><img src="{{ url_for('static',filename='img/loading.gif') }}" alt=""/></div>#}
+{#</div>#}
 <!-- end loader -->
 <div id="mySidepanel" class="sidepanel">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
     <a class="active" href="{{ url_for('index') }}">Home</a>
     <a href="{{ url_for('about') }}">About</a>
+
+    {% if not current_user.is_authenticated %}
     <a href="{{ url_for('register') }}">Register</a>
     <a href="{{ url_for('login') }}">Login</a>
+    {% endif %}
+
+    {% if current_user.is_authenticated %}
     <a href="{{ url_for('profile') }}">Profile</a>
     <a href="{{ url_for('swim') }}">Swim</a>
+    {% endif %}
 
 </div>
 <!-- header -->
@@ -58,9 +64,29 @@
                 </div>
                 <div class="col-sm-9">
                     <ul class="email text_align_right">
-                        <li class="d_none"><a href="javascript:void(0)"><i class="fa fa-user" aria-hidden="true"></i>
-                            Login</a>
-                        </li>
+                        {% if not current_user.is_authenticated %}
+                            <li class="d_none">
+
+                                <a href="{{ url_for('login') }}">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    Login
+                                </a>
+                            </li>
+                        {% endif %}
+                        {% if current_user.is_authenticated %}
+                            <li class="d_none">
+                                <a href="{{ url_for('profile') }}">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        {{ current_user.name }}
+                                    </a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('logout') }}">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    Logout
+                                </a>
+                            </li>
+                        {% endif %}
                         <li>
                             <button class="openbtn" onclick="openNav()"><img
                                     src="{{ url_for('static',filename='img/menu_btn.png') }}"></button>
@@ -89,15 +115,6 @@
                             <li> ภาควิชาวิทยาการคอมพิวเตอร์ มหาวิทยาลัยเกษตรศาสตร์ <br>50 ถนนพหลโยธิน ลาดยาว จตุจักร,
                                 กรุงเทพ, ประเทศไทย 10900
                             </li>
-                        </ul>
-                    </div>
-                    <div class="Informa helpful">
-                        <ul>
-                            <li><a href="{{ url_for('index') }}">Home</a></li>
-                            <li><a href="{{ url_for('about') }}">About</a></li>
-                            <li><a href="{{ url_for('login') }}">login</a></li>
-                            <li><a href="{{ url_for('register') }}">register</a></li>
-                            <li><a href="{{ url_for('profile') }}">profile</a></li>
                         </ul>
                     </div>
 

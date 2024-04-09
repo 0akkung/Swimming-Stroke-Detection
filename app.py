@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from swimming_detector import SwimmingDetector
 from datetime import datetime
 
-from flask_login import LoginManager, UserMixin, login_required, login_user
+from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user
 
 app = Flask(__name__, template_folder='./templates')
 app.config['SECRET_KEY'] = 'secret-key-goes-here'
@@ -129,6 +129,13 @@ def swim():
 def video_feed():
     global counter
     return Response(counter.count_strokes(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 
 if __name__ == "__main__":
