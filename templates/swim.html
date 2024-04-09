@@ -3,7 +3,32 @@
 {% block page_class %}inner_page{% endblock %}
 
 {% block content %}
-    <h1>Swimming Stroke Counter</h1>
-    <img src="{{ url_for('video_feed') }}" width="640" height="480" alt="Camera Feed">
+    <!-- about จับเวลา -->
+    <div id="about" class="about">
+        <div class="container-fluid">
+            <div class="row d_flex">
+                <div class="col-md-6">
+                    <div class="titlepage text_align_left">
+                        <h2>การจับเวลาท่าว่ายน้ำ</h2>
+                        <p>หากพร้อมแล้ว สามารถจับเวลาเพื่อนับจำนวน Stroke ได้เลย </p>
 
-   {% endblock %}
+                        <div class="col-md-12 ">
+                            <input class="contactus" placeholder="จำนวน Stroke">
+                        </div>
+                        <a class="read_more" href=""">จับเวลา</a>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="about_img">
+                        <figure><img class="img_responsive" src="{{ url_for('video_feed') }}" alt="#"/></figure>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- end about จับเวลา -->
+
+{% endblock %}

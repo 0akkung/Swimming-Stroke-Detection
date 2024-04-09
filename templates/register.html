@@ -3,60 +3,61 @@
 {% block page_class %}inner_page{% endblock %}
 
 {% block content %}
-  
-       <!-- ลงทะเบียนจ้า -->
-       <div class="contact left_cross_right">
-         <div class="container">
+
+    <!-- ลงทะเบียนจ้า -->
+    <div class="contact left_cross_right">
+        <div class="container">
             <div class="row">
-               <div class="col-md-12">
-                  <div class="titlepage text_align_left">
-                     <h2>ลงทะเบียน</h2>
-                     <p>โปรดกรอกข้อมูลของท่านให้ครบถ้วน</p>
-                  </div>
-               </div>
-               <div class="col-md-12">
-                   {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                        <div class="notification is-danger">
-                            {{ messages[0] }}
-                        </div>
-                    {% endif %}
+                <div class="col-md-12">
+                    <div class="titlepage text_align_left">
+                        <h2>ลงทะเบียน</h2>
+                        <p>โปรดกรอกข้อมูลของท่านให้ครบถ้วน</p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <div class="notification is-danger">
+                                {{ messages[0] }}
+                            </div>
+                        {% endif %}
                     {% endwith %}
-                  <form id="request" class="main_form" method="POST" action="/register">
-                     <div class="row">
-                         
-                        <div class="col-md-12 ">
-                           <input class="contactus" placeholder="Name" type="text" name="name">
-                        </div> 
-                        <div class="col-md-12">
-                           <input class="contactus" placeholder="Email" type="email" name="email">
+                    <form id="request" class="main_form" method="POST" action="/register">
+                        <div class="row">
+
+                            <div class="col-md-12 ">
+                                <input class="contactus" placeholder="Name" type="text" name="name">
+                            </div>
+                            <div class="col-md-12">
+                                <input class="contactus" placeholder="Email" type="email" name="email">
+                            </div>
+
+                            <div class="col-md-6">
+                                <input class="contactus" placeholder="Weight" type="text" name="weight">
+                            </div>
+                            <div class="col-md-6">
+                                <input class="contactus" placeholder="Height " type="text" name="height">
+                            </div>
+                            <div class="col-md-6">
+                                <input class="contactus" placeholder="Date of Birth" type="date" name="dob">
+                            </div>
+                            <div class="col-md-12">
+                                <input class="contactus" placeholder="Password" type="Password" name="password">
+                            </div>
+                            <div class="col-md-12">
+                                <input class="contactus" placeholder="Confirm Password" type="Password"
+                                       name="confirm-password">
+                            </div>
+
+                            <div class="col-md-12">
+                                <button class="send_btn">Submit</button>
+                            </div>
                         </div>
-                        
-                        <div class="col-md-6">
-                           <input class="contactus" placeholder="Weight" type="text" name="weight">
-                        </div>
-                        <div class="col-md-6">
-                           <input class="contactus" placeholder="Height " type="text" name="height">
-                        </div>
-                        <div class="col-md-6">
-                           <input class="contactus" placeholder="Date of Birth" type="date" name="dob">
-                        </div>
-                        <div class="col-md-12">
-                           <input class="contactus" placeholder="Password" type="Password" name="password">
-                        </div>
-                        <div class="col-md-12">
-                           <input class="contactus" placeholder="Confirm Password" type="Password" name="confirm-password">
-                        </div>
-                        
-                        <div class="col-md-12">
-                           <button class="send_btn">Submit</button>
-                        </div>
-                     </div>
-                  </form>
-               </div>
+                    </form>
+                </div>
             </div>
-         </div>
-      </div>
-      <!-- end ลงทะเบียนจ้า -->
+        </div>
+    </div>
+    <!-- end ลงทะเบียนจ้า -->
 
 {% endblock %}

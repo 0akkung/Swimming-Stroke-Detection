@@ -229,6 +229,27 @@ button {
      transition: ease-in all 0.5s;
 }
 
+.read_more2 {
+     display: inline-block;
+     background: #ffffff;
+     color: #000;
+     max-width: 200px;
+     height: 61px;
+     line-height: 61px;
+     width: 100%;
+     font-size: 17px;
+     text-align: center;
+     font-weight: 500;
+     border-radius: 10px;
+     transition: ease-in all 0.5s;
+}
+
+.read_more2:hover {
+     background: #64b3f4;
+     color: #c2e59c;
+     transition: ease-in all 0.5s;
+}
+
 .img_responsive {
      max-width: 100%;
 }
@@ -665,6 +686,7 @@ ul.email li a i {
      font-weight: normal;
 }
 
+
 .main_form .textarea {
      border: inherit;
      margin-bottom: 25px;
@@ -699,6 +721,7 @@ ul.email li a i {
      color: #fff;
 }
 
+
 #request *::placeholder {
      color: #969494;
      opacity: 1;
@@ -720,11 +743,10 @@ ul.email li a i {
      position: absolute;
      content: "";
      width: 100%;
-     background: url('/static/img/footer.jpg');
      height: 251px;
      top: -115px;
      background-size: 100% 100%;
-     background-position: center;
+     background: url(/static/img/footer.jpg) center;
 }
 
 .logo_footer {

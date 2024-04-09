@@ -120,14 +120,16 @@ def profile():
 @app.route('/swim')
 @login_required
 def swim():
+    global counter
+    counter = SwimmingDetector()
     return render_template('swim.html')
 
 
 @app.route('/video_feed')
 def video_feed():
+    global counter
     return Response(counter.count_strokes(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 if __name__ == "__main__":
-    counter = SwimmingDetector()
     app.run(debug=True)

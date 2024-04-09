@@ -5,7 +5,7 @@ def main():
     # Swimming Detector
     detector = SwimmingDetector()
 
-    detector.count_strokes("videos/freestyle/02.mp4")
+    detector.count_strokes("videos/freestyle/02.mp4", test=True)
     # detector.count_strokes()
 
     spm = detector.get_strokes_per_minute()
