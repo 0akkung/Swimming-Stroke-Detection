@@ -26,8 +26,8 @@ class SwimmingDetector:
         self.ready = False
         self.left_stroke = 0
         self.right_stroke = 0
-        self.l_stage = None
-        self.r_stage = None
+        self.l_stage = 'up'
+        self.r_stage = 'up'
 
         # Timer variable
         self.start_time = None
@@ -40,7 +40,7 @@ class SwimmingDetector:
         if self.style == "Freestyle" or self.style == "Backstroke":
             return strokes
 
-        return strokes // 2
+        return max(self.left_stroke, self.right_stroke)
 
     def get_result(self):
         return self.results
@@ -156,7 +156,7 @@ class SwimmingDetector:
 
             if self.ready:
                 # Stroke counter logic
-                if left_shoulder_angle < 30:
+                if left_shoulder_angle < 40 and self.l_stage == 'half-down':
                     # Swimming style logic
                     if self.style == "Unknown":
                         if right_shoulder_angle < 70 and left_elbow_angle > 160:
@@ -170,12 +170,18 @@ class SwimmingDetector:
 
                     self.l_stage = "down"
 
-                elif left_shoulder_angle > 160 and self.l_stage == 'down':
+                elif 40 <= left_shoulder_angle <= 160 and self.l_stage == 'down':
+                    self.l_stage = "half-up"
+
+                elif 40 <= left_shoulder_angle <= 160 and self.l_stage == 'up':
+                    self.l_stage = "half-down"
+
+                elif left_shoulder_angle > 160 and self.l_stage == 'half-up':
                     self.l_stage = "up"
                     self.left_stroke += 1
                     print(f'{self.left_stroke} (Left)')
 
-                if right_shoulder_angle < 30:
+                if right_shoulder_angle < 40 and self.r_stage == 'half-down':
                     # Swimming style logic
                     if self.style == "Unknown":
                         if left_shoulder_angle < 70 and right_elbow_angle > 160:
@@ -188,23 +194,40 @@ class SwimmingDetector:
                             self.style = "Backstroke"
 
                     self.r_stage = "down"
-                elif right_shoulder_angle > 160 and self.r_stage == 'down':
+                    print(self.r_stage)
+
+
+                elif 40 <= right_shoulder_angle <= 160 and self.r_stage == 'down':
+                    self.r_stage = "half-up"
+                    print(self.r_stage)
+
+                elif 40 <= right_shoulder_angle <= 160 and self.r_stage == 'up':
+                    self.r_stage = "half-down"
+                    print(self.r_stage)
+
+                elif right_shoulder_angle > 160 and self.r_stage == 'half-up':
                     self.r_stage = "up"
+                    print(self.r_stage)
                     self.right_stroke += 1
                     print(f'{self.right_stroke} (Right)')
 
-                cv2.rectangle(image, (480, 50), (500, 380), (255, 0, 0), 3)
-                cv2.rectangle(image, (480, int(left_bar)), (500, 380), (255, 0, 0), cv2.FILLED)
-                cv2.putText(image, f'{int(left_per)}%', (465, 430), cv2.FONT_HERSHEY_PLAIN, 2,
-                            (255, 0, 0), 2)
-
-                cv2.rectangle(image, (580, 50), (600, 380), (0, 102, 255), 3)
-                cv2.rectangle(image, (580, int(right_bar)), (600, 380), (0, 102, 255), cv2.FILLED)
-                cv2.putText(image, f'{int(right_per)}%', (565, 430), cv2.FONT_HERSHEY_PLAIN, 2,
-                            (255, 0, 0), 2)
+                # cv2.rectangle(image, (480, 50), (500, 380), (255, 0, 0), 3)
+                # cv2.rectangle(image, (480, int(left_bar)), (500, 380), (255, 0, 0), cv2.FILLED)
+                # # cv2.putText(image, f'{int(left_per)}%', (465, 430), cv2.FONT_HERSHEY_PLAIN, 2,
+                # #             (255, 0, 0), 2)
+                # cv2.putText(image, self.l_stage, (465, 430), cv2.FONT_HERSHEY_PLAIN, 2,
+                #             (255, 0, 0), 2)
+                #
+                # cv2.rectangle(image, (580, 50), (600, 380), (0, 102, 255), 3)
+                # cv2.rectangle(image, (580, int(right_bar)), (600, 380), (0, 102, 255), cv2.FILLED)
+                # # cv2.putText(image, f'{int(right_per)}%', (565, 430), cv2.FONT_HERSHEY_PLAIN, 2,
+                # #             (255, 0, 0), 2)
+                # cv2.putText(image, self.r_stage, (465, 430), cv2.FONT_HERSHEY_PLAIN, 2,
+                #             (255, 0, 0), 2)
 
         except Exception as e:
-            print(f"Error: {e}")
+            pass
+            # print(f"Error: {e}")
 
         # Render detections
         self.mp_drawing.draw_landmarks(image, self.results.pose_landmarks, self.mp_pose.POSE_CONNECTIONS,

@@ -22,14 +22,13 @@ import Files
 basic 
 ---------------------------------------------------------------------*/
 /* ลงทะเบียน+เข้าสู่ระบบ*/
-  
-   
 body {
      color: #666666;
      font-size: 14px;
      font-family: 'Roboto', sans-serif;
      line-height: 1.80857;
      font-weight: normal;
+
 }
 
 a {
@@ -41,6 +40,7 @@ a {
      -ms-transition: all .3s ease-in-out;
      -o-transition: all .3s ease-in-out;
      transition: all .3s ease-in-out;
+
 }
 
 h1,
@@ -151,7 +151,7 @@ img {
 .btn-custom {
      margin-top: 20px;
      background-color: transparent !important;
-     border: 2px solid #ddd;
+     border: 10px solid #ddd;
      padding: 12px 40px;
      font-size: 16px;
 }
@@ -277,8 +277,8 @@ button {
 }
 
 
-/*---------------------------- 
-loader  
+/*----------------------------
+loader
 ----------------------------*/
 
 .loader_bg {
@@ -305,8 +305,8 @@ loader
 }
 
 
-/*--------------------------------------------------------------------- 
-header 
+/*---------------------------------------------------------------------
+header
 ---------------------------------------------------------------------*/
 
 header {
@@ -318,7 +318,7 @@ header {
 }
 
 
-/*--------------------------------------------------------------------- 
+/*---------------------------------------------------------------------
 menu section
 ---------------------------------------------------------------------*/
 
@@ -351,7 +351,7 @@ ul.email li a i {
      z-index: 9999999;
      height: 100%;
      top: 0;
-     left: 0;
+     right: 0;
      background-color: #64b3f4;
      overflow-x: hidden;
      transition: 0.5s;
@@ -440,6 +440,7 @@ ul.email li a i {
 
 .service_text h3 {
      color: #090303;
+     border: 10px;
      font-size: 25px;
      line-height: 25px;
      padding-bottom: 10px;
@@ -525,7 +526,7 @@ ul.email li a i {
 }
 
 .mics {
-     background: linear-gradient(to bottom, #64b3f4 35%, #c2e59c 60%);  
+     background: linear-gradient(to bottom, #64b3f4 35%, #c2e59c 60%);
      padding: 5px;
      border-radius: 50%;
      margin: 0 auto;
@@ -586,7 +587,7 @@ ul.email li a i {
      padding-top: 80px;
      padding-bottom: 142px;
      background: rgb(73, 54, 183);
-     background: linear-gradient(62deg, rgba(100, 179, 244, 1) 12%, rgba(100, 179, 244, 1) 19%, rgba(rgba(194, 229, 156), 1) 30%, rgba(194, 229, 156), 1) 100%;
+     background: linear-gradient(62deg, rgba(100, 179, 244, 1) 12%, rgba(100, 179, 244, 1) 19%, rgba(194, 229, 156, 1) 30%, rgba(194, 229, 156, 1) 100%);
 }
 
 .testimonial .titlepage {
@@ -791,6 +792,7 @@ ul.email li a i {
 
 .helpful ul li a:hover { /*ติดตาม*/
      color: #ff0000;
+     border: 10px
 }
 
 .conta ul li a {
@@ -831,7 +833,7 @@ ul.social_icon li a:hover {
 
 .ente {
      background: #dbdada;
-     color: #fff;
+     color: rgb(255, 255, 255);
      border: inherit;
      padding: 0 15px;
      height: 62px;
@@ -896,3 +898,17 @@ ul.social_icon li a:hover {
 .inner_page .footer {
      margin-top: 110px;
 }
+
+/** Profile **/
+body {
+     font-size: 16px; /* ปรับขนาดตัวหนังสือทั่วไป */
+     color: black; /* ปรับสีตัวหนังสือทั่วไป */
+   }
+
+   .card-title {
+     font-size: 24px; /* ปรับขนาดหัวข้อ */
+   }
+
+   .card-info {
+     font-size: 18px; /* ปรับขนาดตัวอักษรในข้อมูลส่วนตัว */
+   }

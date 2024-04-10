@@ -3,7 +3,47 @@
 {% block page_class %}inner_page{% endblock %}
 
 {% block content %}
-      <!-- Profile section -->
-<h1>Profile Page</h1>
-      <!-- end Profile  section -->
+    <!-- Profile section -->
+    <div id="about" class="about">
+        <div class="container-fluid">
+            <div class="row d_flex">
+                <div class="col-md-6">
+                    <div class="titlepage text_align_left">
+                        <h2>Profile</h2>
+                        <div class="card">
+                            <div class="card-title">ข้อมูลส่วนตัว</div>
+                            <div class="card-info">
+                                <label for="name">ชื่อ: {{ current_user.name }}</label>
+
+                            </div>
+                            <div class="card-info">
+                                <label for="height">ส่วนสูง: {{ current_user.height }}</label>
+
+                            </div>
+                            <div class="card-info">
+                                <label for="weight">น้ำหนัก: {{ current_user.weight }}</label>
+
+                            </div>
+                            <div class="card-info">
+                                <label for="age">อายุ: {{ current_user.calculate_age() }}</label>
+
+                            </div>
+                            <div class="card-info">
+                                <label for="swimming-history">ประวัติการว่ายน้ำ: ยังไม่มี</label>
+                                <span id="swimming-history">
+
+                           </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="about_img">
+                        <figure><img class="img_responsive" src="{{ url_for('static',filename='img/about_img.jpg') }}" alt="#"/></figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end Profile  section -->
 {% endblock %}
