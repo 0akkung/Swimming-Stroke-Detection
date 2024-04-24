@@ -32,7 +32,7 @@ class SwimmingDetector:
         # Timer variable
         self.start_time = None
         self.end_time = None
-        self.elapsed_time = None
+        self.elapsed_time = 0
 
     def get_strokes(self):
         strokes = self.left_stroke + self.right_stroke

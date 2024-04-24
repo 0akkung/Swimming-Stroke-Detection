@@ -123,13 +123,19 @@ def profile():
 def swim():
     global counter
     counter = SwimmingDetector()
-    return render_template('swim.html')
+    return render_template('swim.html', counter=counter)
 
 
 @app.route('/video_feed')
 def video_feed():
     global counter
     return Response(counter.count_strokes(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/swim/result')
+@login_required
+def swim_result():
+    global counter
+    return render_template('swim-result.html', counter=counter)
 
 
 @app.route('/logout')
