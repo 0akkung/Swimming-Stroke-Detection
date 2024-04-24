@@ -5,7 +5,7 @@ from swimming_detector import SwimmingDetector
 from datetime import datetime
 from io import BytesIO
 
-from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user
+from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 
 app = Flask(__name__, template_folder='./templates')
 app.config['SECRET_KEY'] = 'secret-key-goes-here'
@@ -14,6 +14,7 @@ db = SQLAlchemy(app)
 
 
 class User(UserMixin, db.Model):
+    __tablename__ = 'users'
     """Create columns to store our data"""
     id = db.Column(db.Integer, primary_key=True)  # primary keys are required by SQLAlchemy
     email = db.Column(db.String(100), unique=True, nullable=False)
@@ -22,14 +23,26 @@ class User(UserMixin, db.Model):
     height = db.Column(db.Integer, nullable=False)
     weight = db.Column(db.Integer, nullable=False)
     date_of_birth = db.Column(db.DateTime, nullable=False)
+    swimming_records = db.relationship('SwimmingRecord', backref='user', lazy=True)
 
     def calculate_age(self):
         today = datetime.now()
-        age = today.year - self.date_of_birth.year - ((today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day))
+        age = today.year - self.date_of_birth.year - (
+                (today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day))
         return age
 
     def __repr__(self):
         return '<User %r>' % self.username
+
+
+class SwimmingRecord(db.Model):
+    __tablename__ = 'swimming_records'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    time = db.Column(db.String(20), nullable=False)
+    stroke = db.Column(db.Integer, nullable=False)
+    strokes_per_minute = db.Column(db.Integer, nullable=False)
+    date = db.Column(db.DateTime, nullable=False)
 
 
 with app.app_context():
@@ -72,7 +85,7 @@ def login():
         if not user or not check_password_hash(user.password, password):
             print("Invalid password")
             flash('Please check your login details and try again.')
-            return redirect(url_for('login')) # if the user doesn't exist or password is wrong, reload the page
+            return redirect(url_for('login'))  # if the user doesn't exist or password is wrong, reload the page
 
         # if the above check passes, then we know the user has the right credentials
         login_user(user, remember=remember)
@@ -116,6 +129,7 @@ def register():
 @app.route('/profile')
 @login_required
 def profile():
+    print(current_user.swimming_records)
     return render_template('profile.html')
 
 
@@ -131,6 +145,24 @@ def swim():
 def video_feed():
     global counter
     return Response(counter.count_strokes(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+@app.route('/swim', methods=['POST'])
+@login_required
+def save_swim_result():
+    global counter
+    time = str(counter.get_elapsed_time())
+    stroke = counter.get_strokes()
+    spm = counter.get_strokes_per_minute()
+    date = datetime.now()
+    new_swimming_record = SwimmingRecord(user_id=current_user.id, time=time, stroke=stroke, strokes_per_minute=spm,
+                                         date=date)
+
+    # Add the new record to the database
+    db.session.add(new_swimming_record)
+    db.session.commit()
+
+    return redirect(url_for('swim_result'))
 
 
 @app.route('/swim/result')

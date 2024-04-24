@@ -15,9 +15,9 @@
                         <div class="col-md-12 ">
                             <label for="age">Stroke: {{ counter.get_strokes() }}</label>
                         </div>
-                        <a href="{{ url_for('swim_result') }}">
-                            <button type="button"  class="btn-danger btn-lg">STOP</button>
-                        </a>
+                        <form id="request" method="POST" action="{{ url_for('save_swim_result') }}">
+                            <button class="btn-danger btn-lg">STOP</button>
+                        </form>
                     </div>
 
                 </div>

@@ -31,7 +31,6 @@ class SwimmingDetector:
 
         # Timer variable
         self.start_time = None
-        self.end_time = None
         self.elapsed_time = 0
 
     def get_strokes(self):
@@ -41,6 +40,10 @@ class SwimmingDetector:
             return strokes
 
         return max(self.left_stroke, self.right_stroke)
+
+    def get_elapsed_time(self):
+        self.elapsed_time = time.time() - self.start_time
+        return self.elapsed_time
 
     def get_result(self):
         return self.results
@@ -252,11 +255,8 @@ class SwimmingDetector:
                         cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2, cv2.LINE_AA)
 
             # Show Timer
-            self.end_time = time.time()
-            self.elapsed_time = self.end_time - self.start_time
-
             cv2.rectangle(image, (0, 420), (120, 480), (0, 255, 0), -1)
-            cv2.putText(image, f'{self.elapsed_time:.2f}', (10, 460), cv2.FONT_HERSHEY_PLAIN,
+            cv2.putText(image, f'{self.get_elapsed_time():.2f}', (10, 460), cv2.FONT_HERSHEY_PLAIN,
                         2, (255, 0, 0), 3)
 
         return image
@@ -305,7 +305,7 @@ class SwimmingDetector:
         cv2.destroyAllWindows()
 
     def get_strokes_per_minute(self):
-        return (self.get_strokes() / self.elapsed_time) * 60
+        return int((self.get_strokes() / self.elapsed_time) * 60)
 
     def reset(self):
         self.results = None
@@ -327,5 +327,4 @@ class SwimmingDetector:
 
         # Timer variable
         self.start_time = None
-        self.end_time = None
         self.elapsed_time = 0

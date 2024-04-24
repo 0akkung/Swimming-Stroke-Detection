@@ -38,9 +38,26 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="about_img">
-                        <figure><img class="img_responsive" src="{{ url_for('static',filename='img/about_img.jpg') }}" alt="#"/></figure>
-                    </div>
+                    <table border="1">
+                        <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Stroke</th>
+                            <th>Strokes per Minute</th>
+                            <th>Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for record in current_user.swimming_records %}
+                            <tr>
+                                <td>{{ record.time }}</td>
+                                <td>{{ record.stroke }}</td>
+                                <td>{{ record.strokes_per_minute }}</td>
+                                <td>{{ record.date }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
