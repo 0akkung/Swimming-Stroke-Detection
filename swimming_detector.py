@@ -139,8 +139,9 @@ class SwimmingDetector:
             right_elbow_angle = self.calculate_angle(image, right_shoulder, right_elbow, right_wrist)
 
             # Store angles in a list for plotting
-            self.left_angles.append(left_shoulder_angle)
-            self.right_angles.append(right_shoulder_angle)
+            if self.ready:
+                self.left_angles.append(left_shoulder_angle)
+                self.right_angles.append(right_shoulder_angle)
 
             # Percentage of success of stroke
             left_per = np.interp(left_shoulder_angle, (30, 160), (0, 100))
@@ -270,7 +271,8 @@ class SwimmingDetector:
         plt.title('Angles of Left and Right Arms')
         plt.legend()
         plt.grid(True)
-        plt.show()
+
+        return plt
 
     def count_strokes(self, src=0, w_cam=640, h_cam=480, test=False):
         # VIDEO FEED
@@ -304,3 +306,26 @@ class SwimmingDetector:
 
     def get_strokes_per_minute(self):
         return (self.get_strokes() / self.elapsed_time) * 60
+
+    def reset(self):
+        self.results = None
+        self.landmarks = None
+
+        # Swimming Style
+        self.style = "Unknown"
+
+        # Angles variables
+        self.left_angles = []
+        self.right_angles = []
+
+        # Stroke counter variables
+        self.ready = False
+        self.left_stroke = 0
+        self.right_stroke = 0
+        self.l_stage = 'up'
+        self.r_stage = 'up'
+
+        # Timer variable
+        self.start_time = None
+        self.end_time = None
+        self.elapsed_time = 0

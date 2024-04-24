@@ -11,18 +11,24 @@
                     <div class="titlepage text_align_left">
                         <h2>Swimming Result</h2>
                         <div class="col-md-12 ">
-                            <label for="age">Total Stroke: {{ counter.get_strokes() }}</label>
+                            <label for="age">Total Stroke: {{ strokes }}</label>
                         </div>
 
                         <div class="col-md-12 ">
-                            <label for="age">Stroke Per Minute: {{ counter.get_strokes_per_minute() }}</label>
+                            <label for="age">Stroke Per Minute: {{ spm }}</label>
                         </div>
+                        <a href="{{ url_for('swim') }}">
+                            <button type="button"  class="btn-danger btn-lg">Swim Again</button>
+                        </a>
+                        <a href="{{ url_for('profile') }}">
+                            <button type="button"  class="btn-accept btn-lg">Go to Profile</button>
+                        </a>
                     </div>
 
                 </div>
                 <div class="col-md-6">
                     <div class="about_img">
-                        <figure><img class="img_responsive" src="{{ url_for('static',filename='img/about_img.jpg') }}" alt="#"/></figure>
+                        <figure><img class="img_responsive" src="{{ url_for('plot_angle') }}" alt="#"/></figure>
 
                     </div>
                 </div>

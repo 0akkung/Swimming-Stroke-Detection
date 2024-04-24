@@ -1,8 +1,9 @@
-from flask import Flask, render_template, redirect, url_for, request, flash, Response
+from flask import Flask, render_template, redirect, url_for, request, flash, Response, send_file
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from swimming_detector import SwimmingDetector
 from datetime import datetime
+from io import BytesIO
 
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user
 
@@ -34,7 +35,7 @@ class User(UserMixin, db.Model):
 with app.app_context():
     db.create_all()
 
-counter = None
+counter = SwimmingDetector()
 
 login_manager = LoginManager()  # Login manage for flask-login
 login_manager.init_app(app)
@@ -122,7 +123,7 @@ def profile():
 @login_required
 def swim():
     global counter
-    counter = SwimmingDetector()
+    counter.reset()
     return render_template('swim.html', counter=counter)
 
 
@@ -131,11 +132,32 @@ def video_feed():
     global counter
     return Response(counter.count_strokes(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
+
 @app.route('/swim/result')
 @login_required
 def swim_result():
     global counter
-    return render_template('swim-result.html', counter=counter)
+    strokes = counter.get_strokes()
+    spm = counter.get_strokes_per_minute()
+    # counter.reset()
+    return render_template('swim-result.html', strokes=strokes, spm=spm)
+
+
+@app.route('/plot_angle')
+def plot_angle():
+    # Create matplotlib graph
+    plt = counter.plot_angles()
+
+    # Save the graph to a BytesIO object
+    img_bytes = BytesIO()
+    plt.savefig(img_bytes, format='png')
+    img_bytes.seek(0)
+
+    # Clear the matplotlib plot to avoid memory leaks
+    plt.clf()
+
+    # Return the BytesIO object containing the graph image
+    return send_file(img_bytes, mimetype='image/png')
 
 
 @app.route('/logout')
