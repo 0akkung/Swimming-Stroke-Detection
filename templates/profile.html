@@ -1,66 +1,11 @@
 {% extends "base.html" %}
 
+{% block title %}Profile | Swimming Detection{% endblock %}
+
 {% block page_class %}inner_page{% endblock %}
 
 {% block content %}
     <!-- Profile section -->
-    {#    <div id="about" class="about">#}
-    {#        <div class="container-fluid">#}
-    {#            <div class="col-md-6">#}
-    {#                <div class="titlepage text_align_left">#}
-    {#                    <h2>Profile</h2>#}
-    {#                    <div class="card">#}
-    {#                        <div class="card-title">ข้อมูลส่วนตัว</div>#}
-    {#                        <div class="card-info">#}
-    {#                            <label for="name">ชื่อ: {{ current_user.name }}</label>#}
-    {##}
-    {#                        </div>#}
-    {#                        <div class="card-info">#}
-    {#                            <label for="height">ส่วนสูง: {{ current_user.height }}</label>#}
-    {##}
-    {#                        </div>#}
-    {#                        <div class="card-info">#}
-    {#                            <label for="weight">น้ำหนัก: {{ current_user.weight }}</label>#}
-    {##}
-    {#                        </div>#}
-    {#                        <div class="card-info">#}
-    {#                            <label for="age">อายุ: {{ current_user.calculate_age() }} ปี</label>#}
-    {##}
-    {#                        </div>#}
-    {#                        <div class="card-info">#}
-    {#                            <label for="swimming-history">ประวัติการว่ายน้ำ: ยังไม่มี</label>#}
-    {#                            <span id="swimming-history">#}
-    {##}
-    {#                           </span>#}
-    {#                        </div>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#            </div>#}
-    {#            <div class="col-md-6">#}
-    {#                <table class="table">#}
-    {#                    <thead class="thead-dark">#}
-    {#                    <tr>#}
-    {#                        <th>Time</th>#}
-    {#                        <th>Stroke</th>#}
-    {#                        <th>Strokes per Minute</th>#}
-    {#                        <th>Date</th>#}
-    {#                    </tr>#}
-    {#                    </thead>#}
-    {#                    <tbody>#}
-    {#                    {% for record in current_user.swimming_records %}#}
-    {#                        <tr>#}
-    {#                            <td>{{ record.time }}</td>#}
-    {#                            <td>{{ record.stroke }}</td>#}
-    {#                            <td>{{ record.strokes_per_minute }}</td>#}
-    {#                            <td>{{ record.date.strftime("%d %b %Y %H:%M") }}</td>#}
-    {#                        </tr>#}
-    {#                    {% endfor %}#}
-    {#                    </tbody>#}
-    {#                </table>#}
-    {#            </div>#}
-    {#        </div>#}
-    {#    </div>#}
-    <!-- end Profile  section -->
     <section style="background-color: #fff;">
         <div class="container py-5">
 
@@ -141,4 +86,5 @@
             </table>
         </div>
     </section>
+     <!-- end Profile  section -->
 {% endblock %}

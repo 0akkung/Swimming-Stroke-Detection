@@ -11,10 +11,14 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
 
     <!-- site metas -->
-    <title>Swimming Detection</title>
+    <title>{% block title %}{% endblock %}</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
+
+    <!-- App icon -->
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/th/thumb/5/51/Logo_ku_th.svg/1200px-Logo_ku_th.svg.png">
+
 
     <!-- bootstrap css -->
     <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">

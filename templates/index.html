@@ -1,309 +1,376 @@
 {% extends "base.html" %}
 
+{% block title %}Swimming Detection{% endblock %}
+
 {% block content %}
-<!-- start slider section -->
-<div id="top_section" class=" banner_main">
-   <div class="container">
-      <div class="row d_flex">
-         <div class="col-md-6">
-            <div class="airmic">
-               <h1>The Swimming Detection </h1>
-               <p>Senior Project นี้สามารถวิเคราะห์ท่าว่าย จับจำนวนสโตรก คำนวณระยะทาง แสดงผลแบบเรียลไทม์ อีกทั้งระบบสามารถรองรับสระว่ายน้ำหลากหลายตามขนาดของสระ ซึ่งข้อมูลมีความครบถ้วนโดยบันทึกสถิติ วิเคราะห์ความเร็ว แสดงกราฟแสดงผล ช่วยติดตามพัฒนาการฝึกซ้อม ที่สำคัญสามารถปรับโปรแกรมให้เหมาะกับนักกีฬาแต่ละคน
-               </p>
-                {% if not current_user.is_authenticated %}
-               <a class="read_more" href="{{ url_for('login') }}">เข้าสู่ระบบ</a>
-               <a class="read_more" href="{{ url_for('register') }}">ลงทะเบียน</a>
-                {% endif %}
-            </div>
-         </div>
-         <div class="col-md-6">
-            <div class="mic_img">
-               <figure><img src="{{ url_for('static',filename='img/right_side.png') }}" alt="#"/></figure>
-            </div>
-         </div>
-      </div>
-   </div>
-</div>
-<!-- end slider section -->
-<!-- services -->
-<div class="services">
-   <div class="container">
-      <div class="row">
-         <div class="col-md-12">
-            <div class="titlepage text_align_center">
-               <h2>เกี่ยวกับกีฬาว่ายน้ำ</h2>
-               <p>อีกหนึ่งประเภทชนิดกีฬาที่ได้รับความนิยม อย่างล้นหลาม เนื่องจากไม่ต้องใช้อุปกรณ์ใดๆ ในการออกกำลังกายเลย นั่นก็คือกีฬาว่ายน้ำ เพียงแค่มีน้ำ ไม่ว่าจะในสระ บ่อ คู คลอง ทะเล หรือ มหาสมุทร ที่สามารถลงไปแหวกว่ายได้ ก็เป็นสถานที่ที่ใช้ออกกำลังกายประเภทนี้แล้วค่ะ แต่จะใช้ท่าอะไร ในการว่ายนั้น ก็แล้วแต่จะถนัด มีทั้ง ว่ายแบบฟรีสไตล์ ว่ายกรรเชียง ว่ายผีเสื้อ หรืออื่นๆ ตามแบบการว่ายน้ำและการแข่งขันสากล</p>
-               <br>ที่มา: สมาคมกีฬาว่ายน้ำแห่งประเทศไทย
-            </div>
-         </div>
-      </div>
-      <div class="row">
-         <div class="col-md-4">
-            <div class="service_img text_align_center">
-               <i><img src="{{ url_for('static',filename='img/service1.png') }}" alt="#"/></i>
-            </div>
-            <div class="service_text text_align_center">
-               <h3>การแข่งขัน</h3>
-               <p>มีทั้งหมด 4 ท่า ได้แก่ ท่าผีเสื้อ, ท่ากรรเชียง, ท่ากบ, ท่าฟรีสไตล์</p>
-            </div>
-         </div>
-         <div class="col-md-4">
-            <div class="service_img text_align_center">
-               <i><img src="{{ url_for('static',filename='img/service1.png') }}" alt="#"/></i>
-            </div>
-            <div class="service_text text_align_center">
-               <h3>ขนาดของสระมาตรฐาน</h3>
-               <p>กว้าง 25 เมตร ยาว 50 เมตร มีลู่สำหรับการว่ายทั้งหมด 8 ลู่ แต่ละลู่กว้างประมาณ 7-9 ฟุต</p>
-            </div>
-         </div>
-         <div class="col-md-4">
-            <div class="service_img text_align_center">
-               <i><img src="{{ url_for('static',filename='img/service1.png') }}" alt="#"/></i>
-            </div>
-            <div class="service_text text_align_center">
-               <h3>ประเภทการแข่งขัน</h3>
-               <p>ท่าฟรีสไตล์ 50 เมตร, 100 เมตร, 200 เมตร, 400 เมตร, 800 และ 1,500 เมตร
-                  <br> ท่ากรรเชียง 50 เมตร, 100 เมตร และ 200 เมตร
-                  <br> ท่ากบ 50 เมตร, 100 เมตร และ 200 เมตร
-                  <br> ท่าผีเสื้อ 50 เมตร, 100 เมตร และ 200 เมตร
-                  <br> เป็นต้น</p>
-            </div>
-         </div>
-      </div>
-   </div>
-</div>
-<!-- end services -->
-<!-- about -->
-<div id="about" class="about">
-   <div class="container-fluid">
-      <div class="row d_flex">
-         <div class="col-md-6">
-            <div class="titlepage text_align_left">
-               <h2>About Us</h2>
-               <p>จัดทำโดยนางสาวปารเมศ กิตติราช รหัสนิสิต 6410401108 และ นายภาวัต พุทธิมิตร รหัสนิสิต 6410406827 นิสิตระดับปริญญาตรี ภาควิชาวิทยาการคอมพิวเตอร์ ภาคปกติ คณะวิทยาศาสตร์ มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตบางเขน อาจารย์ที่ปรึกษาโปรเจ็ค อาจารย์สมโชค เรืองอิทธินันท์ และข้อมูลการว่ายน้ำมาจากสมาคมกีฬาว่ายน้ำแห่งประเทศไทย   </p>
-               <a class="read_more" href="{{ url_for('about') }}">Read More</a>
-            </div>
-         </div>
-         <div class="col-md-6">
-            <div class="about_img">
-               <figure><img class="img_responsive" src="{{ url_for('static',filename='img/about_img.jpg') }}" alt="#"/></figure>
-            </div>
-         </div>
-      </div>
-   </div>
-</div>
-<!-- end about -->
-<!-- our_mics -->
-<div class="our_mics">
-   <div class="container">
-      <div class="row">
-         <div class="col-md-10 offset-md-1">
-            <div class="titlepage text_align_center">
-               <h2>ระเบียบข้อบังคับ</h2>
-               <p>- กติกา กีฬาว่ายน้ำ จะกำหนดเสียก่อนว่า การแข่งขันแบบนี้จะว่ายด้วยท่าอะไร และมีระยะทางเท่าใด ซึ่งผู้เข้าแข่งขันก็จะต้องว่ายตามที่กำหนดไว้ ใครเข้าเส้นชัยได้เป็นคนแรกจะเป็นผู้ชนะ
+    <!-- start slider section -->
+    <div id="top_section" class=" banner_main">
+        <div class="container">
+            <div class="row d_flex">
+                <div class="col-md-6">
+                    <div class="airmic">
+                        <h1>The Swimming Detection </h1>
+                        <p>Senior Project นี้สามารถวิเคราะห์ท่าว่าย จับจำนวนสโตรก คำนวณระยะทาง แสดงผลแบบเรียลไทม์
+                            อีกทั้งระบบสามารถรองรับสระว่ายน้ำหลากหลายตามขนาดของสระ ซึ่งข้อมูลมีความครบถ้วนโดยบันทึกสถิติ
+                            วิเคราะห์ความเร็ว แสดงกราฟแสดงผล ช่วยติดตามพัฒนาการฝึกซ้อม
+                            ที่สำคัญสามารถปรับโปรแกรมให้เหมาะกับนักกีฬาแต่ละคน
+                        </p>
+                        {% if not current_user.is_authenticated %}
+                            <a class="read_more" href="{{ url_for('login') }}">เข้าสู่ระบบ</a>
+                            <a class="read_more" href="{{ url_for('register') }}">ลงทะเบียน</a>
+                        {% endif %}
+                        {% if current_user.is_authenticated %}
 
-                  <br>- กีฬาว่ายน้ำนั้นเนื่องจากว่าเป็นกีฬาที่นิยมสำหรับผู้คนจำนวนมากดังนั้น จึงได้มีการจัดการแข่งขันขึ้น เพื่อวัดกันว่าใครเก่งที่สุด เช่น การแข่งขันฟรีสไตล์ 100 เมตร ผู้เข้าแข่งขันจะต้องว่ายด้วยท่าฟรีสไตล์ ในระยะทาง 100 เมตร แต่ว่า ระยะทางที่ยาวที่สุดของสระว่ายน้ำ คือ 50 เมตร ฉะนั้น ผู้แข่งขันจึงต้องว่ายกลับตัว 1 ครั้ง เป็นการว่ายไปกลับ 1 รอบ จึงจะได้ระยะทาง 100 เมตร สำหรับการว่ายผลัด
+                            <a class="read_more" href="{{ url_for('swim') }}">ไปว่ายน้ำ</a>
+                        {% endif %}
 
-                  <br>- ผู้แข่งขันกระโดดลงสระหลังจากที่เพื่อนร่วมทีมจะว่ายแตะขอบสระไปแล้วเท่านั้น หากเพื่อนร่วมทีมยังไม่แตะขอบสระ แล้วกระโดดลงไป จะถูกปรับแพ้ทันที
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mic_img">
+                        <figure><img src="{{ url_for('static',filename='img/right_side.png') }}" alt="#"/></figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end slider section -->
+    <!-- services -->
+    <div class="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="titlepage text_align_center">
+                        <h2>เกี่ยวกับกีฬาว่ายน้ำ</h2>
+                        <p>อีกหนึ่งประเภทชนิดกีฬาที่ได้รับความนิยม อย่างล้นหลาม เนื่องจากไม่ต้องใช้อุปกรณ์ใดๆ
+                            ในการออกกำลังกายเลย นั่นก็คือกีฬาว่ายน้ำ เพียงแค่มีน้ำ ไม่ว่าจะในสระ บ่อ คู คลอง ทะเล หรือ
+                            มหาสมุทร ที่สามารถลงไปแหวกว่ายได้ ก็เป็นสถานที่ที่ใช้ออกกำลังกายประเภทนี้แล้วค่ะ
+                            แต่จะใช้ท่าอะไร ในการว่ายนั้น ก็แล้วแต่จะถนัด มีทั้ง ว่ายแบบฟรีสไตล์ ว่ายกรรเชียง
+                            ว่ายผีเสื้อ หรืออื่นๆ ตามแบบการว่ายน้ำและการแข่งขันสากล</p>
+                        <br>ที่มา: สมาคมกีฬาว่ายน้ำแห่งประเทศไทย
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="service_img text_align_center">
+                        <i><img src="{{ url_for('static',filename='img/service1.png') }}" alt="#"/></i>
+                    </div>
+                    <div class="service_text text_align_center">
+                        <h3>การแข่งขัน</h3>
+                        <p>มีทั้งหมด 4 ท่า ได้แก่ ท่าผีเสื้อ, ท่ากรรเชียง, ท่ากบ, ท่าฟรีสไตล์</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service_img text_align_center">
+                        <i><img src="{{ url_for('static',filename='img/service1.png') }}" alt="#"/></i>
+                    </div>
+                    <div class="service_text text_align_center">
+                        <h3>ขนาดของสระมาตรฐาน</h3>
+                        <p>กว้าง 25 เมตร ยาว 50 เมตร มีลู่สำหรับการว่ายทั้งหมด 8 ลู่ แต่ละลู่กว้างประมาณ 7-9 ฟุต</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service_img text_align_center">
+                        <i><img src="{{ url_for('static',filename='img/service1.png') }}" alt="#"/></i>
+                    </div>
+                    <div class="service_text text_align_center">
+                        <h3>ประเภทการแข่งขัน</h3>
+                        <p>ท่าฟรีสไตล์ 50 เมตร, 100 เมตร, 200 เมตร, 400 เมตร, 800 และ 1,500 เมตร
+                            <br> ท่ากรรเชียง 50 เมตร, 100 เมตร และ 200 เมตร
+                            <br> ท่ากบ 50 เมตร, 100 เมตร และ 200 เมตร
+                            <br> ท่าผีเสื้อ 50 เมตร, 100 เมตร และ 200 เมตร
+                            <br> เป็นต้น</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end services -->
+    <!-- about -->
+    <div id="about" class="about">
+        <div class="container-fluid">
+            <div class="row d_flex">
+                <div class="col-md-6">
+                    <div class="titlepage text_align_left">
+                        <h2>About Us</h2>
+                        <p>จัดทำโดยนางสาวปารเมศ กิตติราช รหัสนิสิต 6410401108 และ นายภาวัต พุทธิมิตร รหัสนิสิต
+                            6410406827 นิสิตระดับปริญญาตรี ภาควิชาวิทยาการคอมพิวเตอร์ ภาคปกติ คณะวิทยาศาสตร์
+                            มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตบางเขน อาจารย์ที่ปรึกษาโปรเจ็ค อาจารย์สมโชค เรืองอิทธินันท์
+                            และข้อมูลการว่ายน้ำมาจากสมาคมกีฬาว่ายน้ำแห่งประเทศไทย </p>
+                        <a class="read_more" href="{{ url_for('about') }}">Read More</a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="about_img">
+                        <figure><img class="img_responsive" src="{{ url_for('static',filename='img/about_img.jpg') }}"
+                                     alt="#"/></figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end about -->
+    <!-- our_mics -->
+    <div class="our_mics">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 offset-md-1">
+                    <div class="titlepage text_align_center">
+                        <h2>ระเบียบข้อบังคับ</h2>
+                        <p>- กติกา กีฬาว่ายน้ำ จะกำหนดเสียก่อนว่า การแข่งขันแบบนี้จะว่ายด้วยท่าอะไร และมีระยะทางเท่าใด
+                            ซึ่งผู้เข้าแข่งขันก็จะต้องว่ายตามที่กำหนดไว้ ใครเข้าเส้นชัยได้เป็นคนแรกจะเป็นผู้ชนะ
 
-                  <br>- กติกาการแข่งขัน ใช้ควบคุมการแข่งขันที่จัดขึ้นทุกประเภท ได้แก่ การแข่งขันโอลิมปิกเกมส์ การแข่งขันชิงแชมเปี้ยนโลก การแข่งขันระหว่างทวีป และการแข่งขันทั่ว ๆ ไประหว่างประเทศ ยกเว้นการแข่งขันที่ระบุไว้เป็นอย่างอื่น
+                            <br>- กีฬาว่ายน้ำนั้นเนื่องจากว่าเป็นกีฬาที่นิยมสำหรับผู้คนจำนวนมากดังนั้น
+                            จึงได้มีการจัดการแข่งขันขึ้น เพื่อวัดกันว่าใครเก่งที่สุด เช่น การแข่งขันฟรีสไตล์ 100 เมตร
+                            ผู้เข้าแข่งขันจะต้องว่ายด้วยท่าฟรีสไตล์ ในระยะทาง 100 เมตร แต่ว่า
+                            ระยะทางที่ยาวที่สุดของสระว่ายน้ำ คือ 50 เมตร ฉะนั้น ผู้แข่งขันจึงต้องว่ายกลับตัว 1 ครั้ง
+                            เป็นการว่ายไปกลับ 1 รอบ จึงจะได้ระยะทาง 100 เมตร สำหรับการว่ายผลัด
 
-                  <br>- เรื่องการปล่อยตัวก่อนการว่าย กรรมการจะเป่าเสียงนกหวีดยาว เพื่อให้นักว่ายน้ำขึ้นบนแท่นกระโดด ต่อมาเมื่อกรรมการจะบอกว่า “เข้าที่” ผู้แข่งขันจึงก้าวไปยืนที่ปลายแท่นกระโดด รอกรรมการให้สัญญาณปล่อยตัวเป็นเสียงปืน ออด หรือนกหวีด จึงสามารถปล่อยตัวได้
+                            <br>- ผู้แข่งขันกระโดดลงสระหลังจากที่เพื่อนร่วมทีมจะว่ายแตะขอบสระไปแล้วเท่านั้น
+                            หากเพื่อนร่วมทีมยังไม่แตะขอบสระ แล้วกระโดดลงไป จะถูกปรับแพ้ทันที
 
-                  <br>- แต่ว่าในการแข่งขันในท่าว่ายกรรเชียงกับท่าผลัดผสม จะไม่ปล่อยตัวจากแท่น แต่จะปล่อยตัวจากสระว่ายน้ำแทน
-               <br> ที่มา: สมาคมกีฬาว่ายน้ำแห่งประเทศไทย</p>
+                            <br>- กติกาการแข่งขัน ใช้ควบคุมการแข่งขันที่จัดขึ้นทุกประเภท ได้แก่ การแข่งขันโอลิมปิกเกมส์
+                            การแข่งขันชิงแชมเปี้ยนโลก การแข่งขันระหว่างทวีป และการแข่งขันทั่ว ๆ ไประหว่างประเทศ
+                            ยกเว้นการแข่งขันที่ระบุไว้เป็นอย่างอื่น
+
+                            <br>- เรื่องการปล่อยตัวก่อนการว่าย กรรมการจะเป่าเสียงนกหวีดยาว
+                            เพื่อให้นักว่ายน้ำขึ้นบนแท่นกระโดด ต่อมาเมื่อกรรมการจะบอกว่า “เข้าที่”
+                            ผู้แข่งขันจึงก้าวไปยืนที่ปลายแท่นกระโดด รอกรรมการให้สัญญาณปล่อยตัวเป็นเสียงปืน ออด
+                            หรือนกหวีด จึงสามารถปล่อยตัวได้
+
+                            <br>- แต่ว่าในการแข่งขันในท่าว่ายกรรเชียงกับท่าผลัดผสม จะไม่ปล่อยตัวจากแท่น
+                            แต่จะปล่อยตัวจากสระว่ายน้ำแทน
+                            <br> ที่มา: สมาคมกีฬาว่ายน้ำแห่งประเทศไทย</p>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-      <div class="row">
-         <div class="col-md-4 col-sm-6 margin_bottom40">
-            <div id="ho_show" class="mics">
-               <figure><img class="img_responsive" src="{{ url_for('static',filename='img/mics_img1.jpg') }}" alt="#"/></figure>
-               <div class="mics_icon">
-                  <a href="javascript:void(0)">
-                  <i class="fa fa-search" aria-hidden="true"></i>
-                  </a>
-               </div>
-            </div>
-         </div>
-         <div class="col-md-4 col-sm-6 margin_bottom40">
-            <div id="ho_show" class="mics">
-               <figure><img class="img_responsive" src="{{ url_for('static',filename='img/mics_img2.jpg') }}" alt="#"/></figure>
-               <div class="mics_icon">
-                  <a href="javascript:void(0)">
-                  <i class="fa fa-search" aria-hidden="true"></i>
-                  </a>
-               </div>
-            </div>
-         </div>
-         <div class="col-md-4 col-sm-6 margin_bottom40">
-            <div id="ho_show" class="mics">
-               <figure><img class="img_responsive" src="{{ url_for('static',filename='img/mics_img3.jpg') }}" alt="#"/></figure>
-               <div class="mics_icon">
-                  <a href="javascript:void(0)">
-                  <i class="fa fa-search" aria-hidden="true"></i>
-                  </a>
-               </div>
-            </div>
-         </div>
-         <div class="col-md-4 col-sm-6 margin_bottom40">
-            <div id="ho_show" class="mics">
-               <figure><img class="img_responsive" src="{{ url_for('static',filename='img/mics_img4.jpg') }}" alt="#"/></figure>
-               <div class="mics_icon">
-                  <a href="javascript:void(0)">
-                  <i class="fa fa-search" aria-hidden="true"></i>
-                  </a>
-               </div>
-            </div>
-         </div>
-         <div class="col-md-4 col-sm-6 margin_bottom40">
-            <div id="ho_show" class="mics">
-               <figure><img class="img_responsive" src="{{ url_for('static',filename='img/mics_img5.jpg') }}" alt="#"/></figure>
-               <div class="mics_icon">
-                  <a href="javascript:void(0)">
-                  <i class="fa fa-search" aria-hidden="true"></i>
-                  </a>
-               </div>
-            </div>
-         </div>
-         <div class="col-md-4 col-sm-6 margin_bottom40">
-            <div id="ho_show" class="mics">
-               <figure><img class="img_responsive" src="{{ url_for('static',filename='img/mics_img6.jpg') }}" alt="#"/></figure>
-               <div class="mics_icon">
-                  <a href="javascript:void(0)">
-                  <i class="fa fa-search" aria-hidden="true"></i>
-                  </a>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-</div>
-<!-- end our_mics -->
-<!-- testimonial -->
-<div class="testimonial">
-   <div class="container">
-      <div class="row">
-         <div class="col-md-8 offset-md-2">
-            <div class="titlepage text_align_center">
-               <h2>ท่าว่ายน้ำ</h2>
-               <p>ท่าว่ายน้ำในแต่ละท่ามีความแตกต่างกันดังนี้ </p>
-            </div>
-         </div>
-      </div>
-      <div class="row d_flex">
-         <div class="col-md-10 offset-md-1">
-            <div id="testimo" class="carousel slide our_testimonial" data-ride="carousel">
-               <ol class="carousel-indicators">
-                  <li data-target="#testimo" data-slide-to="0" class="active"></li>
-                  <li data-target="#testimo" data-slide-to="1"></li>
-                  <li data-target="#testimo" data-slide-to="2"></li>
-                  <li data-target="#testimo" data-slide-to="3"></li>
-               </ol>
-               <div class="carousel-inner">
-                  <div class="carousel-item active">
-                     <div class="container">
-                        <div class="carousel-caption posi_in">
-                           <div class="testomoniam_text">
-                              <i class="text_align_left d-block"><img  src="{{ url_for('static',filename='img/icon.png') }}" alt="#"/></i>
-                              <p>ท่าฟรีสไตล์
-                                 <br>คำว่า “ฟรีสไตล์” เป็นคำที่เรียกกันติดปาก มีชื่อว่า “crawl stroke” ท่านี้เป็นท่าที่ร่างกายมีความเพรียวลู่น้ำมากกว่า ท่าอื่น ๆ รวมทั้ง การเคลื่อนไหวเป็นไปอย่างต่อเนื่อง เป็นท่าว่ายอย่างไรก็ได้ ขอให้ต่างจากท่าผีเสื้อ ท่ากบ และท่ากรรเชียง ซึ่งส่วนมากที่เห็นกันคือ การสาวมือว่ายสลับกันไปมาซ้ายขวา ที่เรียกกันว่า ฟรีสไตล์ก็เพราะคุณสามารถว่ายท่าอะไรก็ได้ที่คิดว่าเร็วที่สุดเพื่อให้ถึงขอบสระก่อนคนอื่น โดยท่าที่นิยมใช้ในกระบวนการสอนว่ายน้ำก็จะสอนท่านี้เป็นท่าแรก
-                                 <br> ที่มา: สมาคมกีฬาว่ายน้ำแห่งประเทศไทย</p>
-                              <i class="text_align_right d-block"><img  src="{{ url_for('static',filename='img/icon_right.png') }}" alt="#"/></i>
-                           </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-6 margin_bottom40">
+                    <div id="ho_show" class="mics">
+                        <figure><img class="img_responsive" src="{{ url_for('static',filename='img/mics_img1.jpg') }}"
+                                     alt="#"/></figure>
+                        <div class="mics_icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </a>
                         </div>
-                     </div>
-                  </div>
-                  <div class="carousel-item">
-                     <div class="container">
-                        <div class="carousel-caption posi_in">
-                           <div class="testomoniam_text">
-                              <i class="text_align_left d-block"><img  src="{{ url_for('static',filename='img/icon.png') }}" alt="#"/></i>
-                              <p>ท่าผีเสื้อ
-                                 <br>เป็นการว่ายแบบคว่ำหน้า เป็นท่าที่คุณต้องใช้แรงในการว่ายมากที่สุด มือทั้งสองข้างจะต้องยกเหนือน้ำพร้อมกัน ท่านี้มีความเร็วเป็นอันดับสองรองจากฟรีสไตล์ ในการว่ายท่านี้มีลักษณะเป็นการถ่ายน้ำหนักของร่างกายไปมาจากหน้าไปหลังและหลังไปหน้าไปเรื่อย ๆ ดังนั้นท่านี้ต้องอาศัยเอวและสะโพกมาช่วย แต่ถ้าคุณว่ายเก่งคุณสามารถว่ายจี้ติดคนที่ว่ายท่าฟรีสไตล์ได้เลยทีเดียว คุณต้องมีกล้ามเนื้อทั้งหัวไหล่ หน้าอก ลำตัว หลัง และขาที่แข็งแรงมาก
-                                 <br> ที่มา: สมาคมกีฬาว่ายน้ำแห่งประเทศไทย</p>
-                              <i class="text_align_right d-block"><img  src="{{ url_for('static',filename='img/icon_right.png') }}" alt="#"/></i>
-                           </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 margin_bottom40">
+                    <div id="ho_show" class="mics">
+                        <figure><img class="img_responsive" src="{{ url_for('static',filename='img/mics_img2.jpg') }}"
+                                     alt="#"/></figure>
+                        <div class="mics_icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </a>
                         </div>
-                     </div>
-                  </div>
-                  <div class="carousel-item">
-                     <div class="container">
-                        <div class="carousel-caption posi_in">
-                           <div class="testomoniam_text">
-                              <i class="text_align_left d-block"><img  src="{{ url_for('static',filename='img/icon.png') }}" alt="#"/></i>
-                              <p>ท่ากบ
-                                 <br> ท่านี้ เป็นท่าว่ายแบบคว่ำหน้า เป็นท่าธรรมชาติของมนุษย์คือใช้มือพุ้ยน้ำและใช้เท้าถีบไปเรื่อย ๆ มือทั้งสองข้างต้องพุ้งไปข้างหน้าพร้อมกัน ส่วนข้อศอกอยู่ใต้ผิวน้ำ พร้อมกับเตะเท้าไปด้านหลังด้วย ถือว่าเป็นท่าที่ว่ายได้ช้าที่สุด แต่ในการแข่งขันแล้วท่ากบใช้เทคนิคสูงเพราะการว่ายไม่เหมือนกับการว่ายเล่นธรรมดา เพราะท่ากบ และต้องใช้พรสวรรค์สูงเพราะเป็นท่าที่นักกีฬา ต้องมีกล้ามเนื้อ
-                                 <br> ที่มา: สมาคมกีฬาว่ายน้ำแห่งประเทศไทย</p>
-                              <i class="text_align_right d-block"><img  src="{{ url_for('static',filename='img/icon_right.png') }}" alt="#"/></i>
-                           </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 margin_bottom40">
+                    <div id="ho_show" class="mics">
+                        <figure><img class="img_responsive" src="{{ url_for('static',filename='img/mics_img3.jpg') }}"
+                                     alt="#"/></figure>
+                        <div class="mics_icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </a>
                         </div>
-                     </div>
-                  </div>
-               </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 margin_bottom40">
+                    <div id="ho_show" class="mics">
+                        <figure><img class="img_responsive" src="{{ url_for('static',filename='img/mics_img4.jpg') }}"
+                                     alt="#"/></figure>
+                        <div class="mics_icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 margin_bottom40">
+                    <div id="ho_show" class="mics">
+                        <figure><img class="img_responsive" src="{{ url_for('static',filename='img/mics_img5.jpg') }}"
+                                     alt="#"/></figure>
+                        <div class="mics_icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 margin_bottom40">
+                    <div id="ho_show" class="mics">
+                        <figure><img class="img_responsive" src="{{ url_for('static',filename='img/mics_img6.jpg') }}"
+                                     alt="#"/></figure>
+                        <div class="mics_icon">
+                            <a href="javascript:void(0)">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="carousel-item">
-               <div class="container">
-                  <div class="carousel-caption posi_in">
-                     <div class="testomoniam_text">
-                        <i class="text_align_left d-block"><img  src="{{ url_for('static',filename='img/icon.png') }}" alt="#"/></i>
-                        <p>
-                           ท่ากรรเชียง
-                           <br> เป็นท่าว่ายแบบนอนหงาย สามารถว่ายกรรเชียงโดยดัดแปลงหลักการของฟรีสไตล์ได้ มือสองข้างสลับกันสาวน้ำ เพื่อให้เคลื่อนตัวไปข้างหน้า ต้องวางให้ชิดกับหูของคุณด้วย
-                           <br> ที่มา: สมาคมกีฬาว่ายน้ำแห่งประเทศไทย</p>
-                        <i class="text_align_right d-block"><img  src="{{ url_for('static',filename='img/icon_right.png') }}" alt="#"/></i>
-                     </div>
-                  </div>
-               </div>
+        </div>
+    </div>
+    <!-- end our_mics -->
+    <!-- testimonial -->
+    <div class="testimonial">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="titlepage text_align_center">
+                        <h2>ท่าว่ายน้ำ</h2>
+                        <p>ท่าว่ายน้ำในแต่ละท่ามีความแตกต่างกันดังนี้ </p>
+                    </div>
+                </div>
             </div>
-         </div>
-               <a class="carousel-control-prev" href="#testimo" role="button" data-slide="prev">
-               <i class="fa fa-angle-left" aria-hidden="true"></i>
-               <span class="sr-only">Previous</span>
-               </a>
-               <a class="carousel-control-next" href="#testimo" role="button" data-slide="next">
-               <i class="fa fa-angle-right" aria-hidden="true"></i>
-               <span class="sr-only">Next</span>
-               </a>
+            <div class="row d_flex">
+                <div class="col-md-10 offset-md-1">
+                    <div id="testimo" class="carousel slide our_testimonial" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#testimo" data-slide-to="0" class="active"></li>
+                            <li data-target="#testimo" data-slide-to="1"></li>
+                            <li data-target="#testimo" data-slide-to="2"></li>
+                            <li data-target="#testimo" data-slide-to="3"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="container">
+                                    <div class="carousel-caption posi_in">
+                                        <div class="testomoniam_text">
+                                            <i class="text_align_left d-block"><img
+                                                    src="{{ url_for('static',filename='img/icon.png') }}" alt="#"/></i>
+                                            <p>ท่าฟรีสไตล์
+                                                <br>คำว่า “ฟรีสไตล์” เป็นคำที่เรียกกันติดปาก มีชื่อว่า “crawl stroke”
+                                                ท่านี้เป็นท่าที่ร่างกายมีความเพรียวลู่น้ำมากกว่า ท่าอื่น ๆ รวมทั้ง
+                                                การเคลื่อนไหวเป็นไปอย่างต่อเนื่อง เป็นท่าว่ายอย่างไรก็ได้
+                                                ขอให้ต่างจากท่าผีเสื้อ ท่ากบ และท่ากรรเชียง ซึ่งส่วนมากที่เห็นกันคือ
+                                                การสาวมือว่ายสลับกันไปมาซ้ายขวา ที่เรียกกันว่า
+                                                ฟรีสไตล์ก็เพราะคุณสามารถว่ายท่าอะไรก็ได้ที่คิดว่าเร็วที่สุดเพื่อให้ถึงขอบสระก่อนคนอื่น
+                                                โดยท่าที่นิยมใช้ในกระบวนการสอนว่ายน้ำก็จะสอนท่านี้เป็นท่าแรก
+                                                <br> ที่มา: สมาคมกีฬาว่ายน้ำแห่งประเทศไทย</p>
+                                            <i class="text_align_right d-block"><img
+                                                    src="{{ url_for('static',filename='img/icon_right.png') }}"
+                                                    alt="#"/></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="container">
+                                    <div class="carousel-caption posi_in">
+                                        <div class="testomoniam_text">
+                                            <i class="text_align_left d-block"><img
+                                                    src="{{ url_for('static',filename='img/icon.png') }}" alt="#"/></i>
+                                            <p>ท่าผีเสื้อ
+                                                <br>เป็นการว่ายแบบคว่ำหน้า เป็นท่าที่คุณต้องใช้แรงในการว่ายมากที่สุด
+                                                มือทั้งสองข้างจะต้องยกเหนือน้ำพร้อมกัน
+                                                ท่านี้มีความเร็วเป็นอันดับสองรองจากฟรีสไตล์
+                                                ในการว่ายท่านี้มีลักษณะเป็นการถ่ายน้ำหนักของร่างกายไปมาจากหน้าไปหลังและหลังไปหน้าไปเรื่อย
+                                                ๆ ดังนั้นท่านี้ต้องอาศัยเอวและสะโพกมาช่วย
+                                                แต่ถ้าคุณว่ายเก่งคุณสามารถว่ายจี้ติดคนที่ว่ายท่าฟรีสไตล์ได้เลยทีเดียว
+                                                คุณต้องมีกล้ามเนื้อทั้งหัวไหล่ หน้าอก ลำตัว หลัง และขาที่แข็งแรงมาก
+                                                <br> ที่มา: สมาคมกีฬาว่ายน้ำแห่งประเทศไทย</p>
+                                            <i class="text_align_right d-block"><img
+                                                    src="{{ url_for('static',filename='img/icon_right.png') }}"
+                                                    alt="#"/></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="container">
+                                    <div class="carousel-caption posi_in">
+                                        <div class="testomoniam_text">
+                                            <i class="text_align_left d-block"><img
+                                                    src="{{ url_for('static',filename='img/icon.png') }}" alt="#"/></i>
+                                            <p>ท่ากบ
+                                                <br> ท่านี้ เป็นท่าว่ายแบบคว่ำหน้า
+                                                เป็นท่าธรรมชาติของมนุษย์คือใช้มือพุ้ยน้ำและใช้เท้าถีบไปเรื่อย ๆ
+                                                มือทั้งสองข้างต้องพุ้งไปข้างหน้าพร้อมกัน ส่วนข้อศอกอยู่ใต้ผิวน้ำ
+                                                พร้อมกับเตะเท้าไปด้านหลังด้วย ถือว่าเป็นท่าที่ว่ายได้ช้าที่สุด
+                                                แต่ในการแข่งขันแล้วท่ากบใช้เทคนิคสูงเพราะการว่ายไม่เหมือนกับการว่ายเล่นธรรมดา
+                                                เพราะท่ากบ และต้องใช้พรสวรรค์สูงเพราะเป็นท่าที่นักกีฬา ต้องมีกล้ามเนื้อ
+                                                <br> ที่มา: สมาคมกีฬาว่ายน้ำแห่งประเทศไทย</p>
+                                            <i class="text_align_right d-block"><img
+                                                    src="{{ url_for('static',filename='img/icon_right.png') }}"
+                                                    alt="#"/></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="container">
+                            <div class="carousel-caption posi_in">
+                                <div class="testomoniam_text">
+                                    <i class="text_align_left d-block"><img
+                                            src="{{ url_for('static',filename='img/icon.png') }}" alt="#"/></i>
+                                    <p>
+                                        ท่ากรรเชียง
+                                        <br> เป็นท่าว่ายแบบนอนหงาย สามารถว่ายกรรเชียงโดยดัดแปลงหลักการของฟรีสไตล์ได้
+                                        มือสองข้างสลับกันสาวน้ำ เพื่อให้เคลื่อนตัวไปข้างหน้า
+                                        ต้องวางให้ชิดกับหูของคุณด้วย
+                                        <br> ที่มา: สมาคมกีฬาว่ายน้ำแห่งประเทศไทย</p>
+                                    <i class="text_align_right d-block"><img
+                                            src="{{ url_for('static',filename='img/icon_right.png') }}" alt="#"/></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#testimo" role="button" data-slide="prev">
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#testimo" role="button" data-slide="next">
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
-         </div>
-      </div>
-   </div>
-</div>
-<!-- end testimonial -->
-<!-- contact section -->
-<div class="contact left_cross_right">
-   <div class="container">
-      <div class="row">
-         <div class="col-md-12">
-            <div class="titlepage text_align_left">
-               <h2>Request a call back.</h2>
-               <p>ขอบคุณที่เข้าเยี่ยมชมเว็บไซต์ของเรา หากท่านมีข้อเสนอเพิ่มเติมสามารถแจ้งได้ที่นี่ เราจะนำไปปรับปรุงและพัฒนาต่อไป ขอบคุณครับ/ค่ะ     </p>
+        </div>
+    </div>
+    </div>
+    </div>
+    <!-- end testimonial -->
+    <!-- contact section -->
+    <div class="contact left_cross_right">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="titlepage text_align_left">
+                        <h2>Request a call back.</h2>
+                        <p>ขอบคุณที่เข้าเยี่ยมชมเว็บไซต์ของเรา หากท่านมีข้อเสนอเพิ่มเติมสามารถแจ้งได้ที่นี่
+                            เราจะนำไปปรับปรุงและพัฒนาต่อไป ขอบคุณครับ/ค่ะ </p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <form id="request" class="main_form">
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <input class="contactus" placeholder="Your Name" type="type" name="Name">
+                            </div>
+                            <div class="col-md-6">
+                                <input class="contactus" placeholder="Email" type="type" name="Email">
+                            </div>
+                            <div class="col-md-6">
+                                <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number">
+                            </div>
+                            <div class="col-md-12">
+                                <textarea class="textarea" placeholder="Message" type="Message"></textarea>
+                            </div>
+                            <div class="col-md-12">
+                                <button class="send_btn">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-         </div>
-         <div class="col-md-12">
-            <form id="request" class="main_form">
-               <div class="row">
-                  <div class="col-md-12 ">
-                     <input class="contactus" placeholder="Your Name" type="type" name="Name">
-                  </div>
-                  <div class="col-md-6">
-                     <input class="contactus" placeholder="Email" type="type" name="Email">
-                  </div>
-                  <div class="col-md-6">
-                     <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number">
-                  </div>
-                  <div class="col-md-12">
-                     <textarea class="textarea" placeholder="Message" type="Message"></textarea>
-                  </div>
-                  <div class="col-md-12">
-                     <button class="send_btn">Send</button>
-                  </div>
-               </div>
-            </form>
-         </div>
-      </div>
-   </div>
-</div>
-<!-- end contact section -->
+        </div>
+    </div>
+    <!-- end contact section -->
 {% endblock %}
