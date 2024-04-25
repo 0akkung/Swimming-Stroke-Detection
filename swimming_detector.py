@@ -41,6 +41,9 @@ class SwimmingDetector:
 
         return max(self.left_stroke, self.right_stroke)
 
+    def get_style(self):
+        return self.style
+
     def get_elapsed_time(self):
         self.elapsed_time = time.time() - self.start_time
         return self.elapsed_time

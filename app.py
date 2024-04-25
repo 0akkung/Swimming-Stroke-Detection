@@ -41,6 +41,7 @@ class SwimmingRecord(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     time = db.Column(db.String(20), nullable=False)
     stroke = db.Column(db.Integer, nullable=False)
+    style = db.Column(db.String(20), nullable=False)
     strokes_per_minute = db.Column(db.Integer, nullable=False)
     date = db.Column(db.DateTime, nullable=False)
 
@@ -151,12 +152,13 @@ def video_feed():
 @login_required
 def save_swim_result():
     global counter
-    time = str(counter.get_elapsed_time())
+    time = str(int(counter.get_elapsed_time())) + 's'
     stroke = counter.get_strokes()
+    style = counter.get_style()
     spm = counter.get_strokes_per_minute()
     date = datetime.now()
-    new_swimming_record = SwimmingRecord(user_id=current_user.id, time=time, stroke=stroke, strokes_per_minute=spm,
-                                         date=date)
+    new_swimming_record = SwimmingRecord(user_id=current_user.id, time=time, stroke=stroke, style=style,
+                                         strokes_per_minute=spm, date=date)
 
     # Add the new record to the database
     db.session.add(new_swimming_record)

@@ -4,63 +4,141 @@
 
 {% block content %}
     <!-- Profile section -->
-    <div id="about" class="about">
-        <div class="container-fluid">
-            <div class="row d_flex">
-                <div class="col-md-6">
-                    <div class="titlepage text_align_left">
-                        <h2>Profile</h2>
-                        <div class="card">
-                            <div class="card-title">ข้อมูลส่วนตัว</div>
-                            <div class="card-info">
-                                <label for="name">ชื่อ: {{ current_user.name }}</label>
+    {#    <div id="about" class="about">#}
+    {#        <div class="container-fluid">#}
+    {#            <div class="col-md-6">#}
+    {#                <div class="titlepage text_align_left">#}
+    {#                    <h2>Profile</h2>#}
+    {#                    <div class="card">#}
+    {#                        <div class="card-title">ข้อมูลส่วนตัว</div>#}
+    {#                        <div class="card-info">#}
+    {#                            <label for="name">ชื่อ: {{ current_user.name }}</label>#}
+    {##}
+    {#                        </div>#}
+    {#                        <div class="card-info">#}
+    {#                            <label for="height">ส่วนสูง: {{ current_user.height }}</label>#}
+    {##}
+    {#                        </div>#}
+    {#                        <div class="card-info">#}
+    {#                            <label for="weight">น้ำหนัก: {{ current_user.weight }}</label>#}
+    {##}
+    {#                        </div>#}
+    {#                        <div class="card-info">#}
+    {#                            <label for="age">อายุ: {{ current_user.calculate_age() }} ปี</label>#}
+    {##}
+    {#                        </div>#}
+    {#                        <div class="card-info">#}
+    {#                            <label for="swimming-history">ประวัติการว่ายน้ำ: ยังไม่มี</label>#}
+    {#                            <span id="swimming-history">#}
+    {##}
+    {#                           </span>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#            <div class="col-md-6">#}
+    {#                <table class="table">#}
+    {#                    <thead class="thead-dark">#}
+    {#                    <tr>#}
+    {#                        <th>Time</th>#}
+    {#                        <th>Stroke</th>#}
+    {#                        <th>Strokes per Minute</th>#}
+    {#                        <th>Date</th>#}
+    {#                    </tr>#}
+    {#                    </thead>#}
+    {#                    <tbody>#}
+    {#                    {% for record in current_user.swimming_records %}#}
+    {#                        <tr>#}
+    {#                            <td>{{ record.time }}</td>#}
+    {#                            <td>{{ record.stroke }}</td>#}
+    {#                            <td>{{ record.strokes_per_minute }}</td>#}
+    {#                            <td>{{ record.date.strftime("%d %b %Y %H:%M") }}</td>#}
+    {#                        </tr>#}
+    {#                    {% endfor %}#}
+    {#                    </tbody>#}
+    {#                </table>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
+    <!-- end Profile  section -->
+    <section style="background-color: #fff;">
+        <div class="container py-5">
 
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                                 alt="avatar"
+                                 class="rounded-circle img-fluid" style="width: 150px;">
+                            <h1 class="my-3 display-5 mb-4">{{ current_user.name }}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Full Name</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">{{ current_user.name }}</p>
+                                </div>
                             </div>
-                            <div class="card-info">
-                                <label for="height">ส่วนสูง: {{ current_user.height }}</label>
-
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Height</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">{{ current_user.height }} cm</p>
+                                </div>
                             </div>
-                            <div class="card-info">
-                                <label for="weight">น้ำหนัก: {{ current_user.weight }}</label>
-
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Weight</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">{{ current_user.weight }} kg</p>
+                                </div>
                             </div>
-                            <div class="card-info">
-                                <label for="age">อายุ: {{ current_user.calculate_age() }} ปี</label>
-
-                            </div>
-                            <div class="card-info">
-                                <label for="swimming-history">ประวัติการว่ายน้ำ: ยังไม่มี</label>
-                                <span id="swimming-history">
-
-                           </span>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Age</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">{{ current_user.calculate_age() }} years</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <table border="1">
-                        <thead>
-                        <tr>
-                            <th>Time</th>
-                            <th>Stroke</th>
-                            <th>Strokes per Minute</th>
-                            <th>Date</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for record in current_user.swimming_records %}
-                            <tr>
-                                <td>{{ record.time }}</td>
-                                <td>{{ record.stroke }}</td>
-                                <td>{{ record.strokes_per_minute }}</td>
-                                <td>{{ record.date }}</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
             </div>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Style</th>
+                    <th>Time</th>
+                    <th>Stroke</th>
+                    <th>Strokes per Minute</th>
+                    <th>Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for record in current_user.swimming_records %}
+                    <tr>
+                        <td>{{ record.style }}</td>
+                        <td>{{ record.time }}</td>
+                        <td>{{ record.stroke }}</td>
+                        <td>{{ record.strokes_per_minute }}</td>
+                        <td>{{ record.date.strftime("%d %b %Y %H:%M") }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
-    </div>
-    <!-- end Profile  section -->
+    </section>
 {% endblock %}
