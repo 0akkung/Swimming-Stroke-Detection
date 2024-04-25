@@ -83,9 +83,14 @@ def login():
 
         # check if the user actually exists
         # take the user-supplied password, hash it, and compare it to the hashed password in the database
+        if not user:
+            print("User not found")
+            flash('The email address does not exist, please try again')
+            return redirect(url_for('login'))  # if the user doesn't exist or password is wrong, reload the page
+
         if not user or not check_password_hash(user.password, password):
             print("Invalid password")
-            flash('Please check your login details and try again.')
+            flash('Please check your password and try again.')
             return redirect(url_for('login'))  # if the user doesn't exist or password is wrong, reload the page
 
         # if the above check passes, then we know the user has the right credentials

@@ -11,42 +11,68 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="titlepage text_align_left">
-                        <h2>เข้าสู่ระบบ</h2>
-                        <p>โปรดกรอกอีเมลและรหัสผ่าน</p>
+                        <h2>Login</h2>
+                        <p>Please enter email address and password</p>
                     </div>
                 </div>
-                <div class="col-md-12">
-                    {% with messages = get_flashed_messages() %}
-                        {% if messages %}
-                            <div class="notification is-danger">
-                                {{ messages[0] }}
+                <section class="vh-100">
+                    <div class="container-fluid h-custom">
+                        <div class="row d-flex justify-content-center align-items-center h-100">
+                            <div class="col-md-9 col-lg-6 col-xl-5">
+                                <img src="{{ url_for('static',filename='img/right_side.png') }}"
+                                     class="img-fluid" alt="Sample image">
                             </div>
-                        {% endif %}
-                    {% endwith %}
-                    <form id="request" class="main_form" method="POST" action="/login">
-                        <div class="row">
-                            <!--
-                            <div class="col-md-12 ">
-                               <input class="contactus" placeholder="You Name" type="type" name="Name">
-                            </div> -->
-                            <div class="col-md-12">
-                                <input class="contactus" placeholder="Email" type="text" name="email">
-                            </div>
-                            <!--
-                            <div class="col-md-6">
-                               <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number">
-                            </div>
-                             -->
-                            <div class="col-md-12">
-                                <input class="contactus" placeholder="Password" type="password" name="password">
-                            </div>
+                            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                                {% with messages = get_flashed_messages() %}
+                                    {% if messages %}
+                                        <div class="alert alert-danger" role="alert">
+                                            {{ messages[0] }}
+                                        </div>
+                                    {% endif %}
+                                {% endwith %}
+                                <form id="request" class="main_form" method="POST" action="/login">
+                                    <!-- Email input -->
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        <input type="email" id="email" name="email" class="form-control form-control-lg"
+                                               placeholder="Enter a valid email address"/>
+                                        <label class="form-label" for="email">Email address</label>
+                                    </div>
 
-                            <div class="col-md-12">
-                                <button class="send_btn">Login</button>
+                                    <!-- Password input -->
+                                    <div data-mdb-input-init class="form-outline mb-3">
+                                        <input type="password" id="password" name="password" class="form-control form-control-lg"
+                                               placeholder="Enter password"/>
+                                        <label class="form-label" for="password">Password</label>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <!-- Checkbox -->
+                                        <div class="form-check mb-0">
+                                            <input class="form-check-input me-2" type="checkbox" value=""
+                                                   id="remember" name="remember"/>
+                                            <label class="form-check-label" for="remember">
+                                                Remember me
+                                            </label>
+                                        </div>
+                                        {#<a href="#!" class="text-body">Forgot password?</a>#}
+                                    </div>
+
+                                    <div class="text-center text-lg-start mt-4 pt-2">
+                                        <button data-mdb-button-init data-mdb-ripple-init
+                                                class="btn btn-primary btn-lg"
+                                                style="padding-left: 2.5rem; padding-right: 2.5rem;">Login
+                                        </button>
+                                        <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a
+                                                href="{{ url_for('register') }}"
+                                                class="link-danger">Register</a>
+                                        </p>
+                                    </div>
+
+                                </form>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </section>
             </div>
         </div>
     </div>

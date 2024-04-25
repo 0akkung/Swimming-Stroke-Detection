@@ -3,3 +3,6 @@ mediapipe==0.10.8
 numpy==1.26.2
 matplotlib==3.8.2
 flask==3.0.0
+SQLAlchemy==2.0.29
+Werkzeug==3.0.1
+Flask-Login==0.6.3
