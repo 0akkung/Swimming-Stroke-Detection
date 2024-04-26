@@ -912,3 +912,56 @@ body {
    .card-info {
      font-size: 18px; /* ปรับขนาดตัวอักษรในข้อมูลส่วนตัว */
    }
+
+   /* 3 ปุ่ม หน้า Swim */
+   .button-container {
+     display: flex;
+     justify-content: space-between;
+     margin: 20px;
+     margin-bottom: 10px;
+   }
+   
+   .button {
+     padding: 3px 50px;
+     background-color: #4CAF50;
+     color: white;
+     border: none;
+     border-radius: 5px;
+     cursor: pointer;
+   }
+   
+   .button:hover {
+     background-color: #45a049;
+   }
+
+   /*  หน้า Swim */
+   .swim {
+     width: 100%
+     display: flex;
+     justify-content: center;
+     align-content: center;
+     
+     /*border: 1px solid red;*/
+
+   }
+
+   .swim .content {
+	padding: 20px 20px 40px 20px;
+}
+   
+   .swim_head {
+     width: 100%
+     display: flex;
+     justify-content: center;
+     align-content: center;
+     /*border: 1px solid red;*/
+     
+   }
+
+   .ul {
+     width: 100%;
+     display: flex;
+     justify-content: center;
+     align-content: center;
+
+   }
