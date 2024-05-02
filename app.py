@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request, flash, Res
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from swimming_detector import SwimmingDetector
+from forms import RegistrationForm
 from datetime import datetime
 from io import BytesIO
 
@@ -22,6 +23,7 @@ class User(UserMixin, db.Model):
     name = db.Column(db.String(1000), nullable=False)
     height = db.Column(db.Integer, nullable=False)
     weight = db.Column(db.Integer, nullable=False)
+    gender = db.Column(db.String(30), nullable=False)
     date_of_birth = db.Column(db.DateTime, nullable=False)
     swimming_records = db.relationship('SwimmingRecord', backref='user', lazy=True)
 
@@ -102,15 +104,17 @@ def login():
 
 @app.route('/register', methods=["GET", "POST"])
 def register():
-    if request.method == "POST":
+    form = RegistrationForm(request.form)
+    if request.method == "POST" and form.validate():
+        print('validated')
         # code to validate and add user to database goes here
-        email = request.form.get('email')
-        name = request.form.get('name')
-        password = request.form.get('password')
-        height = request.form.get('height')
-        weight = request.form.get('weight')
-        dob = request.form.get('dob')
-        dob = datetime.strptime(dob, '%Y-%m-%d').date()
+        email = form.email.data
+        name = form.name.data
+        password = form.password.data
+        height = form.height.data
+        weight = form.weight.data
+        gender = form.gender.data
+        dob = form.dob.data
 
         user = User.query.filter_by(
             email=email).first()  # if this returns a user, then the email already exists in database
@@ -121,7 +125,7 @@ def register():
 
         # create a new user with the form data. Hash the password so the plaintext version isn't saved.
         new_user = User(email=email, name=name, password=generate_password_hash(password, method='pbkdf2:sha256'),
-                        height=height, weight=weight, date_of_birth=dob)
+                        height=height, weight=weight, gender=gender, date_of_birth=dob)
 
         # add the new user to the database
         db.session.add(new_user)
@@ -129,13 +133,12 @@ def register():
 
         return redirect(url_for('login'))
 
-    return render_template('register.html')
+    return render_template('register.html', form=form)
 
 
 @app.route('/profile')
 @login_required
 def profile():
-    print(current_user.swimming_records)
     return render_template('profile.html')
 
 

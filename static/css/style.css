@@ -164,14 +164,14 @@ img {
      padding: 0;
 }
 
-.form-control:focus {
-     border-color: #ffffff !important;
-     box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .25);
-}
+/*.form-control:focus {*/
+/*     border-color: #ffffff !important;*/
+/*     box-shadow: 0 0 0 .2rem rgba(255, 255, 255, .25);*/
+/*}*/
 
-.navbar-form input {
-     border: none !important;
-}
+/*.navbar-form input {*/
+/*     border: none !important;*/
+/*}*/
 
 .badge {
      font-weight: 500;
@@ -936,7 +936,7 @@ body {
 
    /*  หน้า Swim */
    .swim {
-     width: 100%
+     width: 100%;
      display: flex;
      justify-content: center;
      align-content: center;
@@ -950,7 +950,7 @@ body {
 }
    
    .swim_head {
-     width: 100%
+     width: 100%;
      display: flex;
      justify-content: center;
      align-content: center;

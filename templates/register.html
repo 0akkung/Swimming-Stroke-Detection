@@ -6,61 +6,105 @@
 
 {% block content %}
 
-    <!-- ลงทะเบียนจ้า -->
-    <div class="contact left_cross_right">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="titlepage text_align_left">
-                        <h2>ลงทะเบียน</h2>
-                        <p>โปรดกรอกข้อมูลของท่านให้ครบถ้วน</p>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    {% with messages = get_flashed_messages() %}
-                        {% if messages %}
-                            <div class="notification is-danger">
-                                {{ messages[0] }}
-                            </div>
-                        {% endif %}
-                    {% endwith %}
-                    <form id="request" class="main_form" method="POST" action="/register">
-                        <div class="row">
+    <section>
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <div class="card card-registration my-4">
+                    <div class="row g-0">
+                        <div class="col-xl-6 d-none d-xl-block">
+                            <img src="{{ url_for('static',filename='img/right_side.png') }}"
+                                 alt="Sample photo" class="img-fluid"
+                                 style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;"/>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card-body p-md-5 text-black">
+                                <h3 class="mb-5 text-uppercase font-weight-bold">Register</h3>
+                                <form id="request" method="POST" action="/register">
+                                    {{ form.hidden_tag }} <!-- Include CSRF token -->
 
-                            <div class="col-md-12 ">
-                                <input class="contactus" placeholder="Name" type="text" name="name">
-                            </div>
-                            <div class="col-md-12">
-                                <input class="contactus" placeholder="Email" type="email" name="email">
-                            </div>
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        {{ form.name.label }}
+                                        {{ form.name(class="form-control form-control-lg") }}
+                                    </div>
 
-                            <div class="col-md-6">
-                                <input class="contactus" placeholder="Weight" type="text" name="weight">
-                            </div>
-                            <div class="col-md-6">
-                                <input class="contactus" placeholder="Height " type="text" name="height">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="dob">Date of Birth</label>
-                                <input class="contactus" placeholder="Date of Birth" type="date" name="dob">
-                            </div>
-                            <div class="col-md-12">
-                                <input class="contactus" placeholder="Password" type="Password" name="password">
-                            </div>
-                            <div class="col-md-12">
-                                <input class="contactus" placeholder="Confirm Password" type="Password"
-                                       name="confirm-password">
-                            </div>
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        {{ form.email.label }}
+                                        {{ form.email(class="form-control form-control-lg") }}
+                                    </div>
 
-                            <div class="col-md-12">
-                                <button class="send_btn">Submit</button>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-4">
+                                            <div data-mdb-input-init class="form-outline">
+                                                {{ form.height.label }}
+                                                {{ form.height(class="form-control form-control-lg") }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-4">
+                                            <div data-mdb-input-init class="form-outline">
+                                                {{ form.weight.label }}
+                                                {{ form.weight(class="form-control form-control-lg") }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+
+                                        {{ form.gender.label(class="mb-0 me-4 mr-3 font-weight-bold") }}
+
+                                        {% for subfield in form.gender %}
+
+                                            <div class="form-check form-check-inline mb-0 me-4">
+                                                {{ subfield(class="form-check-input") }}
+                                                {{ subfield.label(class="form-check-label") }}
+                                            </div>
+
+                                        {% endfor %}
+
+                                    </div>
+
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        {{ form.dob.label }}
+                                        {% if form.dob.errors %}
+                                            {{ form.dob(class="form-control form-control-lg is-invalid") }}
+                                            <div class="invalid-feedback">
+                                                {% for error in form.dob.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            {{ form.dob(class="form-control form-control-lg") }}
+                                        {% endif %}
+                                    </div>
+
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        {{ form.password.label }}
+                                        {% if form.password.errors %}
+                                            {{ form.password(class="form-control form-control-lg is-invalid") }}
+                                            <div class="invalid-feedback">
+                                                {% for error in form.password.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            {{ form.password(class="form-control form-control-lg") }}
+                                        {% endif %}
+                                    </div>
+
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        {{ form.confirm.label }}
+                                        {{ form.confirm(class="form-control form-control-lg") }}
+                                    </div>
+
+                                    <div class="d-flex justify-content-end pt-3">
+                                        {{ form.submit(class="btn btn-warning btn-lg ms-2") }}
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- end ลงทะเบียนจ้า -->
+    </section>
 
 {% endblock %}
