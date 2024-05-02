@@ -5,50 +5,36 @@
 {% block page_class %}inner_page{% endblock %}
 
 {% block content %}
-    <!-- about จับเวลา -->
-    <div id="swim" class="swim">
-        <div class="container-fluid">
-            <div class="row d_flex">
-                <div class="col-md-6">
-                    <div class="header">
-                        <h2>การจับเวลาท่าว่ายน้ำ</h2>
-                        <p>หากพร้อมแล้ว สามารถจับเวลาเพื่อนับจำนวน Stroke ได้เลย </p>
-                    </div   
-                        
-                    <div  class="content">  
-                        <!--Start ข้างล่าง-->
-                         <button class="button">Timer</button>
-                         <button class="button">From</button>
-                         <button class="button">Stroke {{ counter.get_strokes() }} </button>
-                         <!--End ข้างล่าง-->
-                        
-                        <!--Start ข้างบน
-                        <div class="col-md-12 ">
-                            <label for="age">Stroke: {{ counter.get_strokes() }}</label>
-                        </div>
-                        End ข้างบน--> 
-                        <form id="request" method="POST" action="{{ url_for('save_swim_result') }}">
-                            <button class="btn-danger btn-lg">STOP</button>
-                        </form>
-                    </div>
 
-                  
-                   
-            
-                </div>
-                <div class="col-md-6">
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex align-items-center justify-content-center h-100">
+                <div class="col-md-8 col-lg-7 col-xl-6">
                     <div class="about_img">
                         <figure><img class="img_responsive" src="{{ url_for('video_feed') }}" alt="#"/></figure>
-
                     </div>
                 </div>
+                <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                    <div class="titlepage text_align_left">
+                        <h2>Swimming</h2>
+                        <p>Put two arms straight to start the timer</p>
+                    </div>
+                    <form id="request" method="POST" action="{{ url_for('save_swim_result') }}">
+                        <div data-mdb-input-init class="form-outline mb-4">
+                            <label class="form-label" for="length">Pool Length (Meter)</label>
 
+                            <input type="number" id="length" name="length" class="form-control form-control-lg" value="25"/>
+                        </div>
+
+                        <!-- Submit button -->
+                        <button type="submit" data-mdb-button-init data-mdb-ripple-init
+                                class="btn btn-danger btn-lg btn-block">Stop
+                        </button>
+
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    <!-- end about จับเวลา -->
-    <!-- start about จับเวลา -->
+    </section>
 
-    <!-- end about จับเวลา -->
- 
 {% endblock %}

@@ -1,10 +1,12 @@
 from flask import Flask, render_template, redirect, url_for, request, flash, Response, send_file
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import func
 from swimming_detector import SwimmingDetector
 from forms import RegistrationForm
-from datetime import datetime
+from datetime import datetime, date
 from io import BytesIO
+
 
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user, current_user
 
@@ -44,8 +46,12 @@ class SwimmingRecord(db.Model):
     time = db.Column(db.String(20), nullable=False)
     stroke = db.Column(db.Integer, nullable=False)
     style = db.Column(db.String(20), nullable=False)
+    pool_length = db.Column(db.Integer, nullable=False)
     strokes_per_minute = db.Column(db.Integer, nullable=False)
     date = db.Column(db.DateTime, nullable=False)
+
+    def calculate_meter_per_stroke(self):
+        return self.pool_length / self.stroke
 
 
 with app.app_context():
@@ -139,7 +145,18 @@ def register():
 @app.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html')
+    today = datetime.today().date()
+    # Filter records for a specific user within the date range
+    swimming_records_today = SwimmingRecord.query.filter(
+        SwimmingRecord.user_id == current_user.id).all()
+    print(swimming_records_today)
+
+    # Calculate average strokes per minute
+    total_strokes = sum(record.strokes_per_minute for record in swimming_records_today)
+    average_strokes_per_minute = total_strokes / len(swimming_records_today) if swimming_records_today else 0
+
+    return render_template('profile.html', swimming_records=swimming_records_today,
+                           average_strokes_per_minute=average_strokes_per_minute)
 
 
 @app.route('/swim')
@@ -163,9 +180,10 @@ def save_swim_result():
     time = str(int(counter.get_elapsed_time())) + 's'
     stroke = counter.get_strokes()
     style = counter.get_style()
+    length = request.form['length']
     spm = counter.get_strokes_per_minute()
     date = datetime.now()
-    new_swimming_record = SwimmingRecord(user_id=current_user.id, time=time, stroke=stroke, style=style,
+    new_swimming_record = SwimmingRecord(user_id=current_user.id, time=time, stroke=stroke, style=style, pool_length=length,
                                          strokes_per_minute=spm, date=date)
 
     # Add the new record to the database

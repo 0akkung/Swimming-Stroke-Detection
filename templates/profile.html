@@ -52,6 +52,15 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
+                                    <p class="mb-0">Gender</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0">{{ current_user.gender }}</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
                                     <p class="mb-0">Age</p>
                                 </div>
                                 <div class="col-sm-9">
@@ -69,6 +78,8 @@
                     <th>Time</th>
                     <th>Stroke</th>
                     <th>Strokes per Minute</th>
+                    <th>Pool Length</th>
+                    <th>Meter per Stroke</th>
                     <th>Date</th>
                 </tr>
                 </thead>
@@ -79,11 +90,16 @@
                         <td>{{ record.time }}</td>
                         <td>{{ record.stroke }}</td>
                         <td>{{ record.strokes_per_minute }}</td>
+                        <td>{{ record.pool_length }}</td>
+                        <td>{{ record.calculate_meter_per_stroke() }}</td>
                         <td>{{ record.date.strftime("%d %b %Y %H:%M") }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
+
+        <p>Average Strokes per Minute of the Day: {{ average_strokes_per_minute }}</p>
+
         </div>
     </section>
      <!-- end Profile  section -->

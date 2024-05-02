@@ -51,7 +51,7 @@
 <!-- end loader -->
 <div id="mySidepanel" class="sidepanel">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-    <a class="active" href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('index') }}">Home</a>
     <a href="{{ url_for('about') }}">About</a>
 
     {% if not current_user.is_authenticated %}
