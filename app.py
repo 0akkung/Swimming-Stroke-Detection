@@ -1,10 +1,7 @@
-from flask import Flask, render_template, redirect, url_for, request, flash, Response, send_file
-from swimming_detector import SwimmingDetector
-from datetime import datetime
-from io import BytesIO
-from models import db, User, SwimmingRecord
+from flask import Flask
+from models import db, User
 
-from flask_login import LoginManager, login_required, current_user
+from flask_login import LoginManager
 
 from main import main as main_blueprint
 from auth import auth as auth_blueprint
@@ -17,8 +14,6 @@ db.init_app(app)
 
 with app.app_context():
     db.create_all()
-
-counter = SwimmingDetector()
 
 login_manager = LoginManager()  # Login manage for flask-login
 login_manager.init_app(app)

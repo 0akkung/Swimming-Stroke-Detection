@@ -60,7 +60,7 @@ def save_swim_result():
     db.session.add(new_swimming_record)
     db.session.commit()
 
-    return redirect(url_for('swim_result'))
+    return redirect(url_for('swimmer.swim_result'))
 
 
 @swimmer.route('/swim/result')

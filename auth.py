@@ -22,16 +22,16 @@ def login():
         if not user:
             print("User not found")
             flash('The email address does not exist, please try again')
-            return redirect(url_for('login'))  # if the user doesn't exist or password is wrong, reload the page
+            return redirect(url_for('auth.login'))  # if the user doesn't exist or password is wrong, reload the page
 
         if not user or not check_password_hash(user.password, password):
             print("Invalid password")
             flash('Please check your password and try again.')
-            return redirect(url_for('login'))  # if the user doesn't exist or password is wrong, reload the page
+            return redirect(url_for('auth.login'))  # if the user doesn't exist or password is wrong, reload the page
 
         # if the above check passes, then we know the user has the right credentials
         login_user(user, remember=remember)
-        return redirect(url_for('profile'))
+        return redirect(url_for('swimmer.profile'))
 
     return render_template('login.html')
 
@@ -74,4 +74,4 @@ def register():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('main.index'))
