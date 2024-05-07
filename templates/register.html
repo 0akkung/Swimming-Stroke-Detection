@@ -29,7 +29,16 @@
 
                                     <div data-mdb-input-init class="form-outline mb-4">
                                         {{ form.email.label }}
-                                        {{ form.email(class="form-control form-control-lg") }}
+                                       {% if form.email.errors %}
+                                            {{ form.email(class="form-control form-control-lg is-invalid") }}
+                                            <div class="invalid-feedback">
+                                                {% for error in form.email.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            {{ form.email(class="form-control form-control-lg") }}
+                                        {% endif %}
                                     </div>
 
                                     <div class="row">

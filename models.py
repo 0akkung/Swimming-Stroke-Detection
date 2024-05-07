@@ -1,6 +1,8 @@
 from flask_login import UserMixin
-from app import db
+from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+
+db = SQLAlchemy()
 
 
 class User(UserMixin, db.Model):
@@ -33,5 +35,9 @@ class SwimmingRecord(db.Model):
     time = db.Column(db.String(20), nullable=False)
     stroke = db.Column(db.Integer, nullable=False)
     style = db.Column(db.String(20), nullable=False)
+    pool_length = db.Column(db.Integer, nullable=False)
     strokes_per_minute = db.Column(db.Integer, nullable=False)
     date = db.Column(db.DateTime, nullable=False)
+
+    def calculate_meter_per_stroke(self):
+        return self.pool_length / self.stroke

@@ -51,17 +51,17 @@
 <!-- end loader -->
 <div id="mySidepanel" class="sidepanel">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-    <a href="{{ url_for('index') }}">Home</a>
-    <a href="{{ url_for('about') }}">About</a>
+    <a href="{{ url_for('main.index') }}">Home</a>
+    <a href="{{ url_for('main.about') }}">About</a>
 
     {% if not current_user.is_authenticated %}
-    <a href="{{ url_for('register') }}">Register</a>
-    <a href="{{ url_for('login') }}">Login</a>
+    <a href="{{ url_for('auth.register') }}">Register</a>
+    <a href="{{ url_for('auth.login') }}">Login</a>
     {% endif %}
 
     {% if current_user.is_authenticated %}
-    <a href="{{ url_for('profile') }}">Profile</a>
-    <a href="{{ url_for('swim') }}">Swim</a>
+    <a href="{{ url_for('swimmer.profile') }}">Profile</a>
+    <a href="{{ url_for('swimmer.swim') }}">Swim</a>
     {% endif %}
 
 </div>
@@ -73,7 +73,7 @@
             <div class="row d_flex">
                 <div class="col-sm-3">
                     <div class="logo">
-                        <a href="{{ url_for('index') }}"><img
+                        <a href="{{ url_for('main.index') }}"><img
                                 src="{{ url_for('static',filename='img/logo.png') }}"/></a>
                     </div>
                 </div>
@@ -82,7 +82,7 @@
                         {% if not current_user.is_authenticated %}
                             <li class="d_none">
 
-                                <a href="{{ url_for('login') }}">
+                                <a href="{{ url_for('auth.login') }}">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                     Login
                                 </a>
@@ -90,13 +90,13 @@
                         {% endif %}
                         {% if current_user.is_authenticated %}
                             <li class="d_none">
-                                <a href="{{ url_for('profile') }}">
+                                <a href="{{ url_for('swimmer.profile') }}">
                                         <i class="fa fa-user" aria-hidden="true"></i>
                                         {{ current_user.name }}
                                     </a>
                             </li>
                             <li>
-                                <a href="{{ url_for('logout') }}">
+                                <a href="{{ url_for('auth.logout') }}">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                     Logout
                                 </a>

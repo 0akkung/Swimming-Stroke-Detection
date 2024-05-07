@@ -16,12 +16,12 @@
                             ที่สำคัญสามารถปรับโปรแกรมให้เหมาะกับนักกีฬาแต่ละคน
                         </p>
                         {% if not current_user.is_authenticated %}
-                            <a class="read_more" href="{{ url_for('login') }}">เข้าสู่ระบบ</a>
-                            <a class="read_more" href="{{ url_for('register') }}">ลงทะเบียน</a>
+                            <a class="read_more" href="{{ url_for('auth.login') }}">เข้าสู่ระบบ</a>
+                            <a class="read_more" href="{{ url_for('auth.register') }}">ลงทะเบียน</a>
                         {% endif %}
                         {% if current_user.is_authenticated %}
 
-                            <a class="read_more" href="{{ url_for('swim') }}">ไปว่ายน้ำ</a>
+                            <a class="read_more" href="{{ url_for('swimmer.swim') }}">ไปว่ายน้ำ</a>
                         {% endif %}
 
                     </div>
@@ -98,7 +98,7 @@
                             6410406827 นิสิตระดับปริญญาตรี ภาควิชาวิทยาการคอมพิวเตอร์ ภาคปกติ คณะวิทยาศาสตร์
                             มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตบางเขน อาจารย์ที่ปรึกษาโปรเจ็ค อาจารย์สมโชค เรืองอิทธินันท์
                             และข้อมูลการว่ายน้ำมาจากสมาคมกีฬาว่ายน้ำแห่งประเทศไทย </p>
-                        <a class="read_more" href="{{ url_for('about') }}">Read More</a>
+                        <a class="read_more" href="{{ url_for('main.about') }}">Read More</a>
                     </div>
                 </div>
                 <div class="col-md-6">
