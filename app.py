@@ -1,13 +1,13 @@
 from flask import Flask
-from models import db, User
+from project.models import db, User
 
 from flask_login import LoginManager
 
-from main import main as main_blueprint
-from auth import auth as auth_blueprint
-from swimmer import swimmer as swimmer_blueprint
+from project.main import main as main_blueprint
+from project.auth import auth as auth_blueprint
+from project.swimmer import swimmer as swimmer_blueprint
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='project/templates', static_folder='project/static')
 app.config['SECRET_KEY'] = 'secret-key-goes-here'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 db.init_app(app)

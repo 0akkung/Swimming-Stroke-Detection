@@ -33,7 +33,7 @@ Before you install this program, you must install [**python**](https://www.pytho
    ```
 3. Run the program
    ```sh
-   python app.py
+   python project.py
    ```
    
 ## Progress Report

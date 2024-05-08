@@ -1,4 +1,4 @@
-from swimming_detector import SwimmingDetector
+from project.swimming_detector import SwimmingDetector
 
 
 def main():

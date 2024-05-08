@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, redirect, url_for, request, Response, send_file
-from swimming_detector import SwimmingDetector
+from project.swimming_detector import SwimmingDetector
 from datetime import datetime
 from io import BytesIO
-from models import db, SwimmingRecord
+from project.models import db, SwimmingRecord
 
 from flask_login import login_required, current_user
 
