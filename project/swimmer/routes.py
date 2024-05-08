@@ -1,14 +1,12 @@
-from flask import Blueprint, render_template, redirect, url_for, request, Response, send_file
+from flask import render_template, redirect, url_for, request, Response, send_file
 from project.swimming_detector import SwimmingDetector
 from datetime import datetime
 from io import BytesIO
 from project.models import db, SwimmingRecord
-
 from flask_login import login_required, current_user
+from project.swimmer import swimmer
 
-swimmer = Blueprint('swimmer', __name__)
-
-counter = SwimmingDetector()
+detector = SwimmingDetector()
 
 
 @swimmer.route('/profile')
@@ -31,26 +29,26 @@ def profile():
 @swimmer.route('/swim')
 @login_required
 def swim():
-    global counter
-    counter.reset()
-    return render_template('swim.html', counter=counter)
+    global detector
+    detector.reset()
+    return render_template('swim.html', detector=detector)
 
 
 @swimmer.route('/video_feed')
 def video_feed():
-    global counter
-    return Response(counter.count_strokes(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    global detector
+    return Response(detector.count_strokes(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 @swimmer.route('/swim', methods=['POST'])
 @login_required
 def save_swim_result():
-    global counter
-    time = str(int(counter.get_elapsed_time())) + 's'
-    stroke = counter.get_strokes()
-    style = counter.get_style()
+    global detector
+    time = str(int(detector.get_elapsed_time())) + 's'
+    stroke = detector.get_strokes()
+    style = detector.get_style()
     length = request.form['length']
-    spm = counter.get_strokes_per_minute()
+    spm = detector.get_strokes_per_minute()
     date = datetime.now()
     new_swimming_record = SwimmingRecord(user_id=current_user.id, time=time, stroke=stroke, style=style,
                                          pool_length=length,
@@ -66,9 +64,9 @@ def save_swim_result():
 @swimmer.route('/swim/result')
 @login_required
 def swim_result():
-    global counter
-    strokes = counter.get_strokes()
-    spm = counter.get_strokes_per_minute()
+    global detector
+    strokes = detector.get_strokes()
+    spm = detector.get_strokes_per_minute()
     # counter.reset()
     return render_template('swim-result.html', strokes=strokes, spm=spm)
 
@@ -76,7 +74,7 @@ def swim_result():
 @swimmer.route('/plot_angle')
 def plot_angle():
     # Create matplotlib graph
-    plt = counter.plot_angles()
+    plt = detector.plot_angles()
 
     # Save the graph to a BytesIO object
     img_bytes = BytesIO()

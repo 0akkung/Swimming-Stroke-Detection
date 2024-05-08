@@ -1,10 +1,9 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash, Response, send_file
+from flask import render_template, redirect, url_for, request, flash, Response, send_file
 from werkzeug.security import generate_password_hash, check_password_hash
 from project.forms import RegistrationForm
 from project.models import db, User
-
 from flask_login import login_required, login_user, logout_user
-auth = Blueprint('auth', __name__)
+from project.auth import auth
 
 
 @auth.route('/login', methods=['GET', 'POST'])
