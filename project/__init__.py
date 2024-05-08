@@ -1,7 +1,7 @@
 from flask import Flask
-from project.models import db, User
-
+from project.models import User
 from flask_login import LoginManager
+from project.extensions import db
 
 
 def create_app():

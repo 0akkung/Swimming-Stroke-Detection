@@ -1,10 +1,11 @@
 from flask import render_template, redirect, url_for, request, Response, send_file
-from project.swimming_detector import SwimmingDetector
 from datetime import datetime
 from io import BytesIO
-from project.models import db, SwimmingRecord
+from project.models import SwimmingRecord
 from flask_login import login_required, current_user
 from project.swimmer import swimmer
+from project.extensions import db
+from project.swimming_detector import SwimmingDetector
 
 detector = SwimmingDetector()
 
@@ -36,7 +37,6 @@ def swim():
 
 @swimmer.route('/video_feed')
 def video_feed():
-    global detector
     return Response(detector.count_strokes(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
