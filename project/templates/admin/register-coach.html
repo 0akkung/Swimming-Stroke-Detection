@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <section>
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+                <div class="card card-registration my-4">
+                    <div class="row g-0">
+                        <div class="col-xl-6 d-none d-xl-block">
+                            <img src="{{ url_for('static',filename='img/right_side.png') }}"
+                                 alt="Sample photo" class="img-fluid"
+                                 style="border-top-left-radius: .25rem; border-bottom-left-radius: .25rem;"/>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card-body p-md-5 text-black">
+                                <h3 class="mb-5 text-uppercase font-weight-bold">Register</h3>
+                                <form id="request" method="POST" action="/register">
+                                    {{ form.hidden_tag }} <!-- Include CSRF token -->
+
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        {{ form.name.label }}
+                                        {{ form.name(class="form-control form-control-lg") }}
+                                    </div>
+
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        {{ form.email.label }}
+                                       {% if form.email.errors %}
+                                            {{ form.email(class="form-control form-control-lg is-invalid") }}
+                                            <div class="invalid-feedback">
+                                                {% for error in form.email.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            {{ form.email(class="form-control form-control-lg") }}
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6 mb-4">
+                                            <div data-mdb-input-init class="form-outline">
+                                                {{ form.height.label }}
+                                                {{ form.height(class="form-control form-control-lg") }}
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-4">
+                                            <div data-mdb-input-init class="form-outline">
+                                                {{ form.weight.label }}
+                                                {{ form.weight(class="form-control form-control-lg") }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
+
+                                        {{ form.gender.label(class="mb-0 me-4 mr-3 font-weight-bold") }}
+
+                                        {% for subfield in form.gender %}
+
+                                            <div class="form-check form-check-inline mb-0 me-4">
+                                                {{ subfield(class="form-check-input") }}
+                                                {{ subfield.label(class="form-check-label") }}
+                                            </div>
+
+                                        {% endfor %}
+
+                                    </div>
+
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        {{ form.dob.label }}
+                                        {% if form.dob.errors %}
+                                            {{ form.dob(class="form-control form-control-lg is-invalid") }}
+                                            <div class="invalid-feedback">
+                                                {% for error in form.dob.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            {{ form.dob(class="form-control form-control-lg") }}
+                                        {% endif %}
+                                    </div>
+
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        {{ form.password.label }}
+                                        {% if form.password.errors %}
+                                            {{ form.password(class="form-control form-control-lg is-invalid") }}
+                                            <div class="invalid-feedback">
+                                                {% for error in form.password.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        {% else %}
+                                            {{ form.password(class="form-control form-control-lg") }}
+                                        {% endif %}
+                                    </div>
+
+                                    <div data-mdb-input-init class="form-outline mb-4">
+                                        {{ form.confirm.label }}
+                                        {{ form.confirm(class="form-control form-control-lg") }}
+                                    </div>
+
+                                    <div class="d-flex justify-content-end pt-3">
+                                        {{ form.submit(class="btn btn-warning btn-lg ms-2") }}
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

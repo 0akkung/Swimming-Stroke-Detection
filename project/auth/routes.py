@@ -1,9 +1,10 @@
 from flask import render_template, redirect, url_for, request, flash, Response, send_file
 from werkzeug.security import generate_password_hash, check_password_hash
 from project.forms import RegistrationForm
-from project.models import db, User
+from project.models import User, Profile
 from flask_login import login_required, login_user, logout_user
 from project.auth import auth
+from project.extensions import db
 
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -23,13 +24,17 @@ def login():
             flash('The email address does not exist, please try again')
             return redirect(url_for('auth.login'))  # if the user doesn't exist or password is wrong, reload the page
 
-        if not user or not check_password_hash(user.password, password):
+        if not check_password_hash(user.password, password):
             print("Invalid password")
             flash('Please check your password and try again.')
             return redirect(url_for('auth.login'))  # if the user doesn't exist or password is wrong, reload the page
 
         # if the above check passes, then we know the user has the right credentials
         login_user(user, remember=remember)
+
+        if user.role == 'coach':
+            return redirect(url_for('coach.dashboard'))
+
         return redirect(url_for('swimmer.profile'))
 
     return render_template('login.html')
@@ -54,17 +59,19 @@ def register():
 
         if user:  # if a user is found, we want to redirect back to signup page so user can try again
             flash('Email address already exists')
-            return redirect(url_for('register'))
+            return redirect(url_for('auth.register'))
 
         # create a new user with the form data. Hash the password so the plaintext version isn't saved.
         new_user = User(email=email, name=name, password=generate_password_hash(password, method='pbkdf2:sha256'),
-                        height=height, weight=weight, gender=gender, date_of_birth=dob)
+                        role='swimmer')
+        new_profile = Profile(height=height, weight=weight, gender=gender, date_of_birth=dob)
+        new_user.profile = new_profile
 
         # add the new user to the database
         db.session.add(new_user)
         db.session.commit()
 
-        return redirect(url_for('login'))
+        return redirect(url_for('auth.login'))
 
     return render_template('register.html', form=form)
 

@@ -1,0 +1,29 @@
+{% extends 'coach/base.html' %}
+
+{% block content %}
+
+
+    <div class="container bootdey p-4">
+        <div class="row">
+            <div class="col">
+                <div class="user-widget-2">
+                    <ul class="list-unstyled">
+                        {% for swimmer in swimmers %}
+
+                            <li class="media">
+                                <img class="rounded-circle d-flex align-self-center"
+                                     src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                                <div class="media-body">
+                                    <h5>{{ swimmer.name }}</h5>
+                                    <p>Swimmer</p>
+                                    <a class="read_more" href="{{ url_for('coach.swimmer_profile', swimmer_name=swimmer.name) }}">View Profile</a>
+                                </div>
+                                <i class="d-flex align-self-center fa fa-dot-circle-o color-success"></i></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

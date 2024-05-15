@@ -2,6 +2,7 @@ from flask import Flask
 from project.models import User
 from flask_login import LoginManager
 from project.extensions import db
+from flask_seeder import FlaskSeeder
 
 
 def create_app():
@@ -21,13 +22,19 @@ def create_app():
         # since the user_id is just the primary key of our user table, use it in the query for the user
         return User.query.get(int(user_id))
 
+    # Seeder
+    seeder = FlaskSeeder()
+    seeder.init_app(app, db)
+
     # Import and register Blueprint
     from project.main import main as main_blueprint
     from project.auth import auth as auth_blueprint
     from project.swimmer import swimmer as swimmer_blueprint
+    from project.coach import coach as coach_blueprint
 
     app.register_blueprint(main_blueprint)
     app.register_blueprint(auth_blueprint)
     app.register_blueprint(swimmer_blueprint)
+    app.register_blueprint(coach_blueprint)
 
     return app

@@ -16,7 +16,7 @@ def profile():
     today = datetime.today().date()
     # Filter records for a specific user within the date range
     swimming_records_today = SwimmingRecord.query.filter(
-        SwimmingRecord.user_id == current_user.id).all()
+        SwimmingRecord.profile_id == current_user.profile.id).all()
     print(swimming_records_today)
 
     # Calculate average strokes per minute
@@ -50,7 +50,7 @@ def save_swim_result():
     length = request.form['length']
     spm = detector.get_strokes_per_minute()
     date = datetime.now()
-    new_swimming_record = SwimmingRecord(user_id=current_user.id, time=time, stroke=stroke, style=style,
+    new_swimming_record = SwimmingRecord(profile_id=current_user.profile.id, time=time, stroke=stroke, style=style,
                                          pool_length=length,
                                          strokes_per_minute=spm, date=date)
 
