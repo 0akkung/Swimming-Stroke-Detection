@@ -5,6 +5,11 @@ from project.admin import admin
 from project.extensions import db
 
 
+@admin.route('/dashboard')
+def dashboard():
+    return render_template('admin/dashboard.html')
+
+
 @admin.route('/create-coach', methods=["GET", "POST"])
 def register_coach():
     form = RegistrationForm(request.form)
@@ -28,4 +33,4 @@ def register_coach():
 
         return redirect(url_for('auth.login'))
 
-    return render_template('register-coach.html', form=form)
+    return render_template('admin/register-coach.html', form=form)

@@ -9,7 +9,7 @@ def index():
         if current_user.role == 'coach':
             return redirect(url_for('coach.dashboard'))
         elif current_user.role == 'admin':
-            pass
+            return redirect(url_for('admin.dashboard'))
 
     return render_template('index.html')
 

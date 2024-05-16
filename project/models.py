@@ -17,7 +17,6 @@ class User(UserMixin, db.Model):
         return '<User %r>' % self.email
 
 
-
 class Profile(db.Model):
     __tablename__ = 'profiles'
     id = db.Column(db.Integer, primary_key=True)

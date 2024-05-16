@@ -31,10 +31,12 @@ def create_app():
     from project.auth import auth as auth_blueprint
     from project.swimmer import swimmer as swimmer_blueprint
     from project.coach import coach as coach_blueprint
+    from project.admin import admin as admin_blueprint
 
     app.register_blueprint(main_blueprint)
     app.register_blueprint(auth_blueprint)
     app.register_blueprint(swimmer_blueprint)
     app.register_blueprint(coach_blueprint)
+    app.register_blueprint(admin_blueprint)
 
     return app

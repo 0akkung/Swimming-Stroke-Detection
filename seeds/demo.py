@@ -1,5 +1,5 @@
 from flask_seeder import Seeder, Faker, generator
-from project.models import User
+from project.models import User, Profile
 from werkzeug.security import generate_password_hash
 
 
@@ -8,11 +8,20 @@ class UserSeeder(Seeder):
 
     # run() will be called by Flask-Seeder
     def run(self):
+        user = User(name="Admin",
+                    email="admin@example.com",
+                    password=generate_password_hash("admin", method='pbkdf2:sha256'),
+                    role="admin"
+                    )
+
+        # Create admin
+        print("Adding user: %s" % user)
+        self.db.session.add(user)
+
         # Create a new Faker and tell it how to create User objects
         faker = Faker(
             cls=User,
             init={
-                "id": generator.Sequence(),
                 "name": generator.Name(),
                 "email": generator.Email(),
                 "password": generate_password_hash("coach", method='pbkdf2:sha256'),
@@ -20,7 +29,8 @@ class UserSeeder(Seeder):
             }
         )
 
-        # Create 5 users
+        # Create 5 coaches
         for user in faker.create(5):
             print("Adding user: %s" % user)
             self.db.session.add(user)
+
