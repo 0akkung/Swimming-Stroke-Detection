@@ -34,6 +34,8 @@ def login():
 
         if user.role == 'coach':
             return redirect(url_for('coach.dashboard'))
+        elif user.role == 'admin':
+            return redirect(url_for('admin.dashboard'))
 
         return redirect(url_for('swimmer.profile'))
 

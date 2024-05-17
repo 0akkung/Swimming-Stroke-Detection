@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'admin/base.html' %}
 
 {% block content %}
 
@@ -14,8 +14,8 @@
                         </div>
                         <div class="col-xl-6">
                             <div class="card-body p-md-5 text-black">
-                                <h3 class="mb-5 text-uppercase font-weight-bold">Register</h3>
-                                <form id="request" method="POST" action="/register">
+                                <h3 class="mb-5 text-uppercase font-weight-bold">Register Coach</h3>
+                                <form id="request" method="POST" action="{{ url_for('admin.register_coach') }}">
                                     {{ form.hidden_tag }} <!-- Include CSRF token -->
 
                                     <div data-mdb-input-init class="form-outline mb-4">
@@ -34,50 +34,6 @@
                                             </div>
                                         {% else %}
                                             {{ form.email(class="form-control form-control-lg") }}
-                                        {% endif %}
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6 mb-4">
-                                            <div data-mdb-input-init class="form-outline">
-                                                {{ form.height.label }}
-                                                {{ form.height(class="form-control form-control-lg") }}
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 mb-4">
-                                            <div data-mdb-input-init class="form-outline">
-                                                {{ form.weight.label }}
-                                                {{ form.weight(class="form-control form-control-lg") }}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="d-md-flex justify-content-start align-items-center mb-4 py-2">
-
-                                        {{ form.gender.label(class="mb-0 me-4 mr-3 font-weight-bold") }}
-
-                                        {% for subfield in form.gender %}
-
-                                            <div class="form-check form-check-inline mb-0 me-4">
-                                                {{ subfield(class="form-check-input") }}
-                                                {{ subfield.label(class="form-check-label") }}
-                                            </div>
-
-                                        {% endfor %}
-
-                                    </div>
-
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        {{ form.dob.label }}
-                                        {% if form.dob.errors %}
-                                            {{ form.dob(class="form-control form-control-lg is-invalid") }}
-                                            <div class="invalid-feedback">
-                                                {% for error in form.dob.errors %}
-                                                    <span>{{ error }}</span>
-                                                {% endfor %}
-                                            </div>
-                                        {% else %}
-                                            {{ form.dob(class="form-control form-control-lg") }}
                                         {% endif %}
                                     </div>
 

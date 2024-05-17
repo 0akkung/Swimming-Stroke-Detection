@@ -34,3 +34,20 @@ class RegistrationForm(Form):
         age = today.year - field.data.year - ((today.month, today.day) < (field.data.month, field.data.day))
         if age < 15:
             raise ValidationError(f'You must be at least 15 years old. (You are {age})')
+
+
+class CoachRegistrationForm(Form):
+    name = StringField('Name', [validators.DataRequired(), validators.Length(min=4, max=25)])
+    email = EmailField('Email Address', [validators.DataRequired(), validators.Length(min=6, max=35)])
+    password = PasswordField('New Password', [
+        validators.DataRequired(),
+        validators.EqualTo('confirm', message='Passwords must match.'),
+        validators.Length(min=4, max=25)
+    ])
+    confirm = PasswordField('Confirm Password')
+    submit = SubmitField('Submit')
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user is not None:
+            raise ValidationError('Email address already exists')
