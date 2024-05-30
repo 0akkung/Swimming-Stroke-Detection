@@ -17,6 +17,7 @@
                                  alt="avatar"
                                  class="rounded-circle img-fluid" style="width: 150px;">
                             <h1 class="my-3 display-5 mb-4">{{ current_user.name }}</h1>
+                            <a href role="button" class="btn btn-info">Edit</a>
                         </div>
                     </div>
                 </div>
@@ -75,6 +76,7 @@
                 <thead class="thead-dark">
                 <tr>
                     <th>Style</th>
+                    <th>Location</th>
                     <th>Time</th>
                     <th>Stroke</th>
                     <th>Strokes per Minute</th>
@@ -87,6 +89,7 @@
                 {% for record in current_user.profile.swimming_records %}
                     <tr>
                         <td>{{ record.style }}</td>
+                        <td>{{ record.location }}</td>
                         <td>{{ record.time }}</td>
                         <td>{{ record.stroke }}</td>
                         <td>{{ record.strokes_per_minute }}</td>
