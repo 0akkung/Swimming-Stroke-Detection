@@ -893,7 +893,7 @@ ul.social_icon li a:hover {
 .inner_page header {
      box-shadow: 0 -3px 12px 0px #64b3f4;
      position: inherit;
-     background: #01796f;
+     background: #64b3f4;
 }
 .inner_page .about {
      margin:80px 0 190px 0;
@@ -1270,5 +1270,14 @@ body {
      color: #1b0847;
    }
    
-   //about
+   /** banner_Login **/
+     .banner_Login {
+     background-image: url('/static/img/bannerLogin.png');
+     width: 100%;
+     background-size: cover;
+     padding-top: 110px;
+     /*position: relative;*/
+     /*  background-attachment: fixed;*/
+     background-position: center;
+     }
    

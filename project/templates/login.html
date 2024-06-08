@@ -6,22 +6,23 @@
 
 {% block content %}
     <!-- BODY EMAIL PASSWORD -->
-    <div class="contact left_cross_right">
+<div id="top_section" class=" banner_Login">
+    <!--<div class="contact left_cross_right">-->
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="titlepage text_align_left">
+                <!--<div class="titlepage text_align_left">
                         <h1>Login</h1>
                         <p>Please enter email address and password</p>
-                    </div>
+                    </div> -->
                 </div>
                 <section class="vh-100">
                     <div class="container-fluid h-custom">
                         <div class="row d-flex justify-content-center align-items-center h-100">
-                            <div class="col-md-9 col-lg-6 col-xl-5">
-                                <img src="{{ url_for('static',filename='img/right_side.png') }}"
+                     <div class="col-md-9 col-lg-6 col-xl-5">
+                                <img src="{{ url_for('static',filename='img/right_side2.png') }}"
                                      class="img-fluid" alt="Sample image">
-                            </div>
+                            </div> 
                             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                                 {% with messages = get_flashed_messages() %}
                                     {% if messages %}
@@ -69,7 +70,6 @@
                                                 class="link-danger">Register</a>
                                         </p>
                                     </div>
-
                                 </form>
                             </div>
                         </div>
@@ -79,6 +79,7 @@
         </div>
     </div>
     <!-- end BODY EMAIL PASSWORD -->
+
     <!-- our_us -->
     <div class="our_mics">
         <div class="container">
