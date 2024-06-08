@@ -8,20 +8,17 @@
                 <div class="col-md-6">
                     <div class="airmic">
                         <h1>The Swimming Detection </h1>
-                        <p>Senior Project นี้สามารถวิเคราะห์ท่าว่าย จับจำนวนสโตรก คำนวณระยะทาง แสดงผลแบบเรียลไทม์
-                            อีกทั้งระบบสามารถรองรับสระว่ายน้ำหลากหลายตามขนาดของสระ ซึ่งข้อมูลมีความครบถ้วนโดยบันทึกสถิติ
-                            วิเคราะห์ความเร็ว แสดงกราฟแสดงผล ช่วยติดตามพัฒนาการฝึกซ้อม
-                            ที่สำคัญสามารถปรับโปรแกรมให้เหมาะกับนักกีฬาแต่ละคน
+                        <p>This Senior project can analyze the position, capture the number of strikes, calculate distances, display real-time results, and the system can support a variety of swimming pools according to the size of the pool, which is complete with statistical logs. Speed analysis, display graphs, help track the development of training. Importantly, it can be programmed to suit individual athletes.
                         </p>
                         {% if not current_user.is_authenticated %}
-                            <a class="read_more" href="{{ url_for('auth.login') }}">เข้าสู่ระบบ</a>
-                            <a class="read_more" href="{{ url_for('auth.register') }}">ลงทะเบียน</a>
+                            <a class="read_more" href="{{ url_for('auth.login') }}">Login</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a class="read_more" href="{{ url_for('auth.register') }}">SignUp</a>
                         {% endif %}
                         {% if current_user.is_authenticated %}
 
-                            <a class="read_more" href="{{ url_for('swimmer.swim') }}">ไปว่ายน้ำ</a>
+                            <a class="read_more" href="{{ url_for('swimmer.swim') }}">Go to swim</a>
                         {% endif %}
-
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -39,13 +36,13 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="titlepage text_align_center">
-                        <h2>เกี่ยวกับกีฬาว่ายน้ำ</h2>
-                        <p>อีกหนึ่งประเภทชนิดกีฬาที่ได้รับความนิยม อย่างล้นหลาม เนื่องจากไม่ต้องใช้อุปกรณ์ใดๆ
-                            ในการออกกำลังกายเลย นั่นก็คือกีฬาว่ายน้ำ เพียงแค่มีน้ำ ไม่ว่าจะในสระ บ่อ คู คลอง ทะเล หรือ
-                            มหาสมุทร ที่สามารถลงไปแหวกว่ายได้ ก็เป็นสถานที่ที่ใช้ออกกำลังกายประเภทนี้แล้วค่ะ
-                            แต่จะใช้ท่าอะไร ในการว่ายนั้น ก็แล้วแต่จะถนัด มีทั้ง ว่ายแบบฟรีสไตล์ ว่ายกรรเชียง
-                            ว่ายผีเสื้อ หรืออื่นๆ ตามแบบการว่ายน้ำและการแข่งขันสากล</p>
-                        <br>ที่มา: สมาคมกีฬาว่ายน้ำแห่งประเทศไทย
+                        <h2>About the swimming sports</h2>
+                        <p><font size=4 color=#999999>It's another sport that's been popular because it doesn't need any equipment.
+                            In practice, that's a swimming sport, just with water, whether it's in a pool, a bucket, a sea or something.
+                            The ocean that can go down to the sea is a place for this kind of exercise.
+                            But what are you gonna use to do that?
+                            Butterfly fishing and other swimming and international competitions.</p>
+                        <br>Source: Thai Swimming Sports Association</font>
                     </div>
                 </div>
             </div>
@@ -55,8 +52,8 @@
                         <i><img src="{{ url_for('static',filename='img/service1.png') }}" alt="#"/></i>
                     </div>
                     <div class="service_text text_align_center">
-                        <h3>การแข่งขัน</h3>
-                        <p>มีทั้งหมด 4 ท่า ได้แก่ ท่าผีเสื้อ, ท่ากรรเชียง, ท่ากบ, ท่าฟรีสไตล์</p>
+                        <h3>Competition</h3>
+                        <p>There's a total of four, including Butterfly stroke, Backstroke, Breaststroke, Freestyle.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -64,8 +61,8 @@
                         <i><img src="{{ url_for('static',filename='img/service1.png') }}" alt="#"/></i>
                     </div>
                     <div class="service_text text_align_center">
-                        <h3>ขนาดของสระมาตรฐาน</h3>
-                        <p>กว้าง 25 เมตร ยาว 50 เมตร มีลู่สำหรับการว่ายทั้งหมด 8 ลู่ แต่ละลู่กว้างประมาณ 7-9 ฟุต</p>
+                        <h3>Standard pool size</h3>
+                        <p>The width is 25 meters, the length is 50 meters. There are a total of 8 circles, about 7-9 feet.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -73,29 +70,29 @@
                         <i><img src="{{ url_for('static',filename='img/service1.png') }}" alt="#"/></i>
                     </div>
                     <div class="service_text text_align_center">
-                        <h3>ประเภทการแข่งขัน</h3>
-                        <p>ท่าฟรีสไตล์ 50 เมตร, 100 เมตร, 200 เมตร, 400 เมตร, 800 และ 1,500 เมตร
-                            <br> ท่ากรรเชียง 50 เมตร, 100 เมตร และ 200 เมตร
-                            <br> ท่ากบ 50 เมตร, 100 เมตร และ 200 เมตร
-                            <br> ท่าผีเสื้อ 50 เมตร, 100 เมตร และ 200 เมตร
-                            <br> เป็นต้น</p>
+                        <h3>Competition Type</h3>
+                        <p>Freestyle 50m, 100m, 200m, 400m, 800m, and 1500m.
+                            <br> Backstroke 50 meters 100 meters 200 meters
+                            <br> Breaststroke 50 meters 100 meters 200 meters
+                            <br> Butterfly stroke 50 meters 100 meters 200 meter
+                            <br> And so on.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- end services -->
-    <!-- about -->
+    <!-- about us-->
     <div id="about" class="about">
         <div class="container-fluid">
             <div class="row d_flex">
                 <div class="col-md-6">
                     <div class="titlepage text_align_left">
                         <h2>About Us</h2>
-                        <p>จัดทำโดยนางสาวปารเมศ กิตติราช รหัสนิสิต 6410401108 และ นายภาวัต พุทธิมิตร รหัสนิสิต
-                            6410406827 นิสิตระดับปริญญาตรี ภาควิชาวิทยาการคอมพิวเตอร์ ภาคปกติ คณะวิทยาศาสตร์
-                            มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตบางเขน อาจารย์ที่ปรึกษาโปรเจ็ค อาจารย์สมโชค เรืองอิทธินันท์
-                            และข้อมูลการว่ายน้ำมาจากสมาคมกีฬาว่ายน้ำแห่งประเทศไทย </p>
+                        <p>Prepared by Ms. Parames Kittirat, student ID 6410401108 and Mr. Phawat Putthimit, student ID
+                            6410406827 Bachelor's degree students Department of Computer Science, Regular Semester, Faculty of Science
+                            Kasetsart University Bang Khen Campus Project and Advisor is Professor Somchok Ruangitthinan
+                            And swimming information comes from the Swimming Association of Thailand. </p>
                         <a class="read_more" href="{{ url_for('main.about') }}">Read More</a>
                     </div>
                 </div>
@@ -108,38 +105,38 @@
             </div>
         </div>
     </div>
-    <!-- end about -->
-    <!-- our_mics -->
+    <!-- end about us -->
+    <!-- start Regulations -->
     <div class="our_mics">
         <div class="container">
             <div class="row">
                 <div class="col-md-10 offset-md-1">
                     <div class="titlepage text_align_center">
-                        <h2>ระเบียบข้อบังคับ</h2>
-                        <p>- กติกา กีฬาว่ายน้ำ จะกำหนดเสียก่อนว่า การแข่งขันแบบนี้จะว่ายด้วยท่าอะไร และมีระยะทางเท่าใด
-                            ซึ่งผู้เข้าแข่งขันก็จะต้องว่ายตามที่กำหนดไว้ ใครเข้าเส้นชัยได้เป็นคนแรกจะเป็นผู้ชนะ
+                        <h2>Regulations</h2>
+                        <p>- The rules of the sport of swimming will be determined first. In this kind of competition What style of swimming will you have? And how much distance?
+                            Competitors must swim as required. Whoever crosses the finish line first will be the winner.
 
-                            <br>- กีฬาว่ายน้ำนั้นเนื่องจากว่าเป็นกีฬาที่นิยมสำหรับผู้คนจำนวนมากดังนั้น
-                            จึงได้มีการจัดการแข่งขันขึ้น เพื่อวัดกันว่าใครเก่งที่สุด เช่น การแข่งขันฟรีสไตล์ 100 เมตร
-                            ผู้เข้าแข่งขันจะต้องว่ายด้วยท่าฟรีสไตล์ ในระยะทาง 100 เมตร แต่ว่า
-                            ระยะทางที่ยาวที่สุดของสระว่ายน้ำ คือ 50 เมตร ฉะนั้น ผู้แข่งขันจึงต้องว่ายกลับตัว 1 ครั้ง
-                            เป็นการว่ายไปกลับ 1 รอบ จึงจะได้ระยะทาง 100 เมตร สำหรับการว่ายผลัด
+                            <br>- Swimming is a popular sport for many people.
+                            Therefore a competition was organized. To measure who is the best, such as the 100 meter freestyle competition.
+                            Competitors must swim freestyle for a distance of 100 meters, but
+                            The longest distance in the swimming pool is 50 meters, so competitors must swim one turn.
+                            It is one lap round trip, so there will be a distance of 100 meters for the relay swim.
 
-                            <br>- ผู้แข่งขันกระโดดลงสระหลังจากที่เพื่อนร่วมทีมจะว่ายแตะขอบสระไปแล้วเท่านั้น
-                            หากเพื่อนร่วมทีมยังไม่แตะขอบสระ แล้วกระโดดลงไป จะถูกปรับแพ้ทันที
+                            <br>- Competitors jump into the pool only after their teammates have touched the edge of the pool.
+                            If teammates haven't touched the edge of the pool yet then jump down will be forfeited immediately
 
-                            <br>- กติกาการแข่งขัน ใช้ควบคุมการแข่งขันที่จัดขึ้นทุกประเภท ได้แก่ การแข่งขันโอลิมปิกเกมส์
-                            การแข่งขันชิงแชมเปี้ยนโลก การแข่งขันระหว่างทวีป และการแข่งขันทั่ว ๆ ไประหว่างประเทศ
-                            ยกเว้นการแข่งขันที่ระบุไว้เป็นอย่างอื่น
+                            <br>- Competition rules Used to control all types of organized competitions, including the Olympic Games.
+                            World Championships intercontinental competition and general international competition
+                            Except for competitions specified otherwise.
 
-                            <br>- เรื่องการปล่อยตัวก่อนการว่าย กรรมการจะเป่าเสียงนกหวีดยาว
-                            เพื่อให้นักว่ายน้ำขึ้นบนแท่นกระโดด ต่อมาเมื่อกรรมการจะบอกว่า “เข้าที่”
-                            ผู้แข่งขันจึงก้าวไปยืนที่ปลายแท่นกระโดด รอกรรมการให้สัญญาณปล่อยตัวเป็นเสียงปืน ออด
-                            หรือนกหวีด จึงสามารถปล่อยตัวได้
+                            <br>- About releasing before swimming The referee will sound a long whistle.
+                            to get swimmers onto the jumping platform Later, when the referee will say, "Get into position."
+                            The contestant then steps to stand at the end of the jumping platform. Waiting for the referee to signal the release to the sound of a gun and a buzzer.
+                            or whistle so you can be released
 
-                            <br>- แต่ว่าในการแข่งขันในท่าว่ายกรรเชียงกับท่าผลัดผสม จะไม่ปล่อยตัวจากแท่น
-                            แต่จะปล่อยตัวจากสระว่ายน้ำแทน
-                            <br> ที่มา: สมาคมกีฬาว่ายน้ำแห่งประเทศไทย</p>
+                            <br>- But in the backstroke and mixed relay competitions will not be released from the pedestal
+                            Instead, they will be released from the swimming pool.
+                            <br> Source: Swimming Association of Thailand </p>
                     </div>
                 </div>
             </div>
@@ -213,15 +210,15 @@
             </div>
         </div>
     </div>
-    <!-- end our_mics -->
+    <!-- end Regulations -->
     <!-- testimonial -->
     <div class="testimonial">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 offset-md-2">
                     <div class="titlepage text_align_center">
-                        <h2>ท่าว่ายน้ำ</h2>
-                        <p>ท่าว่ายน้ำในแต่ละท่ามีความแตกต่างกันดังนี้ </p>
+                        <h2>Swimming position</h2>
+                        <p>Each swimming position is different as follows.</p>
                     </div>
                 </div>
             </div>
@@ -241,15 +238,9 @@
                                         <div class="testomoniam_text">
                                             <i class="text_align_left d-block"><img
                                                     src="{{ url_for('static',filename='img/icon.png') }}" alt="#"/></i>
-                                            <p>ท่าฟรีสไตล์
-                                                <br>คำว่า “ฟรีสไตล์” เป็นคำที่เรียกกันติดปาก มีชื่อว่า “crawl stroke”
-                                                ท่านี้เป็นท่าที่ร่างกายมีความเพรียวลู่น้ำมากกว่า ท่าอื่น ๆ รวมทั้ง
-                                                การเคลื่อนไหวเป็นไปอย่างต่อเนื่อง เป็นท่าว่ายอย่างไรก็ได้
-                                                ขอให้ต่างจากท่าผีเสื้อ ท่ากบ และท่ากรรเชียง ซึ่งส่วนมากที่เห็นกันคือ
-                                                การสาวมือว่ายสลับกันไปมาซ้ายขวา ที่เรียกกันว่า
-                                                ฟรีสไตล์ก็เพราะคุณสามารถว่ายท่าอะไรก็ได้ที่คิดว่าเร็วที่สุดเพื่อให้ถึงขอบสระก่อนคนอื่น
-                                                โดยท่าที่นิยมใช้ในกระบวนการสอนว่ายน้ำก็จะสอนท่านี้เป็นท่าแรก
-                                                <br> ที่มา: สมาคมกีฬาว่ายน้ำแห่งประเทศไทย</p>
+                                            <p> <strong> Free style </strong>
+                                                <br>The word "free style" is a word called a crawl stroke.This is a posture where the body is more waterproof than any other.It's a constant movement, whatever it is.There is a distinction between the butterfly, the beetle, and the chihuahua, most of which areThe girl's hand switches left-to-right, so-called.It's freestyle because you can do whatever you think you can to get to the edge of the pool before anyone else.By the popular posture used in the process of teaching swimming, this posture is taught first.
+                                                <br> Source: Thai Swimming Sports Association </p>
                                             <i class="text_align_right d-block"><img
                                                     src="{{ url_for('static',filename='img/icon_right.png') }}"
                                                     alt="#"/></i>
@@ -263,15 +254,15 @@
                                         <div class="testomoniam_text">
                                             <i class="text_align_left d-block"><img
                                                     src="{{ url_for('static',filename='img/icon.png') }}" alt="#"/></i>
-                                            <p>ท่าผีเสื้อ
-                                                <br>เป็นการว่ายแบบคว่ำหน้า เป็นท่าที่คุณต้องใช้แรงในการว่ายมากที่สุด
-                                                มือทั้งสองข้างจะต้องยกเหนือน้ำพร้อมกัน
-                                                ท่านี้มีความเร็วเป็นอันดับสองรองจากฟรีสไตล์
-                                                ในการว่ายท่านี้มีลักษณะเป็นการถ่ายน้ำหนักของร่างกายไปมาจากหน้าไปหลังและหลังไปหน้าไปเรื่อย
-                                                ๆ ดังนั้นท่านี้ต้องอาศัยเอวและสะโพกมาช่วย
-                                                แต่ถ้าคุณว่ายเก่งคุณสามารถว่ายจี้ติดคนที่ว่ายท่าฟรีสไตล์ได้เลยทีเดียว
-                                                คุณต้องมีกล้ามเนื้อทั้งหัวไหล่ หน้าอก ลำตัว หลัง และขาที่แข็งแรงมาก
-                                                <br> ที่มา: สมาคมกีฬาว่ายน้ำแห่งประเทศไทย</p>
+                                            <p> <strong> Butterfly stroke  </strong>
+                                                <br>It's a face-to-face swing. That's where you need the most strength to swim.
+                                                Both hands will be lifted above the water at the same time.  
+                                                This is the second-highest speed in free style.
+                                                This posture is characterized by a continuous transfer of body weight from face to back and back to face.
+                                                So you're gonna have to help your waist and thighs.   
+                                                But if you're a good swimmer, you can be a free-styled swimmer.  
+                                                You have to have muscles all over your head, shoulders, chest, back, and very strong legs.
+                                                <br> Source: Thai Swimming Sports Association </p>
                                             <i class="text_align_right d-block"><img
                                                     src="{{ url_for('static',filename='img/icon_right.png') }}"
                                                     alt="#"/></i>
@@ -285,14 +276,14 @@
                                         <div class="testomoniam_text">
                                             <i class="text_align_left d-block"><img
                                                     src="{{ url_for('static',filename='img/icon.png') }}" alt="#"/></i>
-                                            <p>ท่ากบ
-                                                <br> ท่านี้ เป็นท่าว่ายแบบคว่ำหน้า
-                                                เป็นท่าธรรมชาติของมนุษย์คือใช้มือพุ้ยน้ำและใช้เท้าถีบไปเรื่อย ๆ
-                                                มือทั้งสองข้างต้องพุ้งไปข้างหน้าพร้อมกัน ส่วนข้อศอกอยู่ใต้ผิวน้ำ
-                                                พร้อมกับเตะเท้าไปด้านหลังด้วย ถือว่าเป็นท่าที่ว่ายได้ช้าที่สุด
-                                                แต่ในการแข่งขันแล้วท่ากบใช้เทคนิคสูงเพราะการว่ายไม่เหมือนกับการว่ายเล่นธรรมดา
-                                                เพราะท่ากบ และต้องใช้พรสวรรค์สูงเพราะเป็นท่าที่นักกีฬา ต้องมีกล้ามเนื้อ
-                                                <br> ที่มา: สมาคมกีฬาว่ายน้ำแห่งประเทศไทย</p>
+                                            <p> <strong>Breaststroke</strong> 
+                                                <br> This is a face-to-face behavior.
+                                                It's natural for humans to use their hands and feet constantly.                                               
+                                                Both hands have to sprinkle forward at the same time. The elbows are under the water.                                              
+                                                With a foot kick in the back, it's considered the slowest position.                                               
+                                                But in the competition, it's high-tech, because swimming isn't like normal swimming.                                               
+                                                It's because of the attitude, and it requires a high talent, because athletes have muscles.
+                                                <br> Source: Thai Swimming Sports Association  </p>
                                             <i class="text_align_right d-block"><img
                                                     src="{{ url_for('static',filename='img/icon_right.png') }}"
                                                     alt="#"/></i>
@@ -309,11 +300,11 @@
                                     <i class="text_align_left d-block"><img
                                             src="{{ url_for('static',filename='img/icon.png') }}" alt="#"/></i>
                                     <p>
-                                        ท่ากรรเชียง
-                                        <br> เป็นท่าว่ายแบบนอนหงาย สามารถว่ายกรรเชียงโดยดัดแปลงหลักการของฟรีสไตล์ได้
-                                        มือสองข้างสลับกันสาวน้ำ เพื่อให้เคลื่อนตัวไปข้างหน้า
-                                        ต้องวางให้ชิดกับหูของคุณด้วย
-                                        <br> ที่มา: สมาคมกีฬาว่ายน้ำแห่งประเทศไทย</p>
+                                        <strong>Backstroke</strong> 
+                                        <br> It's a seductive posture. It can be seduced by changing the principles of free style.
+                                        Both hands swapped against the waterwoman to move forward.
+                                        You're gonna have to put it on your ears.
+                                        <br> Source: Thai Swimming Sports Association  </p>
                                     <i class="text_align_right d-block"><img
                                             src="{{ url_for('static',filename='img/icon_right.png') }}" alt="#"/></i>
                                 </div>
@@ -335,15 +326,15 @@
     </div>
     </div>
     <!-- end testimonial -->
-    <!-- contact section -->
+    <!-- start contact section -->
     <div class="contact left_cross_right">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="titlepage text_align_left">
-                        <h2>Request a call back.</h2>
-                        <p>ขอบคุณที่เข้าเยี่ยมชมเว็บไซต์ของเรา หากท่านมีข้อเสนอเพิ่มเติมสามารถแจ้งได้ที่นี่
-                            เราจะนำไปปรับปรุงและพัฒนาต่อไป ขอบคุณครับ/ค่ะ </p>
+                        <h2><strong>Request a call back.</strong></h2>
+                        <p>Thank you for visiting our website. If you have more offers, please contact us here.
+                            We'll keep upgrading and developing. Thank you. </p>
                     </div>
                 </div>
                 <div class="col-md-12">
