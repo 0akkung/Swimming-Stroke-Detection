@@ -352,7 +352,7 @@ ul.email li a i {
      height: 100%;
      top: 0;
      right: 0;
-     background-color: #64b3f4;
+     background-color: #c2e59c;
      overflow-x: hidden;
      transition: 0.5s;
      padding-top: 60px;
@@ -1281,3 +1281,14 @@ body {
      background-position: center;
      }
    
+     /** banner_dashboard **/
+
+.banner_dash {
+     background-image: url('/static/img/bannerDash.jpg');
+     width: 100%;
+     background-size: cover;
+     padding-top: 110px;
+     position: relative;
+     /*  background-attachment: fixed;*/
+     background-position: center;
+}

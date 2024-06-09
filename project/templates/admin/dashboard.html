@@ -2,12 +2,37 @@
 
 {% block content %}
 
-    <div class="container">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <a class="read_more" href="{{ url_for('admin.register_coach') }}">Register Coach</a>
-            <a class="read_more" href="#">Add Swimming Pool</a>
+    <div id="top_section" class=" banner_dash">
+        <!--<div class="contact left_cross_right">-->
+            <div class="container">
+                <div class="row">
+        
+                    <div class="container-fluid">
+                        <div class="row d-flex justify-content-center align-items-center h-100">
+                            <a class="read_more" href="{{ url_for('admin.register_coach') }}">Register Coach</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                           
+                            <a class="read_more" href="#">Add Swimming Pool</a>
+                        </div>
+                    </div>
 
+                    <section class="vh-100">
+                        <div class="container-fluid h-custom">
+                            <div class="row d-flex justify-content-center align-items-center h-100">
+                                <div class="col-md-9 col-lg-6 col-xl-5">
+                                    <img src="{{ url_for('static',filename='img/right_side2.png') }}"
+                                         class="img-fluid" alt="Sample image">
+                                </div> 
+                               
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
         </div>
-    </div>
-
 {% endblock %}
