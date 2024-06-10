@@ -13,7 +13,7 @@
                         {% if not current_user.is_authenticated %}
                             <a class="read_more" href="{{ url_for('auth.login') }}">Login</a>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a class="read_more" href="{{ url_for('auth.register') }}">SignUp</a>
+                            <a class="read_more" href="{{ url_for('auth.register') }}">Register</a>
                         {% endif %}
                         {% if current_user.is_authenticated %}
 

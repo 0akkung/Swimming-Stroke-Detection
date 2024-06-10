@@ -5,20 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfecd848-d4a0-446a-99fb-b8c0fc96c776" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.vscode/launch.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/static/img/bannerDash.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/static/img/bannerLogin.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/static/img/kid.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/static/img/left_side.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/static/img/right_side2.PNG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/static/css/bootstrap-grid.css" beforeDir="false" afterPath="$PROJECT_DIR$/project/static/css/bootstrap-grid.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/project/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/templates/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/project/templates/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/templates/admin/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/project/templates/admin/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/project/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/project/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/project/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/project/templates/register.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +58,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Merging main",
+    "git-widget-placeholder": "Rebasing main",
     "last_opened_file_path": "/Users/OAK/Works/Senior-Project/swimming-project/project/templates/admin",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -97,7 +85,7 @@
       <recent name="$PROJECT_DIR$/project/auth" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.test">
+  <component name="RunManager" selected="Python.app">
     <configuration name="SwimPoseDetector" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="swimming-project" />
       <option name="ENV_FILES" value="" />
@@ -185,8 +173,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.test" />
         <item itemvalue="Python.app" />
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.SwimPoseDetector" />
       </list>
     </recent_temporary>
@@ -239,7 +227,7 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/swimming_project$app.coverage" NAME="app Coverage Results" MODIFIED="1717227696016" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/swimming_project$app.coverage" NAME="app Coverage Results" MODIFIED="1717984885908" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/swimming_project$test.coverage" NAME="test Coverage Results" MODIFIED="1717228217662" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/swimming_project$swimming_project.coverage" NAME="swimming-project Coverage Results" MODIFIED="1716968176243" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/swimming_project$SwimPoseDetector.coverage" NAME="SwimPoseDetector Coverage Results" MODIFIED="1701272920065" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
