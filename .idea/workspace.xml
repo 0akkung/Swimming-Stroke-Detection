@@ -5,6 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfecd848-d4a0-446a-99fb-b8c0fc96c776" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/migrations/README" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/alembic.ini" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/env.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/script.py.mako" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/versions/1e84c0559f28_added_profile_picture.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/templates/admin/add-location.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/templates/profile/edit.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/swimming-project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/swimming-project.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/__init__.py" afterDir="false" />
@@ -233,7 +240,7 @@
       <workItem from="1712028798061" duration="2838000" />
       <workItem from="1712131281547" duration="33785000" />
       <workItem from="1713680406509" duration="86789000" />
-      <workItem from="1716441856599" duration="29594000" />
+      <workItem from="1716441856599" duration="29643000" />
     </task>
     <servers />
   </component>
