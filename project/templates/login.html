@@ -6,36 +6,39 @@
 
 {% block content %}
     <!-- BODY EMAIL PASSWORD -->
-    <div class="contact left_cross_right">
+<div id="top_section" class=" banner_Login">
+    <!--<div class="contact left_cross_right">-->
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="titlepage text_align_left">
-                        <h2>Login</h2>
+                <!--<div class="titlepage text_align_left">
+                        <h1>Login</h1>
                         <p>Please enter email address and password</p>
-                    </div>
+                    </div> -->
                 </div>
                 <section class="vh-100">
                     <div class="container-fluid h-custom">
                         <div class="row d-flex justify-content-center align-items-center h-100">
                             <div class="col-md-9 col-lg-6 col-xl-5">
-                                <img src="{{ url_for('static',filename='img/right_side.png') }}"
+                                <img src="{{ url_for('static',filename='img/right_side2.png') }}"
                                      class="img-fluid" alt="Sample image">
-                            </div>
+                            </div> 
                             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                                 <form id="request" class="main_form" method="POST" action="/login">
                                     <!-- Email input -->
                                     <div class="form-outline mb-4">
+                                        <label for="email">Email address</label>
                                         <input type="email" id="email" name="email" class="form-control form-control-lg"
                                                placeholder="Enter a valid email address"/>
-                                        <label for="email">Email address</label>
+                                        
                                     </div>
 
                                     <!-- Password input -->
                                     <div data-mdb-input-init class="form-outline mb-3">
+                                        <label class="form-label" for="password">Password</label>
                                         <input type="password" id="password" name="password" class="form-control form-control-lg"
                                                placeholder="Enter password"/>
-                                        <label class="form-label" for="password">Password</label>
+                                        
                                     </div>
 
                                     <div class="d-flex justify-content-between align-items-center">
@@ -60,7 +63,6 @@
                                                 class="link-danger">Register</a>
                                         </p>
                                     </div>
-
                                 </form>
                             </div>
                         </div>
@@ -70,6 +72,7 @@
         </div>
     </div>
     <!-- end BODY EMAIL PASSWORD -->
+
     <!-- our_us -->
     <div class="our_mics">
         <div class="container">
@@ -77,10 +80,7 @@
                 <div class="col-md-10 offset-md-1">
                     <div class="titlepage text_align_center">
                         <h2>About senior project</h2>
-                        <p>Senior Project นี้สามารถวิเคราะห์ท่าว่าย จับจำนวนสโตรก คำนวณระยะทาง แสดงผลแบบเรียลไทม์
-                            อีกทั้งระบบสามารถรองรับสระว่ายน้ำหลากหลายตามขนาดของสระ ซึ่งข้อมูลมีความครบถ้วนโดยบันทึกสถิติ
-                            วิเคราะห์ความเร็ว แสดงกราฟแสดงผล ช่วยติดตามพัฒนาการฝึกซ้อม
-                            ที่สำคัญสามารถปรับโปรแกรมให้เหมาะกับนักกีฬาแต่ละคน</p>
+                        <p>Senior program analyzes swimming style and captures the number of strokes. Distance calculation Components of various systems of various circulatory systems According to the components of the vowel, which has complete information by recording frequency analysis statistics showing a graph of the sound. Help follow the development of important training programs to suit there.</p>
                     </div>
                 </div>
             </div>
