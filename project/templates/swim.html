@@ -19,17 +19,23 @@
                         <h2>Swimming</h2>
                         <p>Put two arms straight to start the timer</p>
                     </div>
-                    <form id="request" method="POST" action="{{ url_for('swimmer.save_swim_result') }}">
+                    <form id="request" method="POST" action="{{ url_for('swimmer.swim') }}">
                         <div data-mdb-input-init class="form-outline mb-4">
-                            <label class="form-label" for="length">Pool Length (Meter)</label>
+                            {{ form.length.label }}
+                            {{ form.length(class="form-control form-control-lg", value=25) }}
+                        </div>
 
-                            <input type="number" id="length" name="length" class="form-control form-control-lg" value="25"/>
+                        <div data-mdb-input-init class="form-outline mb-4">
+                            {{ form.location.label }}
+                            {{ form.location(class="form-control form-control-lg") }}
                         </div>
 
                         <!-- Submit button -->
-                        <button type="submit" data-mdb-button-init data-mdb-ripple-init
-                                class="btn btn-danger btn-lg btn-block">Stop
-                        </button>
+                        {{ form.stop(class="btn btn-danger btn-lg btn-block") }}
+
+{#                        <button type="submit" data-mdb-button-init data-mdb-ripple-init#}
+{#                                class="btn btn-danger btn-lg btn-block">Stop#}
+{#                        </button>#}
 
                     </form>
                 </div>

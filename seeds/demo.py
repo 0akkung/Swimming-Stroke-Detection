@@ -1,5 +1,5 @@
 from flask_seeder import Seeder, Faker, generator
-from project.models import User, Profile
+from project.models import User, Profile, Location
 from werkzeug.security import generate_password_hash
 
 
@@ -33,4 +33,12 @@ class UserSeeder(Seeder):
         for user in faker.create(5):
             print("Adding user: %s" % user)
             self.db.session.add(user)
+
+        # Create a new Faker and tell it how to create Location objects
+        # faker = Faker(
+        #     cls=Location,
+        #     init={
+        #         "name": generator.Name()
+        #     }
+        # )
 

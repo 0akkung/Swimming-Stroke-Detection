@@ -5,12 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfecd848-d4a0-446a-99fb-b8c0fc96c776" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/swimming-project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/swimming-project.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project/admin/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/admin/routes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project/auth/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/auth/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/extensions.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/extensions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/swimmer/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/swimmer/routes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project/templates/admin/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/project/templates/admin/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/templates/admin/register-coach.html" beforeDir="false" afterPath="$PROJECT_DIR$/project/templates/admin/register-coach.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/project/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/project/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/templates/profile/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/project/templates/profile/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/templates/swim.html" beforeDir="false" afterPath="$PROJECT_DIR$/project/templates/swim.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/seeds/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/seeds/demo.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +64,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Flask server.swimming-project.executor": "Run",
     "JavaScript Debug.index.html.executor": "Run",
     "Python.app.executor": "Run",
     "Python.main.executor": "Run",
@@ -81,14 +92,14 @@
       <recent name="$PROJECT_DIR$/videos/freestyle" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/project/templates/profile" />
       <recent name="$PROJECT_DIR$/" />
       <recent name="$PROJECT_DIR$/project/swimmer" />
       <recent name="$PROJECT_DIR$/project/main" />
       <recent name="$PROJECT_DIR$/project/auth" />
-      <recent name="$PROJECT_DIR$/project/routes" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.app">
+  <component name="RunManager" selected="Python.test">
     <configuration name="SwimPoseDetector" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="swimming-project" />
       <option name="ENV_FILES" value="" />
@@ -158,10 +169,26 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="swimming-project" type="Python.FlaskServer">
+      <module name="swimming-project" />
+      <option name="target" value="$PROJECT_DIR$/project/__init__.py" />
+      <option name="targetType" value="PATH" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.app" />
         <item itemvalue="Python.test" />
+        <item itemvalue="Python.app" />
         <item itemvalue="Python.SwimPoseDetector" />
       </list>
     </recent_temporary>
@@ -206,6 +233,7 @@
       <workItem from="1712028798061" duration="2838000" />
       <workItem from="1712131281547" duration="33785000" />
       <workItem from="1713680406509" duration="86789000" />
+      <workItem from="1716441856599" duration="29594000" />
     </task>
     <servers />
   </component>
@@ -213,8 +241,9 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/swimming_project$app.coverage" NAME="app Coverage Results" MODIFIED="1715928152210" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/swimming_project$test.coverage" NAME="test Coverage Results" MODIFIED="1715925550325" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/swimming_project$app.coverage" NAME="app Coverage Results" MODIFIED="1717227696016" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/swimming_project$test.coverage" NAME="test Coverage Results" MODIFIED="1717228217662" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/swimming_project$swimming_project.coverage" NAME="swimming-project Coverage Results" MODIFIED="1716968176243" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/swimming_project$SwimPoseDetector.coverage" NAME="SwimPoseDetector Coverage Results" MODIFIED="1701272920065" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/swimming_project$main.coverage" NAME="main Coverage Results" MODIFIED="1711958972936" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>

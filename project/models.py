@@ -21,6 +21,7 @@ class Profile(db.Model):
     __tablename__ = 'profiles'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    profile_pic = db.Column(db.String(), nullable=True)
     height = db.Column(db.Integer, nullable=False)
     weight = db.Column(db.Integer, nullable=False)
     gender = db.Column(db.String(30), nullable=False)
@@ -38,6 +39,7 @@ class SwimmingRecord(db.Model):
     __tablename__ = 'swimming_records'
     id = db.Column(db.Integer, primary_key=True)
     profile_id = db.Column(db.Integer, db.ForeignKey('profiles.id'), nullable=False)
+    location = db.Column(db.String(), nullable=False)
     time = db.Column(db.String(20), nullable=False)
     stroke = db.Column(db.Integer, nullable=False)
     style = db.Column(db.String(20), nullable=False)
@@ -47,3 +49,9 @@ class SwimmingRecord(db.Model):
 
     def calculate_meter_per_stroke(self):
         return round(self.pool_length / self.stroke, 2)
+
+
+class Location(db.Model):
+    __tablename__ = 'locations'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(1000), unique=True, nullable=False)

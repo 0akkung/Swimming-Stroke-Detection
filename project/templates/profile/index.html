@@ -17,7 +17,7 @@
                                  alt="avatar"
                                  class="rounded-circle img-fluid" style="width: 150px;">
                             <h1 class="my-3 display-5 mb-4">{{ current_user.name }}</h1>
-                            <a href role="button" class="btn btn-info">Edit</a>
+                            <a href="{{ url_for('swimmer.edit_profile') }}" role="button" class="btn btn-dark">Edit</a>
                         </div>
                     </div>
                 </div>
